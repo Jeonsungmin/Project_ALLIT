@@ -4,5 +4,20 @@
 
 <mapper namespace="com.prj.edu.dao.BoardDAO">
 
+	<select id="list" resultType="com.prj.edu.dto.BoardDTO">
+		SELECT board_idx,board_title,mb_id,board_content,board_date,board_hits FROM board 
+			ORDER BY board_idx DESC limit #{param1} offset #{param2}
+	</select>
+	
+	<select id="allCount" resultType="int">
+		SELECT COUNT(board_idx) FROM board
+	</select>
+	
+	<select id="detail" parameterType="String"
+		resultType="com.prj.edu.dto.BoardDTO">
+		SELECT board_hits,board_date,mb_id,board_title,board_content FROM board WHERE board_idx = #{board_idx}	
+	</select>
+	
+	
 
 </mapper>
