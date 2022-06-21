@@ -22,7 +22,7 @@ public class BoardController {
 	public String home(Model model) {
 
 	
-		return "list";
+		return "home";
 	}
 	
 }

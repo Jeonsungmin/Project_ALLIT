@@ -4,6 +4,12 @@
 	
 	<mapper namespace="com.prj.edu.dao.PhotoDAO">
 	
+	<insert id="fileWrite">
+		INSERT INTO photo(photo_original, photo_copy, photo_pr_num, photo_category)
+			VALUES(#{param1},#{param2},#{param3},#{param4} )
+	
+	</insert>
+	
 	
 	</mapper>
 	
