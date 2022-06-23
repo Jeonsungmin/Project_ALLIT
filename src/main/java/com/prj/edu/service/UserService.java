@@ -22,9 +22,13 @@ public class UserService {
 		return dao.login(mb_id,mb_pass);
 	}
 
-	public int join(HashMap<String, Object> params) {
+	public HashMap<String, Object> join(HashMap<String, Object> params) {
 		logger.info("회원가입 이동이 되나?");
-		return dao.join(params);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		int row = dao.join(params);
+		boolean msg = row>0?true:false;
+		map.put("msg", msg);
+		return map;
 	}
 
 	public String idsearch(String mb_email, String mb_tel) {
@@ -42,14 +46,13 @@ public class UserService {
 		return dao.newpass(mb_pass1);
 	}
 
-	public int edujoin(MultipartFile[] photos, HashMap<String, Object> params) {
+	/*public int edujoin(MultipartFile[] photos, HashMap<String, Object> params) {
 	    logger.info("교육기관 회원 이동이 잘되는지?");  
-	      /*
 	    int row = dao.save(dto); 
 	      
 	    int photo_pr_num = dto.getEdu_idx();
 	      
-	      for(MultipartFile photo:photos) {
+	    for(MultipartFile photo:photos) {
 	         String photo_original = photo.getOriginalFilename();
 	         logger.info("photo name: " + photo.getOriginalFilename());
 	         
@@ -64,7 +67,15 @@ public class UserService {
 	            PhotoDAO.fileWrite(photo_original, photo_copy, photo_pr_num, photo_category);
 	            logger.info(photo_copy + "save ok");      
 	         }
-	      }*/                
+	      }                
 	      return dao.eduJoin(params);
-	   }
+	   }*/
+
+	public HashMap<String, Object> overlay(String chkId) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		String ID = dao.overlay(chkId);
+		boolean msg = ID==null?false:true;
+		map.put("msg",msg);
+		return map;
+	}
 }
