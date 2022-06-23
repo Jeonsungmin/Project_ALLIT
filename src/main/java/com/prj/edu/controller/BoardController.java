@@ -1,10 +1,6 @@
 package com.prj.edu.controller;
 
-import java.text.DateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.Locale;
 
 import javax.servlet.http.HttpSession;
 
@@ -28,13 +24,7 @@ public class BoardController {
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	@Autowired BoardService service;
-	
-<<<<<<< HEAD
-	@RequestMapping(value = "/board", method = RequestMethod.GET)
-=======
-
-	@RequestMapping(value = "/", method = RequestMethod.GET)
->>>>>>> origin/master
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String home(Model model) {
 	
 		return "boardList";
