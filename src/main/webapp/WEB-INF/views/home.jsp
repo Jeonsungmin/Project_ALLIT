@@ -11,6 +11,7 @@
 </h1>
 
 <P>  The time on the server is ${serverTime}. </P>
+<<<<<<< HEAD
 
 <table>
          <tr>
@@ -23,4 +24,7 @@
 </body>
 
 
+=======
+</body>
+>>>>>>> origin/master
 </html>

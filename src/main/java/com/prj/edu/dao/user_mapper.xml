@@ -5,16 +5,20 @@
 	<select id = "login" resultType="String">
   		SELECT mb_id FROM mb WHERE mb_id = #{param1} AND mb_pass = #{param2}
   	</select>
+<<<<<<< HEAD
   	<!--  <insert id="join">
   		INSERT INTO mb(mb_id,mb_pass,mb_name,mb_postcode,mb_basic_addr,mb_detail_addr,mb_email,mb_tel,mb_gender,mb_birth,mb_major,mb_edu,mb_status,mb_stopcnt,mb_withdraw,category_idx)
   			VALUES(#{param1},#{param2},#{param3},#{param4},#{param5},#{param6},#{param7},#{param8},#{param9},#{param10},#{param11},#{param12},#{param13},#{param14},#{param15},#{param16})
   	</insert>-->
+=======
+>>>>>>> origin/master
   	<insert id = "join" parameterType="hashmap">
   		INSERT INTO mb(mb_id,mb_pass,mb_name,mb_postcode,mb_basic_addr,mb_detail_addr,mb_email,
   			mb_tel,mb_gender,mb_birth,mb_major,mb_edu,mb_status,mb_stopcnt,mb_withdraw,category_idx)
   		VALUES(#{mb_id},#{mb_pass},#{mb_name},#{mb_postcode},#{mb_basic_addr},#{mb_detail_addr},#{mb_email},#{mb_tel},
   			#{mb_gender},#{mb_birth},#{mb_major},#{mb_edu},#{mb_status},#{mb_stopcnt},#{mb_withdraw},#{category_idx})
   	</insert>
+<<<<<<< HEAD
   	
   	<insert id = "eduJoin" parameterType="hashmap">
   		INSERT INTO mb(mb_id,mb_pass,mb_name,mb_postcode,mb_basic_addr,mb_detail_addr,mb_email,
@@ -26,11 +30,14 @@
   	
   	<!-- INSERT INTO edu(rep_name, edu_name) VALUES(#{rep_name}, #{edu_name}) -->
 	
+=======
+>>>>>>> origin/master
   	<select id = "idsearch" resultType="String"> 
   		SELECT mb_id FROM mb WHERE mb_email = #{param1} AND mb_tel = #{param2}
   	</select>
   	
   	<select id = "pwsearch" resultType="String"> 
+<<<<<<< HEAD
   		SELECT mb_pass FROM mb WHERE mb_id =#{param1} AND mb_email = #{param2} AND mb_tel = #{param3}
   	</select>
   	
@@ -39,4 +46,23 @@
   		UPDATE mb SET mb_withdraw = 1 WHERE mb_id = #{mb_id}	
   	</update> 
   
+=======
+  		SELECT mb_pass FROM mb WHERE mb_id = #{param1} AND mb_email = #{param2} AND mb_tel = #{param3}
+  	</select>
+  	<update id = "newpass"> 
+  		UPDATE mb SET mb_pass = #{param1} WHERE  
+  	</update>
+  	<insert id = "eduJoin" parameterType="hashmap">
+  		INSERT INTO mb(mb_id,mb_pass,mb_name,mb_postcode,mb_basic_addr,mb_detail_addr,mb_email,
+  			mb_tel,mb_gender,mb_birth,mb_major,mb_edu,mb_status,mb_stopcnt,mb_withdraw,category_idx)
+  		VALUES(#{mb_id},#{mb_pass},#{mb_name},#{mb_postcode},#{mb_basic_addr},#{mb_detail_addr},#{mb_email},#{mb_tel},
+  			#{mb_gender},#{mb_birth},#{mb_major},#{mb_edu},#{mb_status},#{mb_stopcnt},#{mb_withdraw},#{category_idx})
+  	</insert>
+  	<select id = "overlay" parameterType="String" resultType="String">
+  		SELECT mb_id FROM mb WHERE mb_id = #{chkId}
+  	</select>
+  	<select id = "cnt" resultType="int">
+  		SELECT mb_stopcnt FROM mb WHERE mb_id = #{param1}
+  	</select>
+>>>>>>> origin/master
 </mapper>

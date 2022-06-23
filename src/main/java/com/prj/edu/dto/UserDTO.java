@@ -87,6 +87,7 @@ public class UserDTO {
 		this.mb_edu = mb_edu;
 	}
 	
+<<<<<<< HEAD
 	private int edu_idx;
 	private String rep_name;
 	private String edu_name;
@@ -112,4 +113,6 @@ public class UserDTO {
 	
 	
 	
+=======
+>>>>>>> origin/master
 }
