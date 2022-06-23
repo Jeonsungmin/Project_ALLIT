@@ -8,9 +8,48 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="resources/js/jquery.twbsPagination.js"></script> <!-- 페이징 처리 -->
-<style></style>
+<style>
+	.nav1 > ul {
+    width: 1000px;
+    height: 40px;
+	margin: 0 auto;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    font-size: 7px;
+    font-weight: bold;
+    border-top: 1px solid #f1f3f6;
+    background-color: #fff;
+  }
+    
+    
+
+  .nav1 ul > li > a:hover{
+    color: black;
+  }
+  .nav1 ul > li > a {
+    text-decoration: none;
+  }
+  .nav1 ul > li.on > a {
+  	color:#ff0000;
+  }
+</style>
 </head>
 <body>
+        <div class="nav1">
+          <ul>
+          	<!--
+          		data 속성은 body 내 사용할 수 있는 대부분의 HTML Element(요소)에 값을 줄 수 있다.
+          		jQuery 에서 해당 요소의 속성을 이용해 값을 가져오기 편하고,
+          		Ajax로 통신할 때 DB에 WHERE 을 추가하여 board_category 컬럼(필드)와 비교하여 해당 카테고리 내 게시물만 가져오기 위한 선행 작업인 것이다.
+          	-->
+            <li data="공지사항" class="on"><a href="#">공지사항</a></li>
+            <li data="질문"><a href="#">질문하기</a></li>
+            <li data="tip"><a href="#">tip</a></li>
+            <li data="잡담"><a href="#">잡담</a></li>
+           
+          </ul>
+        </div>
 	게시물 갯수
    <select id="pagePerNum">
       <option value="5">5</option>
@@ -23,6 +62,15 @@
    		<option value="">최신순</option>
    		<option value="">오래된순</option>
    </select>
+   
+	<div class="searchbox">
+		<div class="header">
+			<h1>검색</h1>
+			<input type="text" id="board_search" placeholder="Type to Search">
+			<button type="button" onclick="filter()">검색</button>
+		</div>
+	</div>
+	
    <table>
       <thead>
          <tr>
@@ -33,6 +81,7 @@
             <th>조회수</th>
          </tr>
       </thead>
+
       <tbody id="list">
       
       </tbody>
@@ -46,6 +95,11 @@
             </div>
          </td>
       </tr>
+      <tr>
+		<th colspan="2">
+			<input type="button" value ="글쓰기" onclick="location.href='boardWrite.go'"/>
+		</th>
+	</tr>
    </table>
 
 
@@ -65,16 +119,43 @@ $('#pagePerNum').on('change',function(){
   listCall(currPage);    
 });
 
+
+function filter() {
+	// 1. search라는 이름으로 id를 가진 녀석의 value 값을 먼저 알아낸다.
+	
+	var board_search = $('#search').val();
+	// 2. Ajax 리스트 함수를 호출하되, 1에서 얻은 값을 요청하는 것이다.
+	
+	
+}
+
+
+// 내비게이션 요소(공지사항, 질문하기, tip, 잡담)를 클릭하면 발생할 이벤트
+$('.nav1 > ul > li').on('click',function(){
+	// 내비게이션 요소의 모든 li에 on 클래스를 제거한다.
+	$('.nav1 > ul > li').removeClass('on');
+	// 클릭한 요소에 on 이라는 클래스를 추가한다.
+	$(this).addClass('on');
+	
+	// 마지막으로 listCall(1) 을 호출함으로써 Ajax 를 호출하여 최초 페이지인 1페이지로 보내기 위한 것이다.
+	$("#pagination").twbsPagination('destroy');
+	currPage = 1;
+	listCall(currPage);
+});
+
 function listCall(page){
    
    var pagePerNum = $('#pagePerNum').val();
    console.log("param page : " +page);
+   
    $.ajax({
       type:'GET',
       url:'list.ajax',
       data:{
-         cnt : pagePerNum,
-         page : page
+    	 cnt : pagePerNum,
+         page : page,
+         board_category : $('.nav1 > ul > li.on').attr('data'), // 현재 활성화 되어 있는 내비게이션의 data 속성을 가져온다.(즉, 내가 선택한 카테고리)
+         //board_search : $('#board_search').val()
          },
       dataType:'JSON',
       success:function(data){
@@ -102,7 +183,6 @@ function listCall(page){
 }
 
 
-
 function drawList(list){
 	
     var content = '';
@@ -113,25 +193,20 @@ function drawList(list){
        content += '<td>'+item.board_idx+'</td>';
        content += '<td><a href="detail.go?board_idx='+item.board_idx+'">'+item.board_title+'</a></td>';
        content += '<td>'+item.mb_id+'</td>';
-       content += '<td>'+date.toLocaleDateString("ko-KR")+'</td>';
+       content += '<td>'+date.toLocaleDateString("ko-KR").replace(/\.$/, '')+'</td>';
+       
        content += '<td>'+item.board_hits+'</td>';
        content += '</tr>';
+       
     });
     $('#list').empty();
     $('#list').append(content);
  }
 
-//var date = new Date(data.dto.board_date);
-//date.toLocaleDateString("ko-KR")
-/* <c:forEach items="${list}" var="dto">
-<tr>
-	<td>${dto.idx}</td>
-	<td><a href="detail.do?idx=${dto.idx}">${dto.subject}</a></td>
-	<td>${dto.user_name}</td>
-	<td>${dto.bHit}</td>
-	<td><a href="del.do?idx=${dto.idx}">삭제</a></td>
-</tr>		
-</c:forEach> */
+
+
+
+
 
 </script>
 </html>

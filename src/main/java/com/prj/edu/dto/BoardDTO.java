@@ -1,6 +1,6 @@
 package com.prj.edu.dto;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class BoardDTO {
 

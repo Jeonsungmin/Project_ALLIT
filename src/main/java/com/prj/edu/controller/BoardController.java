@@ -39,7 +39,7 @@ public class BoardController {
 	//리스트 아작스 요청
 	@RequestMapping("list.ajax")
 	@ResponseBody
-	public HashMap<String, Object> list(
+	public HashMap<String, Object> list1(
 			@RequestParam HashMap<String, String> params
 			) {
 	
@@ -47,10 +47,12 @@ public class BoardController {
 		return service.list(params);
 	}
 	
+	
 	//상세보기 이동
 	@RequestMapping(value = "/detail.go")
 	public String detail(Model model, HttpSession session, @RequestParam String board_idx) {
 		
+		service.board_hits(board_idx);
 		
 		logger.info("상세보기 요청 : " + board_idx);
 		
@@ -61,11 +63,59 @@ public class BoardController {
 		return "detail";
 	}
 	
+	//수정하기 이동(수정 상세보기이동)
+	@RequestMapping(value = "/boardUpdate.go")
+	public String board_updatego(@RequestParam String board_idx, Model model) {
+		logger.info("수정 상세보기 요청 완료" + board_idx);
+		BoardDTO dto = service.detail(board_idx);
+		model.addAttribute("dto", dto);
+		
+		return "boardUpdate";
+	}
+	
+	
+	//수정하기
+	@RequestMapping(value = "/board_update.do", method = RequestMethod.POST)
+	public String board_update (HttpSession session, Model model, 
+			@RequestParam HashMap<String, String> params) {
+		
+		logger.info("params : {} " + params);
+		String page = "redirect:/detail.go?board_idx=" +params.get("board_idx");
+		logger.info(page);
+		
+		 service.board_update(params);
+		
+		return page;
+	}
+	
 	//리스트로 돌아가기
 	@RequestMapping(value = "/list.go", method = RequestMethod.GET)
 	public String listgo(Model model) {
 	
 		return "boardList";
+	}
+	
+	@RequestMapping(value = "/boardWrite.go")
+	public String writeForm() {
+		logger.info("글쓰기 페이지 이동");
+		return "boardWrite";
+	}
+	
+	@RequestMapping(value = "/board_write.do")
+	public String board_write(Model model, @RequestParam HashMap<String, String> params) {
+		 
+		
+		logger.info("글쓰기 요청");
+		logger.info("param : {}",params);
+		
+//		String subject = request.getParameter("subject");
+//		String content = request.getParameter("content");
+//		String user_name= request.getParameter("user_name");
+//		
+//		logger.info(subject + "/" + content + "/" + user_name);
+		service.write(params);
+		
+		return "redirect:/list.go";
 	}
 	
 	

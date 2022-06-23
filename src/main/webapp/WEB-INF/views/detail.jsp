@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<!-- <link rel="stylesheet" href="resources/css/common.css" type="text/css"> -->
+<link rel="stylesheet" href="resources/css/common.css" type="text/css">
 <style></style>
 </head>
 <body>
@@ -13,8 +13,12 @@
 	<h3>상세보기</h3>
 		<table class="board">
 			<tr>
-				<th>조회수</th>
-				<td>${dto.board_hits}</td>
+				<th>글번호</th>
+				<td>${dto.board_idx}</td>
+			</tr>
+			<tr>
+				<th>제목</th>
+				<td>${dto.board_title}</td>
 			</tr>
 			<tr>
 				<th>작성일</th>
@@ -25,17 +29,18 @@
 				<td>${dto.mb_id}</td>
 			</tr>
 			<tr>
-				<th>제목</th>
-				<td>${dto.board_title}</td>
+				<th>조회수</th>
+				<td>${dto.board_hits}</td>
 			</tr>
 			<tr>
 				<th>내용</th>
 				<td>${dto.board_content}</td>
 			</tr>
 			<tr>
-				<th colspan="2">
-					<input type="button" value ="수정하기" onclick="location.href='updateForm.do?idx=${dto.board_idx}'"/>
-					<input type="button" value ="돌아가기" onclick="location.href='list.go'"/>
+				<th colspan="2">										
+					<input type="button" value ="수정하기" onclick="location.href='boardUpdate.go?board_idx=${dto.board_idx}'"/>
+					<input type="button" value ="돌아가기" onclick="location.href='list.go?board_category=${dto.board_category}'"/>
+					
 				</th>
 			</tr>
 		</table>
