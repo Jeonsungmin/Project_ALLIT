@@ -18,11 +18,11 @@ public class BoardController {
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+	@RequestMapping(value = "/board", method = RequestMethod.GET)
 	public String home(Model model) {
 
 	
-		return "home";
+		return "list";
 	}
 	
 }

@@ -139,20 +139,26 @@ public class UserController {
 		model.addAttribute("msg",msg);
 		return "login";
 	}
-	
-	
-	@RequestMapping(value = "/delete")
+		
+	/*@RequestMapping(value = "/delete")
 	public String delete(HttpServletRequest request) {
 		
 		//session.getAttribute("mb_id");
 		logger.info("탈퇴 시작");
 		HttpSession session = request.getSession();
-		String mb_id = (String) session.getAttribute("mb_id");
+		String mb_id = (String)session.getAttribute("mb_id");
 		//request.getParameter("mb_id");
 		logger.info("탈퇴 요청" + mb_id);
 		service.delete(mb_id);
 		
 		return "login";
-	}
+	}*/
 	
+	@RequestMapping(value = "/delete")
+	public String delete(HttpSession session) {		
+		String msg = session.getId();
+		logger.info("탈퇴 시작 : "+msg);
+		//service.delete(session);
+		return "login";
+	}
 }

@@ -2,6 +2,8 @@ package com.prj.edu.dao;
 
 import java.util.HashMap;
 
+import javax.servlet.http.HttpSession;
+
 import com.prj.edu.dto.EduDTO;
 
 public interface UserDAO {
@@ -20,7 +22,7 @@ public interface UserDAO {
 
 	int eduJoin(HashMap<String, Object> params);
 
-	int delete(String mb_id);
+	String delete(HttpSession session);
 
 	
 }

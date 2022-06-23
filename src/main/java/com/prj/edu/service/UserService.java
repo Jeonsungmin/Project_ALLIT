@@ -2,6 +2,8 @@ package com.prj.edu.service;
 
 import java.util.HashMap;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -83,14 +85,9 @@ public class UserService {
 	
 	}
 
-	public void delete(String mb_id) {
-		logger.info("탈퇴요청" + mb_id);
-		dao.delete(mb_id);
-		
-		
+	public String delete(HttpSession session) {
+		logger.info("탈퇴요청" + session);		
+		return dao.delete(session);
 	}
 
-	
-
-	
 }

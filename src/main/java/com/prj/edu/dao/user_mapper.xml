@@ -35,11 +35,8 @@
   	</select>
   	
    
-  	<update id="delete">
-  		UPDATE mb SET 
-  			mb_withdraw = 1
-  		WHERE mb_id = #{mb_id}	
+  	<update id="delete" parameterType="String">
+  		UPDATE mb SET mb_withdraw = 1 WHERE mb_id = #{mb_id}	
   	</update> 
-  	
-  	
+  
 </mapper>
