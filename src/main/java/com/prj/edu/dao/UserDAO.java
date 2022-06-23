@@ -21,4 +21,6 @@ public interface UserDAO {
 	int eduJoin(HashMap<String, Object> params);
 
 	String overlay(String chkId);
+
+	int cnt(String mb_id);
 }

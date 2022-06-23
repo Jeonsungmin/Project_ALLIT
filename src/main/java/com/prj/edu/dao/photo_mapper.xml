@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+	<mapper namespace="com.prj.edu.dao.PhotoDAO">
+	
+	<insert id="eduJoin">
+		INSERT INTO photo(photo_original, photo_copy, photo_pr_num, photo_category)
+			VALUES(#{param1},#{param2},#{param3},#{param4})	
+	</insert>
+	
+	
+	</mapper>
+	
+	

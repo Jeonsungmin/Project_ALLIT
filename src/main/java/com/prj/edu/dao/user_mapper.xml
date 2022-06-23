@@ -30,4 +30,7 @@
   	<select id = "overlay" parameterType="String" resultType="String">
   		SELECT mb_id FROM mb WHERE mb_id = #{chkId}
   	</select>
+  	<select id = "cnt" resultType="int">
+  		SELECT mb_stopcnt FROM mb WHERE mb_id = #{param1}
+  	</select>
 </mapper>

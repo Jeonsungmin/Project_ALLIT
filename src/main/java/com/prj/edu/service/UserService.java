@@ -78,4 +78,9 @@ public class UserService {
 		map.put("msg",msg);
 		return map;
 	}
+
+	public int cnt(String mb_id) {
+		logger.info("정지된 회원인지?");
+		return dao.cnt(mb_id);
+	}
 }

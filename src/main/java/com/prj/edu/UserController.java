@@ -38,7 +38,7 @@ public class UserController {
 		logger.info("비회원 회원가입 페이지");
 		return "joinForm";
 	}
-	
+
 	@RequestMapping(value = "/joinForm")
 	public String joinForm(Model model) {
 		logger.info("회원가입 페이지 들어갔는지");
@@ -55,9 +55,13 @@ public class UserController {
 		logger.info("로그인 아이디 : "+loginId);
 		String msg = "아이디 또는 비밀번호를 확인 하세요";
 		String page = "login";
-		if(loginId != null) {
-			HttpSession session = request.getSession();
-			session.setAttribute("loginId", loginId);
+		logger.info("{}",service.cnt(mb_id));
+		HttpSession session = request.getSession();
+		session.setAttribute("loginId", loginId);
+		if(service.cnt(mb_id)>0) {
+			msg="정지된 회원입니다.";
+			page="login";
+		}else if(loginId != null) {
 			page = "main";
 			msg = loginId+"님 반갑습니다.";	
 		}
@@ -148,37 +152,8 @@ public class UserController {
 
 	@RequestMapping("/join.ajax")
 	@ResponseBody
-	public HashMap<String, Object> join(MultipartFile[] photos,
-			@RequestParam HashMap<String, Object> params){
+	public HashMap<String, Object> join(@RequestParam HashMap<String, Object> params){
 		logger.info("회원가입: "+params);
 		return service.join(params);
 	}
-
-
-	/*@RequestMapping(value = "/edujoin", method = RequestMethod.POST)
-	   public String edujoin(Model model,MultipartFile[] photos , @RequestParam HashMap<String, Object> params) {
-	      logger.info("교육기관 회원가입 페이지 시작");
-	      logger.info("params : {}",params);
-	      int cnt = service.edujoin(photos, params);
-	      String msg = "회원가입에 실패했습니다.";
-	      if(cnt>0) {
-	         msg = "회원가입에 성공했습니다.";
-	      }
-	      logger.info(msg);
-	      model.addAttribute("msg",msg);
-	      return "login";
-	   }
-	@RequestMapping(value = "/edujoin", method = RequestMethod.POST)
-	   public String edujoin(Model model, MultipartFile[] photos, @RequestParam HashMap<String, Object> params) {
-	      logger.info("교육기관 회원가입 페이지 시작");
-	      logger.info("params : {}",params);
-	      int cnt = service.edujoin(photos, params);
-	      String msg = "회원가입에 실패했습니다.";
-	      if(cnt>0) {
-	         msg = "회원가입에 성공했습니다.";
-	      }
-	      logger.info(msg);
-	      model.addAttribute("msg",msg);
-	      return "login";
-	   }*/	
 }
