@@ -1,7 +1,12 @@
 package com.prj.edu.controller;
 
+import java.text.DateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -24,6 +29,8 @@ public class BoardController {
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	@Autowired BoardService service;
+	
+
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String home(Model model) {
 	
@@ -34,9 +41,10 @@ public class BoardController {
 	@RequestMapping("list.ajax")
 	@ResponseBody
 	public HashMap<String, Object> list1(
-			@RequestParam HashMap<String, String> params
+			@RequestParam HashMap<String, String> params, HttpSession session
+				
 			) {
-	
+		logger.info("session loginId" + session.getAttribute("loginId"));
 		logger.info("리스트 요청!!!!!!!!! : {}",params);
 		return service.list(params);
 	}
@@ -54,7 +62,7 @@ public class BoardController {
 		model.addAttribute("dto", dto);
 		
 		
-		return "detail";
+		return "boarddetail";
 	}
 	
 	//수정하기 이동(수정 상세보기이동)
@@ -95,12 +103,17 @@ public class BoardController {
 		return "boardWrite";
 	}
 	
+	//글쓰기
 	@RequestMapping(value = "/board_write.do")
-	public String board_write(Model model, @RequestParam HashMap<String, String> params) {
+	public String board_write(Model model, @RequestParam HashMap<String, String> params, HttpSession session) {
 		 
+		logger.info("session loginId" + session.getAttribute("loginId"));
 		
 		logger.info("글쓰기 요청");
 		logger.info("param : {}",params);
+		
+		
+		
 		
 //		String subject = request.getParameter("subject");
 //		String content = request.getParameter("content");

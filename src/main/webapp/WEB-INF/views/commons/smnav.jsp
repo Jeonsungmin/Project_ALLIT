@@ -141,10 +141,7 @@ header>nav {
    align-items: center;
 }
 
-main {
-   background: #ffffff;
-   min-height: 700px;
-}
+
 
 .test_box {
    margin: 400px;
@@ -213,11 +210,7 @@ footer {
             <div class="nav">
                <ul>
                   <li><a href="/">모집공고</a></li>
-<<<<<<< HEAD
-                  <li><a href="/list">게시판</a></li>
-=======
                   <li><a href="list.go">게시판</a></li>
->>>>>>> origin/master
                   <li><a href="/">Q&A</a></li>
                   <li><a href="/">마이페이지</a></li>
                </ul>
@@ -225,13 +218,6 @@ footer {
          </nav>
       </header>
 
-      <main>
-         <div id="contents">
-            <button class="test_box" type="button" name="test">
-               나와 맞는 교육 과정 <br/>빠르게 찾기
-            </button>
-         </div>
-      </main>
       <footer>
          <div class="bottom_box">
             <ul>

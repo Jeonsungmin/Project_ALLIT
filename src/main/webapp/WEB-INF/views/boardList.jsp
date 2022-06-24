@@ -33,7 +33,19 @@
   .nav1 ul > li.on > a {
   	color:#ff0000;
   }
+  #good, #list{
+  	border:1px black solid;
+  	width: 100%;
+    height: 100%;
+    font-size: 20px;
+
+    
+  }
+  
 </style>
+<jsp:include page="./commons/loginBox.jsp"/>
+<jsp:include page="./commons/smnav.jsp"/>
+
 </head>
 <body>
         <div class="nav1">
@@ -72,7 +84,7 @@
 	</div>
 	
    <table>
-      <thead>
+      <thead  id="good">
          <tr>
             <th>글번호</th>
             <th>제목</th>
@@ -178,7 +190,16 @@ function listCall(page){
       },
       error:function(e){
          console.log(e);//
-      }
+      },
+      beforeSend: function(xhr) {
+     	 	// before : 전
+      		// send : 전송
+      		// ajax 를 전송하기 전에 실행할 함수
+      		// xhr.setRequestHeader : 요청헤더를 설정한다. AJAX를 true로!
+
+      		xhr.setRequestHeader("AJAX", true);
+
+    	}
    });
 }
 
