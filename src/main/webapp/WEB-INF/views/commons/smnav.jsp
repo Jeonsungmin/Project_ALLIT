@@ -141,10 +141,7 @@ header>nav {
    align-items: center;
 }
 
-main {
-   background: #ffffff;
-   min-height: 700px;
-}
+
 
 .test_box {
    margin: 400px;
@@ -221,13 +218,6 @@ footer {
          </nav>
       </header>
 
-      <main>
-         <div id="contents">
-            <button class="test_box" type="button" name="test">
-               나와 맞는 교육 과정 </br>빠르게 찾기
-            </button>
-         </div>
-      </main>
       <footer>
          <div class="bottom_box">
             <ul>
