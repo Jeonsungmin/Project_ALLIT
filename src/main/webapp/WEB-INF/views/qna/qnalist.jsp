@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -8,35 +9,66 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="resources/js/jquery.twbsPagination.js"></script> <!-- 페이징 처리 -->
-<style></style>
+<style>
+   
+   table,th,td{
+      border: 1px solid black;
+      border-collapse: collapse;
+      padding: 5px;
+      margin: auto;
+   }
+   
+   h1{
+   width:100px;
+    text-align: center;
+    font-weight: bold;
+    position : relative;
+    margin-top:200px;
+    margin-left:50%;
+    margin-right:50%;
+   }
+   
+   
+   p{
+   text-align: center;
+   position : relative;
+   }
+   
+   h3{
+   margin-left: 40%;
+   }
+
+	#pagePerNum {margin-left: 10%;}
+
+	button{margin-right: 10%;}
+   
+</style>
 </head>
 <body>
-	게시물 갯수
+	<h1>Q&A</h1>
+	<p>서비스 이용에 대하여 궁금한 점이나 문의사항을 등록해 주시면 빠른 시간 내에 답변해 드리겠습니다.</p>
+	<h3>검색<input type="text" name="search"><button onclick="location.href='searching.do'">검색</button></h3>
    <select id="pagePerNum">
-      <option value="5">5</option>
-      <option value="10">10</option>
-      <option value="15">15</option>
-      <option value="20">20</option>
+      <option value="5">5개씩 보기</option>
+      <option value="10">10개씩 보기</option>
+      <option value="15">15개씩 보기</option>
+      <option value="20">20개씩 보기</option>
    </select>
-   보기
-   <select id="listPerName">
-   		<option value="">최신순</option>
-   		<option value="">오래된순</option>
-   </select>
-   <table>
-      <thead>
-         <tr>
-            <th>글번호</th>
-            <th>제목</th>
-            <th>작성자</th>
-            <th>작성일</th>
-            <th>조회수</th>
-         </tr>
-      </thead>
-      <tbody id="list">
-      
-      </tbody>
-      <tr>
+   <button onclick="location.href='qnaWrite.go'">글쓰기</button>
+	<table>
+		<thead>
+			<tr>
+				<th>번호</th>
+				<th>제목</th>
+				<th>작성일</th>
+				<th>작성자ID</th>
+				<th>답변여부</th>
+			</tr>
+		</thead>
+		<tbody id="list">
+		
+		</tbody>
+		<tr>
          <td colspan="4" id="paging">
             <!-- plugin 사용법(twbspagination) , 이렇게 쓰라고 명시되어있음. -->
             <div class="container">
@@ -45,11 +77,8 @@
                </nav>
             </div>
          </td>
-      </tr>
-   </table>
-
-
-
+      	</tr>	
+	</table>
 </body>
 <script>
 
@@ -104,34 +133,26 @@ function listCall(page){
 
 
 function drawList(list){
-	
     var content = '';
     list.forEach(function(item){
-    	var date = new Date(item.board_date);
+    	var date = new Date(item.qna_date); 
        console.log(item);
        content += '<tr>';
-       content += '<td>'+item.board_idx+'</td>';
-       content += '<td><a href="detail.go?board_idx='+item.board_idx+'">'+item.board_title+'</a></td>';
-       content += '<td>'+item.mb_id+'</td>';
+       content += '<td>'+item.qna_idx+'</td>';
+       content += '<td><a href="detail.go?qna_idx='+item.qna_idx+'">'+item.qna_title+'</a></td>';
        content += '<td>'+date.toLocaleDateString("ko-KR")+'</td>';
-       content += '<td>'+item.board_hits+'</td>';
+       content += '<td>'+item.mb_id+'</td>';
+       if(item.qna_answer_chk == false ){
+    	   content += '<td>'+"미답변"+'</td>';	   
+       }else {content += '<td>'+"답변완료"+'</td>';	
+       }
+       //content += '<td>'+item.qna_answer_chk+'</td>';
        content += '</tr>';
     });
     $('#list').empty();
     $('#list').append(content);
  }
 
-//var date = new Date(data.dto.board_date);
-//date.toLocaleDateString("ko-KR")
-/* <c:forEach items="${list}" var="dto">
-<tr>
-	<td>${dto.idx}</td>
-	<td><a href="detail.do?idx=${dto.idx}">${dto.subject}</a></td>
-	<td>${dto.user_name}</td>
-	<td>${dto.bHit}</td>
-	<td><a href="del.do?idx=${dto.idx}">삭제</a></td>
-</tr>		
-</c:forEach> */
 
 </script>
 </html>
