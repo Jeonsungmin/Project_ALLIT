@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.prj.edu.dao.UserDAO">
+	<select id = "login" resultType="String">
+  		SELECT mb_id FROM mb WHERE mb_id = #{param1} AND mb_pass = #{param2}
+  	</select>
+  	<insert id = "join" parameterType="hashmap">
+  		INSERT INTO mb(mb_id,mb_pass,mb_name,mb_postcode,mb_basic_addr,mb_detail_addr,mb_email,
+  			mb_tel,mb_gender,mb_birth,mb_major,mb_edu,mb_status,mb_stopcnt,mb_withdraw,category_idx)
+  		VALUES(#{mb_id},#{mb_pass},#{mb_name},#{mb_postcode},#{mb_basic_addr},#{mb_detail_addr},#{mb_email},#{mb_tel},
+  			#{mb_gender},#{mb_birth},#{mb_major},#{mb_edu},#{mb_status},#{mb_stopcnt},#{mb_withdraw},#{category_idx})
+  	</insert>
+  	<select id = "idsearch" resultType="String"> 
+  		SELECT mb_id FROM mb WHERE mb_email = #{param1} AND mb_tel = #{param2}
+  	</select>
+  	
+  	<select id = "pwsearch" resultType="String"> 
+  		SELECT mb_pass FROM mb WHERE mb_id = #{param1} AND mb_email = #{param2} AND mb_tel = #{param3}
+  	</select>
+  	<update id = "newpass"> 
+  		UPDATE mb SET mb_pass = #{param1} WHERE  
+  	</update>
+  	<insert id = "eduJoin" parameterType="hashmap">
+  		INSERT INTO mb(mb_id,mb_pass,mb_name,mb_postcode,mb_basic_addr,mb_detail_addr,mb_email,
+  			mb_tel,mb_gender,mb_birth,mb_major,mb_edu,mb_status,mb_stopcnt,mb_withdraw,category_idx)
+  		VALUES(#{mb_id},#{mb_pass},#{mb_name},#{mb_postcode},#{mb_basic_addr},#{mb_detail_addr},#{mb_email},#{mb_tel},
+  			#{mb_gender},#{mb_birth},#{mb_major},#{mb_edu},#{mb_status},#{mb_stopcnt},#{mb_withdraw},#{category_idx})
+  	</insert>
+  	<select id = "overlay" parameterType="String" resultType="String">
+  		SELECT mb_id FROM mb WHERE mb_id = #{chkId}
+  	</select>
+  	<select id = "cnt" resultType="int">
+  		SELECT mb_stopcnt FROM mb WHERE mb_id = #{param1}
+  	</select>
+</mapper>

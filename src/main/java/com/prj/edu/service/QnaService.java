@@ -21,10 +21,14 @@ public class QnaService {
 public HashMap<String, Object> list(HashMap<String, String> params) {
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
+		String board_category = params.get("board_category");
+		
+		logger.info("board_category : "  + board_category);
+			
 		int cnt = Integer.parseInt(params.get("cnt"));
 		int page = Integer.parseInt(params.get("page"));
 		logger.info("보여줄 페이지 : " + page);
-		int allCnt = dao.allCount();
+		int allCnt = dao.allCount(board_category);
 		logger.info("allCnt:" + allCnt);
 		int pages = allCnt%cnt > 0 ? (allCnt/cnt)+1 : (allCnt/cnt);
 		//총갯수(allCnt) / 페이지당 보여줄 갯수(cnt) = 생성 가능한 페이지(pages)
@@ -53,8 +57,14 @@ public HashMap<String, Object> list(HashMap<String, String> params) {
 		// 6 			25	~29			25
 		//1씩 증가하면 5씩 증가?
 		
+<<<<<<< HEAD:src/main/java/com/prj/edu/service/QnaService.java
 			
 		ArrayList<QnaDTO> list = dao.list(cnt, offset);
+=======
+		
+		
+		ArrayList<BoardDTO> list = dao.list(cnt, offset, board_category);
+>>>>>>> origin/master:src/main/java/com/prj/edu/service/BoardService.java
 		map.put("list", list);
 		
 		return map;
@@ -96,5 +106,33 @@ public HashMap<String, Object> list(HashMap<String, String> params) {
 		return dao.dbdetail(qna_idx);
 	}
 
+	
+	
+	public boolean write(HashMap<String, String> params) {
+		logger.info("글쓰기 서비스");
+		boolean success = false;
+		
+		if(dao.write(params)>0) {
+			success = true;
+		}
+		
+		return success;
+	}
+
+
+
+	public void board_update(HashMap<String, String> params) {
+		logger.info("업데이트 서비스 요청");
+		int row = dao.board_update(params);
+		logger.info("수정된 데이터 수 : " +row);
+		
+	}
+
+
+
+	public void board_hits(String board_idx) {
+		logger.info("조회수 증가? " + board_idx);
+		dao.board_hits(board_idx);
+	}
 	
 }

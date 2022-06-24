@@ -10,6 +10,7 @@
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="resources/js/jquery.twbsPagination.js"></script> <!-- 페이징 처리 -->
 <style>
+<<<<<<< HEAD:src/main/webapp/WEB-INF/views/qna/qnalist.jsp
    
    table,th,td{
       border: 1px solid black;
@@ -48,12 +49,69 @@
 	<h1>Q&A</h1>
 	<p>서비스 이용에 대하여 궁금한 점이나 문의사항을 등록해 주시면 빠른 시간 내에 답변해 드리겠습니다.</p>
 	<h3>검색<input type="text" name="search"><button onclick="location.href='searching.do'">검색</button></h3>
+=======
+	.nav1 > ul {
+    width: 1000px;
+    height: 40px;
+	margin: 0 auto;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    font-size: 7px;
+    font-weight: bold;
+    border-top: 1px solid #f1f3f6;
+    background-color: #fff;
+  }
+    
+    
+
+  .nav1 ul > li > a:hover{
+    color: black;
+  }
+  .nav1 ul > li > a {
+    text-decoration: none;
+  }
+  .nav1 ul > li.on > a {
+  	color:#ff0000;
+  }
+  #good, #list{
+  	border:1px black solid;
+  	width: 100%;
+    height: 100%;
+    font-size: 20px;
+
+    
+  }
+  
+</style>
+<jsp:include page="./commons/loginBox.jsp"/>
+<jsp:include page="./commons/smnav.jsp"/>
+
+</head>
+<body>
+        <div class="nav1">
+          <ul>
+          	<!--
+          		data 속성은 body 내 사용할 수 있는 대부분의 HTML Element(요소)에 값을 줄 수 있다.
+          		jQuery 에서 해당 요소의 속성을 이용해 값을 가져오기 편하고,
+          		Ajax로 통신할 때 DB에 WHERE 을 추가하여 board_category 컬럼(필드)와 비교하여 해당 카테고리 내 게시물만 가져오기 위한 선행 작업인 것이다.
+          	-->
+            <li data="공지사항" class="on"><a href="#">공지사항</a></li>
+            <li data="질문"><a href="#">질문하기</a></li>
+            <li data="tip"><a href="#">tip</a></li>
+            <li data="잡담"><a href="#">잡담</a></li>
+           
+          </ul>
+        </div>
+	게시물 갯수
+>>>>>>> origin/master:src/main/webapp/WEB-INF/views/boardList.jsp
    <select id="pagePerNum">
       <option value="5">5개씩 보기</option>
       <option value="10">10개씩 보기</option>
       <option value="15">15개씩 보기</option>
       <option value="20">20개씩 보기</option>
    </select>
+<<<<<<< HEAD:src/main/webapp/WEB-INF/views/qna/qnalist.jsp
    <button onclick="location.href='qnaWrite.go'">글쓰기</button>
 	<table>
 		<thead>
@@ -69,6 +127,37 @@
 		
 		</tbody>
 		<tr>
+=======
+   보기
+   <select id="listPerName">
+   		<option value="">최신순</option>
+   		<option value="">오래된순</option>
+   </select>
+   
+	<div class="searchbox">
+		<div class="header">
+			<h1>검색</h1>
+			<input type="text" id="board_search" placeholder="Type to Search">
+			<button type="button" onclick="filter()">검색</button>
+		</div>
+	</div>
+	
+   <table>
+      <thead  id="good">
+         <tr>
+            <th>글번호</th>
+            <th>제목</th>
+            <th>작성자</th>
+            <th>작성일</th>
+            <th>조회수</th>
+         </tr>
+      </thead>
+
+      <tbody id="list">
+      
+      </tbody>
+      <tr>
+>>>>>>> origin/master:src/main/webapp/WEB-INF/views/boardList.jsp
          <td colspan="4" id="paging">
             <!-- plugin 사용법(twbspagination) , 이렇게 쓰라고 명시되어있음. -->
             <div class="container">
@@ -77,8 +166,21 @@
                </nav>
             </div>
          </td>
+<<<<<<< HEAD:src/main/webapp/WEB-INF/views/qna/qnalist.jsp
       	</tr>	
 	</table>
+=======
+      </tr>
+      <tr>
+		<th colspan="2">
+			<input type="button" value ="글쓰기" onclick="location.href='boardWrite.go'"/>
+		</th>
+	</tr>
+   </table>
+
+
+
+>>>>>>> origin/master:src/main/webapp/WEB-INF/views/boardList.jsp
 </body>
 <script>
 
@@ -94,16 +196,43 @@ $('#pagePerNum').on('change',function(){
   listCall(currPage);    
 });
 
+
+function filter() {
+	// 1. search라는 이름으로 id를 가진 녀석의 value 값을 먼저 알아낸다.
+	
+	var board_search = $('#search').val();
+	// 2. Ajax 리스트 함수를 호출하되, 1에서 얻은 값을 요청하는 것이다.
+	
+	
+}
+
+
+// 내비게이션 요소(공지사항, 질문하기, tip, 잡담)를 클릭하면 발생할 이벤트
+$('.nav1 > ul > li').on('click',function(){
+	// 내비게이션 요소의 모든 li에 on 클래스를 제거한다.
+	$('.nav1 > ul > li').removeClass('on');
+	// 클릭한 요소에 on 이라는 클래스를 추가한다.
+	$(this).addClass('on');
+	
+	// 마지막으로 listCall(1) 을 호출함으로써 Ajax 를 호출하여 최초 페이지인 1페이지로 보내기 위한 것이다.
+	$("#pagination").twbsPagination('destroy');
+	currPage = 1;
+	listCall(currPage);
+});
+
 function listCall(page){
    
    var pagePerNum = $('#pagePerNum').val();
    console.log("param page : " +page);
+   
    $.ajax({
       type:'GET',
       url:'list.ajax',
       data:{
-         cnt : pagePerNum,
-         page : page
+    	 cnt : pagePerNum,
+         page : page,
+         board_category : $('.nav1 > ul > li.on').attr('data'), // 현재 활성화 되어 있는 내비게이션의 data 속성을 가져온다.(즉, 내가 선택한 카테고리)
+         //board_search : $('#board_search').val()
          },
       dataType:'JSON',
       success:function(data){
@@ -126,10 +255,18 @@ function listCall(page){
       },
       error:function(e){
          console.log(e);//
-      }
+      },
+      beforeSend: function(xhr) {
+     	 	// before : 전
+      		// send : 전송
+      		// ajax 를 전송하기 전에 실행할 함수
+      		// xhr.setRequestHeader : 요청헤더를 설정한다. AJAX를 true로!
+
+      		xhr.setRequestHeader("AJAX", true);
+
+    	}
    });
 }
-
 
 
 function drawList(list){
@@ -138,6 +275,7 @@ function drawList(list){
     	var date = new Date(item.qna_date); 
        console.log(item);
        content += '<tr>';
+<<<<<<< HEAD:src/main/webapp/WEB-INF/views/qna/qnalist.jsp
        content += '<td>'+item.qna_idx+'</td>';
        content += '<td><a href="detail.go?qna_idx='+item.qna_idx+'">'+item.qna_title+'</a></td>';
        content += '<td>'+date.toLocaleDateString("ko-KR")+'</td>';
@@ -147,12 +285,28 @@ function drawList(list){
        }else {content += '<td>'+"답변완료"+'</td>';	
        }
        //content += '<td>'+item.qna_answer_chk+'</td>';
+=======
+       content += '<td>'+item.board_idx+'</td>';
+       content += '<td><a href="detail.go?board_idx='+item.board_idx+'">'+item.board_title+'</a></td>';
+       content += '<td>'+item.mb_id+'</td>';
+       content += '<td>'+date.toLocaleDateString("ko-KR").replace(/\.$/, '')+'</td>';
+       
+       content += '<td>'+item.board_hits+'</td>';
+>>>>>>> origin/master:src/main/webapp/WEB-INF/views/boardList.jsp
        content += '</tr>';
+       
     });
     $('#list').empty();
     $('#list').append(content);
  }
 
+<<<<<<< HEAD:src/main/webapp/WEB-INF/views/qna/qnalist.jsp
+=======
+
+
+
+
+>>>>>>> origin/master:src/main/webapp/WEB-INF/views/boardList.jsp
 
 </script>
 </html>
