@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -9,6 +10,46 @@
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="resources/js/jquery.twbsPagination.js"></script> <!-- 페이징 처리 -->
 <style>
+<<<<<<< HEAD:src/main/webapp/WEB-INF/views/qna/qnalist.jsp
+   
+   table,th,td{
+      border: 1px solid black;
+      border-collapse: collapse;
+      padding: 5px;
+      margin: auto;
+   }
+   
+   h1{
+   width:100px;
+    text-align: center;
+    font-weight: bold;
+    position : relative;
+    margin-top:200px;
+    margin-left:50%;
+    margin-right:50%;
+   }
+   
+   
+   p{
+   text-align: center;
+   position : relative;
+   }
+   
+   h3{
+   margin-left: 40%;
+   }
+
+	#pagePerNum {margin-left: 10%;}
+
+	button{margin-right: 10%;}
+   
+</style>
+</head>
+<body>
+	<h1>Q&A</h1>
+	<p>서비스 이용에 대하여 궁금한 점이나 문의사항을 등록해 주시면 빠른 시간 내에 답변해 드리겠습니다.</p>
+	<h3>검색<input type="text" name="search"><button onclick="location.href='searching.do'">검색</button></h3>
+=======
 	.nav1 > ul {
     width: 1000px;
     height: 40px;
@@ -33,7 +74,19 @@
   .nav1 ul > li.on > a {
   	color:#ff0000;
   }
+  #good, #list{
+  	border:1px black solid;
+  	width: 100%;
+    height: 100%;
+    font-size: 20px;
+
+    
+  }
+  
 </style>
+<jsp:include page="./commons/loginBox.jsp"/>
+<jsp:include page="./commons/smnav.jsp"/>
+
 </head>
 <body>
         <div class="nav1">
@@ -51,12 +104,30 @@
           </ul>
         </div>
 	게시물 갯수
+>>>>>>> origin/master:src/main/webapp/WEB-INF/views/boardList.jsp
    <select id="pagePerNum">
-      <option value="5">5</option>
-      <option value="10">10</option>
-      <option value="15">15</option>
-      <option value="20">20</option>
+      <option value="5">5개씩 보기</option>
+      <option value="10">10개씩 보기</option>
+      <option value="15">15개씩 보기</option>
+      <option value="20">20개씩 보기</option>
    </select>
+<<<<<<< HEAD:src/main/webapp/WEB-INF/views/qna/qnalist.jsp
+   <button onclick="location.href='qnaWrite.go'">글쓰기</button>
+	<table>
+		<thead>
+			<tr>
+				<th>번호</th>
+				<th>제목</th>
+				<th>작성일</th>
+				<th>작성자ID</th>
+				<th>답변여부</th>
+			</tr>
+		</thead>
+		<tbody id="list">
+		
+		</tbody>
+		<tr>
+=======
    보기
    <select id="listPerName">
    		<option value="">최신순</option>
@@ -72,7 +143,7 @@
 	</div>
 	
    <table>
-      <thead>
+      <thead  id="good">
          <tr>
             <th>글번호</th>
             <th>제목</th>
@@ -86,6 +157,7 @@
       
       </tbody>
       <tr>
+>>>>>>> origin/master:src/main/webapp/WEB-INF/views/boardList.jsp
          <td colspan="4" id="paging">
             <!-- plugin 사용법(twbspagination) , 이렇게 쓰라고 명시되어있음. -->
             <div class="container">
@@ -94,6 +166,10 @@
                </nav>
             </div>
          </td>
+<<<<<<< HEAD:src/main/webapp/WEB-INF/views/qna/qnalist.jsp
+      	</tr>	
+	</table>
+=======
       </tr>
       <tr>
 		<th colspan="2">
@@ -104,6 +180,7 @@
 
 
 
+>>>>>>> origin/master:src/main/webapp/WEB-INF/views/boardList.jsp
 </body>
 <script>
 
@@ -178,24 +255,44 @@ function listCall(page){
       },
       error:function(e){
          console.log(e);//
-      }
+      },
+      beforeSend: function(xhr) {
+     	 	// before : 전
+      		// send : 전송
+      		// ajax 를 전송하기 전에 실행할 함수
+      		// xhr.setRequestHeader : 요청헤더를 설정한다. AJAX를 true로!
+
+      		xhr.setRequestHeader("AJAX", true);
+
+    	}
    });
 }
 
 
 function drawList(list){
-	
     var content = '';
     list.forEach(function(item){
-    	var date = new Date(item.board_date);
+    	var date = new Date(item.qna_date); 
        console.log(item);
        content += '<tr>';
+<<<<<<< HEAD:src/main/webapp/WEB-INF/views/qna/qnalist.jsp
+       content += '<td>'+item.qna_idx+'</td>';
+       content += '<td><a href="detail.go?qna_idx='+item.qna_idx+'">'+item.qna_title+'</a></td>';
+       content += '<td>'+date.toLocaleDateString("ko-KR")+'</td>';
+       content += '<td>'+item.mb_id+'</td>';
+       if(item.qna_answer_chk == false ){
+    	   content += '<td>'+"미답변"+'</td>';	   
+       }else {content += '<td>'+"답변완료"+'</td>';	
+       }
+       //content += '<td>'+item.qna_answer_chk+'</td>';
+=======
        content += '<td>'+item.board_idx+'</td>';
        content += '<td><a href="detail.go?board_idx='+item.board_idx+'">'+item.board_title+'</a></td>';
        content += '<td>'+item.mb_id+'</td>';
        content += '<td>'+date.toLocaleDateString("ko-KR").replace(/\.$/, '')+'</td>';
        
        content += '<td>'+item.board_hits+'</td>';
+>>>>>>> origin/master:src/main/webapp/WEB-INF/views/boardList.jsp
        content += '</tr>';
        
     });
@@ -203,10 +300,13 @@ function drawList(list){
     $('#list').append(content);
  }
 
+<<<<<<< HEAD:src/main/webapp/WEB-INF/views/qna/qnalist.jsp
+=======
 
 
 
 
+>>>>>>> origin/master:src/main/webapp/WEB-INF/views/boardList.jsp
 
 </script>
 </html>

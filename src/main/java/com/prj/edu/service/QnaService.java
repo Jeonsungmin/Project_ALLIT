@@ -8,19 +8,17 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.prj.edu.dao.BoardDAO;
-import com.prj.edu.dto.BoardDTO;
+import com.prj.edu.dao.QnaDAO;
+import com.prj.edu.dto.QnaDTO;
 
 @Service
-public class BoardService {
+public class QnaService {
 	
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 
-	@Autowired BoardDAO dao;
+	@Autowired QnaDAO dao;
 	
-	
-
-	public HashMap<String, Object> list(HashMap<String, String> params) {
+public HashMap<String, Object> list(HashMap<String, String> params) {
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		String board_category = params.get("board_category");
@@ -59,23 +57,55 @@ public class BoardService {
 		// 6 			25	~29			25
 		//1씩 증가하면 5씩 증가?
 		
+<<<<<<< HEAD:src/main/java/com/prj/edu/service/QnaService.java
+			
+		ArrayList<QnaDTO> list = dao.list(cnt, offset);
+=======
 		
 		
 		ArrayList<BoardDTO> list = dao.list(cnt, offset, board_category);
+>>>>>>> origin/master:src/main/java/com/prj/edu/service/BoardService.java
 		map.put("list", list);
 		
 		return map;
 	}
 
+	public boolean write(HashMap<String, String> params) {
+
+		logger.info("글쓰기 서비스");
+		boolean success = false;		
+		
+		if(dao.write(params)>0) {
+			success = true;
+		}		
+		return success;
+	}
 
 
-	public BoardDTO detail(String board_idx) {
-		BoardDTO dto = null;
-		logger.info(board_idx + "상세보기 서비스 요청");
-		dto = dao.detail(board_idx);
-		logger.info("content : " + dto.getBoard_content());
+	public QnaDTO detail(String qna_idx) {
+		QnaDTO dto = null;
+		logger.info(qna_idx + "상세보기 서비스 요청");
+		dto = dao.detail(qna_idx);
+		logger.info("content : " + dto.getQna_content());
 		return dto;
 	}
+
+	public boolean answer(HashMap<String, String> params) {
+		
+		logger.info("글쓰기 서비스");
+		boolean success = false;		
+		
+		if(dao.answer(params)>0) {
+			success = true;
+		}		
+		return success;
+	}
+
+	public QnaDTO dbdetail(String qna_idx) {
+		logger.info("상세보기2 요청");
+		return dao.dbdetail(qna_idx);
+	}
+
 	
 	
 	public boolean write(HashMap<String, String> params) {
