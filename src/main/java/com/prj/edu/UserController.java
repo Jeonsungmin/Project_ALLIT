@@ -11,10 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.prj.edu.service.UserService;
 
@@ -32,6 +30,11 @@ public class UserController {
 	public String login( Model model) {
 		logger.info("비회원 로그인 페이지");
 		return "login";
+	}
+	@RequestMapping(value = "/userList.go")
+	public String userList( Model model) {
+		logger.info("로그인후 페이지");
+		return "userList";
 	}
 	@RequestMapping(value = "/joinForm.go")
 	public String joinForm1( Model model) {
@@ -156,4 +159,17 @@ public class UserController {
 		logger.info("회원가입: "+params);
 		return service.join(params);
 	}
+	
+	//리스트 아작스 요청
+		@RequestMapping("user/list.ajax")
+		@ResponseBody
+		public HashMap<String, Object> list1(
+				@RequestParam HashMap<String, String> params
+				) {
+
+		
+			logger.info("리스트 요청!!! : {}",params);
+			return service.list(params);
+		}
+		
 }

@@ -1,8 +1,10 @@
 package com.prj.edu.dao;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.prj.edu.dto.EduDTO;
+import com.prj.edu.dto.UserDTO;
 
 public interface UserDAO {
 
@@ -23,4 +25,8 @@ public interface UserDAO {
 	String overlay(String chkId);
 
 	int cnt(String mb_id);
+
+	int allCount();
+
+	ArrayList<UserDTO> list(int cnt, int offset);
 }
