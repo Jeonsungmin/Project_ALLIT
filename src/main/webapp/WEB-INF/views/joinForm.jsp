@@ -223,7 +223,7 @@ function join() {
 				  alert("회원가입에 성공하였습니다.");
 				  location.href='/login.go';
 			  }else{
-				  alert("회원가입에 실패하였습니다.");
+				  alert("해당 칸을 입력해주세요.");
 			  }
 		  },
 		  error:function(e){

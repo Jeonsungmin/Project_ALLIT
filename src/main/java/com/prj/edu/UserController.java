@@ -1,6 +1,7 @@
 package com.prj.edu;
 
 import java.util.HashMap;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -55,17 +56,18 @@ public class UserController {
 		logger.info("로그인 아이디 : "+loginId);
 		String msg = "아이디 또는 비밀번호를 확인 하세요";
 		String page = "login";
-		logger.info("{}",service.cnt(mb_id));
 		HttpSession session = request.getSession();
 		session.setAttribute("loginId", loginId);
-		if(service.cnt(mb_id)>0) {
-			msg="정지된 회원입니다.";
-			page="login";
-		}else if(loginId != null) {
-			page = "main";
+		if(loginId != null) {
+			page = "userList";
 			msg = loginId+"님 반갑습니다.";	
+			if(service.cnt(mb_id)>0) {
+				msg="정지된 회원입니다.";
+				page="login";
+			}
 		}
 		model.addAttribute("msg", msg);
+		logger.info("세션에 저장된 아이디 : {}",session.getAttribute("loginId"));
 		return page;
 	}
 
@@ -156,4 +158,30 @@ public class UserController {
 		logger.info("회원가입: "+params);
 		return service.join(params);
 	}
+	@RequestMapping("/joinedu.ajax")
+	@ResponseBody
+	public HashMap<String, Object> joinedu(@RequestParam HashMap<String, Object> params){
+		logger.info("교육기관 회원가입: "+params);
+		return service.joinedu(params);
+	}
+    @RequestMapping("user/list.ajax")
+    @ResponseBody
+    public HashMap<String, Object> list1(@RequestParam HashMap<String, String> params) {
+       logger.info("리스트 요청!!! : {}",params);
+       return service.list(params);
+    }
+    @RequestMapping(value = "/userList.go")
+    public String userList( Model model) {
+       logger.info("로그인후 페이지");
+       return "userList";
+    }
+    
+    @RequestMapping(value = "/logout")
+    public String logout(Model model, HttpSession session) {
+       logger.info("로그아웃 페이지");
+       session.removeAttribute("loginId");
+       String msg = "로그아웃 되었습니다.";
+       model.addAttribute("msg",msg);
+       return "login";
+    }
 }

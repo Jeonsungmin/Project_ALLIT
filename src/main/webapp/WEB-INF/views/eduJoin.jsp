@@ -52,7 +52,7 @@
 			</tr>
 			<tr>
 				<th>대표자 성명</th>
-				<td><input type ="text" name="mb_name"/></td>
+				<td><input type ="text" name="rep_name"/></td>
 			</tr>
 			<tr>
 				<th>교육기관명</th>
@@ -85,7 +85,7 @@
 			
 			<tr>
 				<th colspan="2" style="text-align:right; padding-right: 30px;">
-					<input type="button" onclick="join()" value="회원가입" style="background-color:#9fc5e8;"/>
+					<input type="button" onclick="join()" onclick="edu()" value="회원가입" style="background-color:#9fc5e8;"/>
 				</th>
 			</tr>
 		</table>
@@ -146,7 +146,7 @@ function join() {
 	   console.log("회원가입");
 	   var id = $("input[name='mb_id']").val();
 	   var pw = $("input[name='mb_pass']").val();
-	   var name = $("input[name='mb_name']").val();
+	   var name = $("input[name='rep_name']").val();
 	   var edu = $("input[name='edu_name']").val();
 	   var email = $("input[name='mb_email']").val();
 	   var tel = $("input[name='mb_tel']").val();
@@ -166,7 +166,7 @@ function join() {
 			  data:{
 				  mb_id:id,
 				  mb_pass:pw,
-				  mb_name:name,
+				  rep_name:name,
 				  edu_name:edu,
 				  mb_email:email,
 				  mb_tel:tel,
@@ -198,5 +198,26 @@ function join() {
 		   $id.focus();
 	   }
 	}
+function edu(){
+	var name = $("input[name='rep_name']").val();
+	var edu = $("input[name='edu_name']").val();
+	var id = $("input[name='mb_id']").val();
+	$.ajax({
+		  type:'post',
+		  url:'joinedu.ajax',
+		  data:{
+			  mb_id:id,
+			  rep_name:name,
+			  edu_name:edu,
+		  },
+		  dataType:'JSON',
+		  success:function(data){
+			  console.log(data);
+		  },
+		  error:function(e){
+			  console.log(e);
+		  }
+	   });
+}
 </script>
 </html>

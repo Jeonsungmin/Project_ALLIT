@@ -40,7 +40,8 @@
          </tr>
          <tr>
             <th colspan="2" style="padding-left: 105px;">
-               <input type="submit" value="로그인" style="background-color:#a4c2f4ff"/>
+               <input type="submit" value="로그인" style="background-color:#a4c2f4ff;"/>
+               <!--  <input type="button" value="로그인" onclick="location.href='userList.go'" style="background-color:#a4c2f4ff;"/>-->
                <!-- spring 에서는 페이지 이동조차 컨트롤러에 요청을 해야 한다. -->
                <input type="button" value="회원가입" onclick="location.href='joinForm.go'" style="background-color:#f9cb9cff;"/>
             </th>

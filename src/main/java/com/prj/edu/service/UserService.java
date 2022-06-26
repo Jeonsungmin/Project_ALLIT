@@ -1,5 +1,6 @@
 package com.prj.edu.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.slf4j.Logger;
@@ -11,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.prj.edu.dao.PhotoDAO;
 import com.prj.edu.dao.UserDAO;
 import com.prj.edu.dto.EduDTO;
+import com.prj.edu.dto.UserDTO;
 
 @Service
 public class UserService {
@@ -83,4 +85,32 @@ public class UserService {
 		logger.info("정지된 회원인지?");
 		return dao.cnt(mb_id);
 	}
+
+	public HashMap<String, Object> joinedu(HashMap<String, Object> params) {
+		logger.info("교육기관 회원가입 되는지?");
+		return dao.joinedu(params);
+	}
+	
+	public HashMap<String, Object> list(HashMap<String, String> params) {
+	      HashMap<String, Object> map = new HashMap<String, Object>();
+	      logger.info("ok");
+	         int cnt = Integer.parseInt(params.get("cnt"));
+	         int page = Integer.parseInt(params.get("page"));
+	         logger.info("보여줄 페이지 : " + page);
+	         int allCnt = dao.allCount();
+	         logger.info("allCnt:" + allCnt);
+	         int pages = allCnt%cnt > 0 ? (allCnt/cnt)+1 : (allCnt/cnt);
+	         logger.info("pages : " + pages);
+	         if(page > pages) {
+	            page = pages;
+	         } 
+	         map.put("pages", pages);      //만들 수 있는 최대 페이지 수
+	         map.put("currPage", page); //현재 페이지
+	         int offset = (page-1) * cnt;
+	         logger.info("offset : " + offset);            
+	         ArrayList<UserDTO> list = dao.list(cnt, offset);
+	         map.put("list", list);
+	         
+	         return map;
+	      }
 }
