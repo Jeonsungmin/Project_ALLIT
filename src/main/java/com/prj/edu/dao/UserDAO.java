@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.prj.edu.dto.EduDTO;
+import com.prj.edu.dto.QnaDTO;
 import com.prj.edu.dto.UserDTO;
 
 public interface UserDAO {
@@ -31,6 +32,5 @@ public interface UserDAO {
 	int allCount();
 
 	ArrayList<UserDTO> list(int cnt, int offset);
-	
 	
 }

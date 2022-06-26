@@ -260,7 +260,7 @@ table, th, td {
 					<ul>
 						<li><a href="/">모집공고</a></li>
 						<li><a href="/">게시판</a></li>
-						<li><a href="/qna.go">Q&A</a></li>
+						<li><a href="/">Q&A</a></li>
 						<li><a href="/">마이페이지</a></li>
 					</ul>
 				</div>
@@ -269,8 +269,8 @@ table, th, td {
 		<div id="leftnav">
 			<ul id="leftli">
 				<li><a href="/">마이페이지</a></li>
-				<li><a onclick="msg()">회원정보조회</a></li>
-				<li><a href="/msdetail.go">Q&A 답변</a></li>
+				<li><a href="/userList.go">회원정보조회</a></li>
+				<li><a onclick="down()">Q&A 답변</a></li>
 				<li><a href="/">회원신고관리</a></li>
 				<li><a href="/">정지회원관리</a></li>
 			</ul>
@@ -286,9 +286,11 @@ table, th, td {
 		<table style="margin-left: 200px; margin-top: -450px;">
 			<thead>
 				<tr>
+					<th>번호</th>
+					<th>제목</th>
 					<th>회원ID</th>
-					<th>회원이름</th>
-					<th>매니저여부</th>
+					<th>작성일</th>
+					<th>답변상태</th>
 				</tr>
 			</thead>
 
@@ -332,7 +334,7 @@ table, th, td {
 
 		$.ajax({
 			type : 'GET',
-			url : '/listparam.ajax',
+			url : '/mslist.ajax',
 			data : {
 				cnt : pagePerNum,
 				page : page,
@@ -376,7 +378,7 @@ table, th, td {
 		$('#list').empty();
 		$('#list').append(content);
 	}
-	function msg(){
+	function down(){
 		alert("현재 화면입니다.");
 	}
 </script>

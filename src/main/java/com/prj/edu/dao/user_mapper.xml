@@ -41,7 +41,7 @@
 		VALUES(#{rep_name},#{edu_name},#{mb_id})
 	</insert>
 	<select id="list" resultType="com.prj.edu.dto.UserDTO">
-		SELECT mb_id, mb_name
+		SELECT mb_id, mb_name, category_idx
 		FROM mb limit #{param1} offset #{param2}
 	</select>
 	<select id="allCount" resultType="int">

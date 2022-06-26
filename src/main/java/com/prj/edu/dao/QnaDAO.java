@@ -20,6 +20,8 @@ public interface QnaDAO {
 
 	QnaDTO dbdetail(String qna_idx);
 
-
+	int msCount();
+	
+	ArrayList<QnaDTO> mslist(int cnt, int offset);
 
 }

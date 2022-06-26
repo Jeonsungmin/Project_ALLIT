@@ -10,13 +10,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.prj.edu.dao.PhotoDAO;
+import com.prj.edu.dao.QnaDAO;
 import com.prj.edu.dao.UserDAO;
 import com.prj.edu.dto.EduDTO;
+import com.prj.edu.dto.QnaDTO;
 import com.prj.edu.dto.UserDTO;
 
 @Service
 public class UserService {
 	@Autowired UserDAO dao;
+	@Autowired QnaDAO qnadao;
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	public String login(String mb_id, String mb_pass) {
@@ -51,21 +54,21 @@ public class UserService {
 	/*public int edujoin(MultipartFile[] photos, HashMap<String, Object> params) {
 	    logger.info("교육기관 회원 이동이 잘되는지?");  
 	    int row = dao.save(dto); 
-	      
+
 	    int photo_pr_num = dto.getEdu_idx();
-	      
+
 	    for(MultipartFile photo:photos) {
 	         String photo_original = photo.getOriginalFilename();
 	         logger.info("photo name: " + photo.getOriginalFilename());
-	         
+
 	         if(!photo.getOriginalFilename().equals("")) {
 	            logger.info("업로드 진행");
 	            String ext = photo_original.substring(photo_original.lastIndexOf(".")).toLowerCase();
 	            String photo_copy = System.currentTimeMillis() + ext;
 	            String photo_category = "사업자 등록증";
-	            
+
 	            logger.info(photo_original + photo_copy + photo_category);            
-	                     
+
 	            PhotoDAO.fileWrite(photo_original, photo_copy, photo_pr_num, photo_category);
 	            logger.info(photo_copy + "save ok");      
 	         }
@@ -90,27 +93,54 @@ public class UserService {
 		logger.info("교육기관 회원가입 되는지?");
 		return dao.joinedu(params);
 	}
-	
+
 	public HashMap<String, Object> list(HashMap<String, String> params) {
-	      HashMap<String, Object> map = new HashMap<String, Object>();
-	      logger.info("ok");
-	         int cnt = Integer.parseInt(params.get("cnt"));
-	         int page = Integer.parseInt(params.get("page"));
-	         logger.info("보여줄 페이지 : " + page);
-	         int allCnt = dao.allCount();
-	         logger.info("allCnt:" + allCnt);
-	         int pages = allCnt%cnt > 0 ? (allCnt/cnt)+1 : (allCnt/cnt);
-	         logger.info("pages : " + pages);
-	         if(page > pages) {
-	            page = pages;
-	         } 
-	         map.put("pages", pages);      //만들 수 있는 최대 페이지 수
-	         map.put("currPage", page); //현재 페이지
-	         int offset = (page-1) * cnt;
-	         logger.info("offset : " + offset);            
-	         ArrayList<UserDTO> list = dao.list(cnt, offset);
-	         map.put("list", list);
-	         
-	         return map;
-	      }
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		logger.info("ok");
+		int cnt = Integer.parseInt(params.get("cnt"));
+		int page = Integer.parseInt(params.get("page"));
+		logger.info("보여줄 페이지 : " + page);
+		int allCnt = dao.allCount();
+		logger.info("allCnt:" + allCnt);
+		int pages = allCnt%cnt > 0 ? (allCnt/cnt)+1 : (allCnt/cnt);
+		logger.info("pages : " + pages);
+		if(page > pages) {
+			page = pages;
+		} 
+		map.put("pages", pages);      //만들 수 있는 최대 페이지 수
+		map.put("currPage", page); //현재 페이지
+		int offset = (page-1) * cnt;
+		logger.info("offset : " + offset);            
+		ArrayList<UserDTO> list = dao.list(cnt, offset);
+		/*for(UserDTO msg : list) {
+			if(msg.getCategory_idx()==3) {
+				
+			}
+		}*/
+		map.put("list", list);
+		return map;
+	}
+	
+	public HashMap<String, Object> mslist(HashMap<String, String> params) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		logger.info("Q&A 답변 페이지");
+		int cnt = Integer.parseInt(params.get("cnt"));
+		int page = Integer.parseInt(params.get("page"));
+		logger.info("보여줄 페이지 : " + page);
+		int msCnt = qnadao.msCount();
+		logger.info("msCnt:" + msCnt);
+		int pages = msCnt%cnt > 0 ? (msCnt/cnt)+1 : (msCnt/cnt);
+		logger.info("pages : " + pages);
+		if(page > pages) {
+			page = pages;
+		} 
+		map.put("pages", pages);      //만들 수 있는 최대 페이지 수
+		map.put("currPage", page); //현재 페이지
+		int offset = (page-1) * cnt;
+		logger.info("offset : " + offset);            
+		ArrayList<QnaDTO> list = qnadao.mslist(cnt, offset);
+		map.put("list", list);
+
+		return map;
+	}
 }

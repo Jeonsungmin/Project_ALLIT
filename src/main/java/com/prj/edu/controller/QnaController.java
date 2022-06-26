@@ -60,7 +60,6 @@ public class QnaController {
 		QnaDTO dto = service.dbdetail(qna_idx);
 		model.addAttribute("dto", dto);
 		return "qnaanswer";
-	
 	}	
 	
 	

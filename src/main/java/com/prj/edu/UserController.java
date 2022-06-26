@@ -46,6 +46,12 @@ public class UserController {
 		return "joinForm";
 	}
 
+	@RequestMapping(value = "/msdetail.go")
+	public String msdetail(Model model) {
+		logger.info("Q&A 답변 페이지");
+		return "msqnaDetail";
+	}
+	
 	@RequestMapping(value = "/login")
 	public String login(Model model, HttpServletRequest request) {
 		logger.info("로그인 페이지");
@@ -164,12 +170,20 @@ public class UserController {
 		logger.info("교육기관 회원가입: "+params);
 		return service.joinedu(params);
 	}
-    @RequestMapping("user/list.ajax")
+    @RequestMapping("/listparam.ajax")
     @ResponseBody
     public HashMap<String, Object> list1(@RequestParam HashMap<String, String> params) {
        logger.info("리스트 요청!!! : {}",params);
        return service.list(params);
     }
+    
+    @RequestMapping("/mslist.ajax")
+    @ResponseBody
+    public HashMap<String, Object> mslist(@RequestParam HashMap<String, String> params) {
+       logger.info("리스트 요청!!! : {}",params);
+       return service.mslist(params);
+    }
+    
     @RequestMapping(value = "/userList.go")
     public String userList( Model model) {
        logger.info("로그인후 페이지");
