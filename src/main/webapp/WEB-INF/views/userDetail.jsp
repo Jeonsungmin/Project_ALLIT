@@ -33,30 +33,43 @@ h1 {
 </head>
 <body>
 	<%-- <jsp:include page="./commons/loginBox.jsp"/> --%>
-	<h3>교육기관 회원 상세보기</h3>
+	<h3>일반 회원 상세보기</h3>
 	<table class="edu">
 		<thead>
 			<tr>
-				<th>교육기관 ID</th>
+				<th>회원ID</th>
 				<td>${dto.mb_id}</td>
-				<th>대표자성명</th>
-				<td>${dto.rep_name}</td>
+				<th>이름</th>
+				<td>${dto.mb_name}</td>
 			</tr>
 			<tr>
 				<th>주소(우편번호)</th>
 				<td>${dto.mb_basic_addr}(${dto.mb_postcode})</td>
 			</tr>
 			<tr>
+				<th>성별</th>
+				<td>${dto.mb_gender}</td>
 				<th>전화번호</th>
 				<td>${dto.mb_tel}</td>
-				<th>교육기관명</th>
-				<td>${dto.edu_name}</td>
 			</tr>
-			
+			<tr>
+				<th>생년월일</th>
+				<td>${dto.mb_birth}</td>
+			</tr>
+			<tr>
+				<th>전공유무</th>
+				<td>${dto.mb_major}</td>
+				<th>최종학력</th>
+				<td>${dto.mb_edu}</td>
+			</tr>
+			<tr>
+				<th>매니저</th>
+				<td>${dto.category_idx}</td>
+			</tr>
 			<tr>
 				<th colspan="2">
-					<input type="button" value="돌아가기" onclick="location.href='edu/detail.go'"> 
-					<input type="button" value="답변하기" onclick="location.href='answer.go?edu_idx=${dto.edu_idx}'" />
+					<input type="button" value="돌아가기" onclick="location.href='user/list.ajax'"> 
+					<input type="button" value="답변하기" onclick="location.href='detail.go?mb_id=${dto.mb_id}'" />
 				</th>
 			</tr>
 	</table>

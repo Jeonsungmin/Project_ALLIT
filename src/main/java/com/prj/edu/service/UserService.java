@@ -124,5 +124,21 @@ public class UserService {
 	      
 	      return map;
 	   }
+
+	public UserDTO userDetail(String mb_id) {
+			UserDTO dto = null;
+			logger.info(mb_id + "일반회원 상세보기 서비스 요청");
+			dto = dao.userDetail(mb_id);
+			
+		return dto;
+	}
+
+	public UserDTO eduDetail(String mb_id) {
+		UserDTO dto = null;
+		logger.info(mb_id + "교육기관회원 상세보기 서비스 요청");
+		dto = dao.eduDetail(mb_id);
+		
+	return dto;
+	}
 	
 }

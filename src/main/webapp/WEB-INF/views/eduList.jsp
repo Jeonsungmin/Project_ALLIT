@@ -247,7 +247,7 @@ table, th, td {
 </head>
 
 <body>
-	<form action="userList" method="post">
+	<form action="eduList" method="post">
 		<header>
 			<div class="links">
 				<a>***님 환영합니다.</a> <a href="login.go" class="link_text">로그아웃</a>
@@ -281,19 +281,19 @@ table, th, td {
 			<option value="15">15</option>
 			<option value="20">20</option>
 		</select>
+
 		<table style="margin-left: 200px; margin-top: -450px;">
 			<thead>
 				<tr>
-					<th><input type="button" name="member" value="일반회원"
-						checked="checked" style="background-color:#aabde3ff ; border:0 white solid; margin:5px 0px"></th>
-					<td style="font-weight: bold;"><input type="button"
-						name="member" value="교육기관회원"
-						onclick="window.location.href='eduList.go';" style="background-color:#e8ecf4ff ; border:0 white solid; margin:5px 0px"></td>
+					<th><input type="button" name="member"
+						onclick="window.location.href='userList.go';" value="일반회원"  style="background-color:#aabde3ff; border:0 white solid; margin:5px 0px;">
+					</th>
+					<td><input type="button"
+						name="member" value="교육기관회원" checked="checked" style="background-color:#e8ecf4ff ; border:0 white solid; margin:5px 0px"></td>
 				</tr>
 				<tr>
-					<th>회원ID</th>
-					<th>회원이름</th>
-					<th>매니저여부</th>
+					<th>교육기관ID</th>
+					<th>교육기관명</th>
 				</tr>
 			</thead>
 
@@ -336,7 +336,7 @@ table, th, td {
 
 		$.ajax({
 			type : 'GET',
-			url : 'user/list.ajax',
+			url : 'edu/list.ajax',
 			data : {
 				cnt : pagePerNum,
 				page : page,
@@ -373,10 +373,9 @@ table, th, td {
 		list.forEach(function(item) {
 			console.log(item);
 			content += '<tr>';
-			content += '<td><a href="user/detail.go?mb_id=' + item.mb_id + '">'
+			content += '<td><a href="edu/detail.go?mb_id=' + item.mb_id + '">'
 					+ item.mb_id + '</a></td>';
-			content += '<td>' + item.mb_name + '</td>';
-			content += '<td>' + item.category_idx + '</td>';
+			content += '<td>' + item.edu_name + '</td>';
 			content += '</tr>';
 
 		});

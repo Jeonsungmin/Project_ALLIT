@@ -29,4 +29,8 @@ public interface UserDAO {
 	int allCount();
 
 	ArrayList<UserDTO> list(int cnt, int offset);
+
+	UserDTO userDetail(String mb_id);
+
+	UserDTO eduDetail(String mb_id);
 }

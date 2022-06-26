@@ -5,13 +5,15 @@
 
 	<select id="list" resultType="com.prj.edu.dto.UserDTO">
 		SELECT mb_id, mb_name
-		FROM mb limit #{param1} offset #{param2}
+		FROM mb limit
+		#{param1} offset #{param2}
 	</select>
-	
+
 	<select id="login" resultType="String">
-		SELECT mb_id FROM mb WHERE mb_id = #{param1} AND mb_pass = #{param2}
+		SELECT mb_id FROM mb WHERE mb_id =
+		#{param1} AND mb_pass = #{param2}
 	</select>
-	
+
 	<insert id="join" parameterType="hashmap">
 		INSERT INTO
 		mb(mb_id,mb_pass,mb_name,mb_postcode,mb_basic_addr,mb_detail_addr,mb_email,
@@ -19,20 +21,22 @@
 		VALUES(#{mb_id},#{mb_pass},#{mb_name},#{mb_postcode},#{mb_basic_addr},#{mb_detail_addr},#{mb_email},#{mb_tel},
 		#{mb_gender},#{mb_birth},#{mb_major},#{mb_edu},#{mb_status},#{mb_stopcnt},#{mb_withdraw},#{category_idx})
 	</insert>
-	
+
 	<select id="idsearch" resultType="String">
-		SELECT mb_id FROM mb WHERE mb_email = #{param1} AND mb_tel = #{param2}
+		SELECT mb_id FROM mb WHERE
+		mb_email = #{param1} AND mb_tel = #{param2}
 	</select>
 
 	<select id="pwsearch" resultType="String">
-		SELECT mb_pass FROM mb WHERE mb_id = #{param1} AND mb_email = #{param2} AND
+		SELECT mb_pass FROM mb WHERE
+		mb_id = #{param1} AND mb_email = #{param2} AND
 		mb_tel = #{param3}
 	</select>
-	
+
 	<update id="newpass">
-		UPDATE mb SET mb_pass = #{param1} WHERE
+		UPDATE mb SET mb_pass = #{param1}
 	</update>
-	
+
 	<insert id="eduJoin" parameterType="hashmap">
 		INSERT INTO
 		mb(mb_id,mb_pass,mb_name,mb_postcode,mb_basic_addr,mb_detail_addr,mb_email,
@@ -40,17 +44,34 @@
 		VALUES(#{mb_id},#{mb_pass},#{mb_name},#{mb_postcode},#{mb_basic_addr},#{mb_detail_addr},#{mb_email},#{mb_tel},
 		#{mb_gender},#{mb_birth},#{mb_major},#{mb_edu},#{mb_status},#{mb_stopcnt},#{mb_withdraw},#{category_idx})
 	</insert>
-	
+
 	<select id="overlay" parameterType="String" resultType="String">
-		SELECT mb_id FROM mb WHERE mb_id = #{chkId}
+		SELECT
+		mb_id FROM mb WHERE mb_id = #{chkId}
 	</select>
-	
+
 	<select id="cnt" resultType="int">
-		SELECT mb_stopcnt FROM mb WHERE mb_id = #{param1}
+		SELECT mb_stopcnt FROM mb WHERE
+		mb_id = #{param1}
 	</select>
-	
+
 	<select id="allCount" resultType="int">
 		SELECT COUNT(mb_id) FROM mb
 	</select>
+
+	<select id="userDetail" parameterType="String"
+		resultType="com.prj.edu.dto.UserDTO">
+		SELECT mb_id, mb_name, mb_basic_addr, mb_postcode,
+		mb_gender, mb_tel, mb_birth, mb_major, mb_edu, category_idx FROM mb
+		WHERE mb_id=#{mb_id}
+	</select>
+	
+	<select id="eduDetail" parameterType="String"
+		resultType="com.prj.edu.dto.UserDTO">
+		SELECT m.mb_id, e.rep_name, m.mb_basic_addr, m.mb_postcode,
+		m.mb_tel, e.edu_name FROM mb m, edu e WHERE m.mb_id=#{mb_id} AND e.mb_id=#{mb_id}
+	</select>
+	
+	
 	
 </mapper>

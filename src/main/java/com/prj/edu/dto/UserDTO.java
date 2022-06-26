@@ -13,7 +13,35 @@ public class UserDTO {
 	private String mb_birth;
 	private String mb_major;
 	private String mb_edu;
+	private String category_idx;
+	private String edu_idx;
+	private String rep_name;
+	private String edu_name;
 	
+	public String getEdu_idx() {
+		return edu_idx;
+	}
+	public void setEdu_idx(String edu_idx) {
+		this.edu_idx = edu_idx;
+	}
+	public String getRep_name() {
+		return rep_name;
+	}
+	public void setRep_name(String rep_name) {
+		this.rep_name = rep_name;
+	}
+	public String getEdu_name() {
+		return edu_name;
+	}
+	public void setEdu_name(String edu_name) {
+		this.edu_name = edu_name;
+	}
+	public String getCategory_idx() {
+		return category_idx;
+	}
+	public void setCategory_idx(String category_idx) {
+		this.category_idx = category_idx;
+	}
 	public String getMb_id() {
 		return mb_id;
 	}
