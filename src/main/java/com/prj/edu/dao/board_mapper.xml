@@ -14,14 +14,14 @@
 	</select>
 	
 	
-	<select id="detail" parameterType="String"
+	<select id="boarddetail" parameterType="String"
 		resultType="com.prj.edu.dto.BoardDTO">
 		SELECT board_idx, board_hits,board_date,mb_id,board_title,board_content FROM board WHERE board_idx = #{board_idx}	
 	</select>
 	
 	<insert id="write" parameterType="hashmap">
- 		INSERT INTO board(board_title,board_content,board_date,board_category,board_blind)
- 		VALUES (#{board_title},#{board_content},#{board_date},#{board_category},#{board_blind})
+ 		INSERT INTO board(mb_id,board_title,board_content,board_date,board_category,board_blind)
+ 		VALUES (#{mb_id},#{board_title},#{board_content},#{board_date},#{board_category},#{board_blind})
    </insert>
    
    <update id="board_update" parameterType="hashmap">
@@ -35,7 +35,23 @@
 		UPDATE board SET board_hits = board_hits+1 WHERE board_idx =#{board_idx}
 	</update>
 	
+	<select id="writerId" parameterType="String" resultType="String">
+		SELECT mb_id FROM board WHERE mb_id = #{mb_id}
 	
+	</select>
+	
+	<select id="cmtlist" parameterType="String" resultType="com.prj.edu.dto.CmtDTO">
+		SELECT cmt_idx, cmt_content, cmt_date, mb_id, board_idx FROM cmt WHERE board_idx = #{board_idx}
+	</select>
+	
+	<insert id="cmtwrite" parameterType="hashmap">	
+		INSERT INTO cmt(cmt_content,cmt_date,mb_id,board_idx)
+			VALUES (#{cmt_content},CURDATE(),#{mb_id},#{board_idx})
+	</insert>
+	
+	<delete id="cmtdel">
+		DELETE FROM cmt WHERE mb_id = #{param2} AND cmt_idx = #{param1}
+	</delete>
 	
 
 </mapper>

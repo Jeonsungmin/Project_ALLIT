@@ -85,7 +85,7 @@
 			
 			<tr>
 				<th colspan="2" style="text-align:right; padding-right: 30px;">
-					<input type="button" onclick="join()" onclick="edu()" value="회원가입" style="background-color:#9fc5e8;"/>
+					<input type="button" onclick="join()" value="회원가입" style="background-color:#9fc5e8;"/>
 				</th>
 			</tr>
 		</table>
@@ -142,6 +142,27 @@ function pw() {
 	      }
 	   });
 }
+function edu(){
+	var name = $("input[name='rep_name']").val();
+	var edu = $("input[name='edu_name']").val();
+	var id = $("input[name='mb_id']").val();
+	$.ajax({
+		  type:'post',
+		  url:'joinedu.ajax',
+		  data:{
+			  mb_id:id,
+			  rep_name:name,
+			  edu_name:edu,
+		  },
+		  dataType:'JSON',
+		  success:function(data){
+			  console.log(data);
+		  },
+		  error:function(e){
+			  console.log(e);
+		  }
+	   });
+}
 function join() {
 	   console.log("회원가입");
 	   var id = $("input[name='mb_id']").val();
@@ -164,6 +185,7 @@ function join() {
 			  type:'post',
 			  url:'join.ajax',
 			  data:{
+
 				  mb_id:id,
 				  mb_pass:pw,
 				  rep_name:name,
@@ -198,26 +220,5 @@ function join() {
 		   $id.focus();
 	   }
 	}
-function edu(){
-	var name = $("input[name='rep_name']").val();
-	var edu = $("input[name='edu_name']").val();
-	var id = $("input[name='mb_id']").val();
-	$.ajax({
-		  type:'post',
-		  url:'joinedu.ajax',
-		  data:{
-			  mb_id:id,
-			  rep_name:name,
-			  edu_name:edu,
-		  },
-		  dataType:'JSON',
-		  success:function(data){
-			  console.log(data);
-		  },
-		  error:function(e){
-			  console.log(e);
-		  }
-	   });
-}
 </script>
 </html>

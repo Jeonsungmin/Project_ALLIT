@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.prj.edu.dto.UserDTO;
 import com.prj.edu.service.UserService;
 
 @Controller
@@ -162,32 +163,18 @@ public class UserController {
 	@ResponseBody
 	public HashMap<String, Object> join(@RequestParam HashMap<String, Object> params){
 		logger.info("회원가입: "+params);
-		return service.join(params);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		service.join(params); 
+		service.joinedu(params);
+		map.put("msg", 1);
+		return map;
 	}
-	@RequestMapping("/joinedu.ajax")
-	@ResponseBody
-	public HashMap<String, Object> joinedu(@RequestParam HashMap<String, Object> params){
-		logger.info("교육기관 회원가입: "+params);
-		return service.joinedu(params);
-	}
-    @RequestMapping("/listparam.ajax")
-    @ResponseBody
-    public HashMap<String, Object> list1(@RequestParam HashMap<String, String> params) {
-       logger.info("리스트 요청!!! : {}",params);
-       return service.list(params);
-    }
     
     @RequestMapping("/mslist.ajax")
     @ResponseBody
     public HashMap<String, Object> mslist(@RequestParam HashMap<String, String> params) {
        logger.info("리스트 요청!!! : {}",params);
        return service.mslist(params);
-    }
-    
-    @RequestMapping(value = "/userList.go")
-    public String userList( Model model) {
-       logger.info("로그인후 페이지");
-       return "userList";
     }
     
     @RequestMapping(value = "/logout")
@@ -197,5 +184,49 @@ public class UserController {
        String msg = "로그아웃 되었습니다.";
        model.addAttribute("msg",msg);
        return "login";
+    }
+    
+    @RequestMapping(value = "/userList.go")
+    public String userList( Model model) {
+       logger.info("로그인후 페이지");
+       return "userList";
+    }
+    
+    @RequestMapping(value = "/eduList.go")
+    public String eduList( Model model) {
+       logger.info("로그인후 페이지");
+       return "eduList";
+    }
+    
+  //리스트 아작스 요청
+    @RequestMapping("user/list.ajax")
+    @ResponseBody
+    public HashMap<String, Object> list1(
+          @RequestParam HashMap<String, String> params
+          ) {
+       logger.info("일반회원 리스트 요청!!! : {}",params);
+       return service.list(params);
+    }
+    //리스트 아작스 요청
+    @RequestMapping("edu/list.ajax")
+    @ResponseBody
+    public HashMap<String, Object> list2(@RequestParam HashMap<String, String> params) {
+       logger.info("교육기관회원 리스트 요청!!! : {}",params);
+       return service.edulist(params);
+    }
+
+    @RequestMapping(value = "user/detail.go")
+    public String userDetail(Model model, HttpSession session, @RequestParam String mb_id) {
+       logger.info("상세보기 요청 : " + mb_id);   
+       UserDTO dto = service.userDetail(mb_id);
+       model.addAttribute("dto", dto);
+       return "userDetail";
+    }
+    @RequestMapping(value = "edu/detail.go")
+    public String eduDetail(Model model, HttpSession session, @RequestParam String mb_id) {
+       logger.info("상세보기 요청 : " + mb_id);   
+       UserDTO dto = service.eduDetail(mb_id);
+       model.addAttribute("dto", dto);
+       return "eduDetail";
     }
 }

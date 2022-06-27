@@ -21,7 +21,7 @@
 		mb_tel = #{param3}
 	</select>
 	<update id="newpass">
-		UPDATE mb SET mb_pass = #{param1} WHERE
+		UPDATE mb SET mb_pass = #{param1}
 	</update>
 	<insert id="eduJoin" parameterType="hashmap">
 		INSERT INTO
@@ -37,14 +37,32 @@
 		SELECT mb_stopcnt FROM mb WHERE mb_id = #{param1}
 	</select>
 	<insert id="joinedu" parameterType="hashmap">
-		INSERT INTO mb(rep_name,edu_name,mb_id)
+		INSERT INTO edu (rep_name,edu_name,mb_id)
 		VALUES(#{rep_name},#{edu_name},#{mb_id})
 	</insert>
 	<select id="list" resultType="com.prj.edu.dto.UserDTO">
 		SELECT mb_id, mb_name, category_idx
 		FROM mb limit #{param1} offset #{param2}
 	</select>
+	<select id="eduCount" resultType="int">
+		SELECT COUNT(edu_idx) FROM edu
+	</select>
+	<select id="edulist" resultType="com.prj.edu.dto.UserDTO">
+		SELECT mb_id, edu_name
+		FROM edu limit #{param1} offset #{param2}
+	</select>
 	<select id="allCount" resultType="int">
 		SELECT COUNT(mb_id) FROM mb
 	</select>
+	<select id="userDetail" parameterType="String"
+      resultType="com.prj.edu.dto.UserDTO">
+      SELECT mb_id, mb_name, mb_basic_addr, mb_postcode,
+      mb_gender, mb_tel, mb_birth, mb_major, mb_edu, category_idx FROM mb
+      WHERE mb_id=#{mb_id}
+   </select>
+   <select id="eduDetail" parameterType="String"
+      resultType="com.prj.edu.dto.UserDTO">
+      SELECT m.mb_id, e.rep_name, m.mb_basic_addr, m.mb_postcode,
+      m.mb_tel, e.edu_name FROM mb m, edu e WHERE m.mb_id=#{mb_id} AND e.mb_id=#{mb_id}
+   </select>
 </mapper>

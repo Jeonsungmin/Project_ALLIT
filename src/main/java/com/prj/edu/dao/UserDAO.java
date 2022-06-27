@@ -27,10 +27,19 @@ public interface UserDAO {
 
 	int cnt(String mb_id);
 
-	HashMap<String, Object> joinedu(HashMap<String, Object> params);
+	int joinedu(HashMap<String, Object> params);
 	
 	int allCount();
 
+	int eduCount();
+	
 	ArrayList<UserDTO> list(int cnt, int offset);
+	
+	ArrayList<UserDTO> edulist(int cnt, int offset);
+	
+	UserDTO userDetail(String mb_id);
+
+	UserDTO eduDetail(String mb_id);
+
 	
 }

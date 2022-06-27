@@ -213,7 +213,7 @@ footer {
             <div class="nav">
                <ul>
                   <li><a href="/">모집공고</a></li>
-                  <li><a href="/list">게시판</a></li>
+                  <li><a href="/boardlist.go">게시판</a></li>
                   <li><a href="/qna.go">Q&A</a></li>
                   <li><a href="/">마이페이지</a></li>
                </ul>

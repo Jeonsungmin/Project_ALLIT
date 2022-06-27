@@ -78,14 +78,13 @@ header {
 	clip: rect(1px, 1px, 1px, 1px);
 	white-space: nowrap;
 }
-
-.links { /* 링크들을 상단 우측에 위치시킵니다. */
+/*
+.links {  링크들을 상단 우측에 위치시킵니다. 
 	margin-right: 10px;
 	position: absolute;
 	top: 0;
 	right: 0;
-}
-
+} */
 .link_text {
 	font-size: 12px;
 	margin-left: 5px;
@@ -245,27 +244,12 @@ table, th, td {
 	text-align: center;
 }
 </style>
-</head>
+	<jsp:include page="./commons/loginBox.jsp"/>
+	<jsp:include page="./commons/smnav.jsp"/>
 
+	</head>
 <body>
 	<form action="userList" method="post">
-		<header>
-			<div class="links">
-				<a><%=session.getAttribute("loginId")%>님 환영합니다.</a>
-				 <a href="logout" class="link_text">로그아웃</a>
-			</div>
-			<a href="/"><img class="logo" src="resources/images/logo1.png" /></a>
-			<nav>
-				<div class="nav">
-					<ul>
-						<li><a href="/">모집공고</a></li>
-						<li><a href="/">게시판</a></li>
-						<li><a href="/qna.go">Q&A</a></li>
-						<li><a href="/">마이페이지</a></li>
-					</ul>
-				</div>
-			</nav>
-		</header>
 		<div id="leftnav">
 			<ul id="leftli">
 				<li><a href="/">마이페이지</a></li>
@@ -286,6 +270,16 @@ table, th, td {
 		<table style="margin-left: 200px; margin-top: -450px;">
 			<thead>
 				<tr>
+					<th><input type="button" name="member" value="일반회원"
+						checked="checked"
+						style="background-color: #aabde3ff; border: 0 white solid; margin: 5px 0px"></th>
+					<td style="font-weight: bold;"><input type="button"
+						name="member" value="교육기관회원"
+						onclick="window.location.href='eduList.go';"
+						style="background-color: #e8ecf4ff; border: 0 white solid; margin: 5px 0px"></td>
+				</tr>
+				<tr>
+					<th>번호</th>
 					<th>회원ID</th>
 					<th>회원이름</th>
 					<th>매니저여부</th>
@@ -297,7 +291,6 @@ table, th, td {
 			</tbody>
 			<tr>
 				<td colspan="4" id="paging">
-					<!-- plugin 사용법(twbspagination) , 이렇게 쓰라고 명시되어있음. -->
 					<div class="container">
 						<nav arial-label="Page navigation" style="text-align: center">
 							<ul class="pagination" id="pagination"></ul>
@@ -305,11 +298,10 @@ table, th, td {
 					</div>
 				</td>
 			</tr>
-		</table>
-
-
+	</table>
 	</form>
 </body>
+
 <script>
 	var currPage = 1;
 
@@ -332,7 +324,7 @@ table, th, td {
 
 		$.ajax({
 			type : 'GET',
-			url : '/listparam.ajax',
+			url : '/user/list.ajax',
 			data : {
 				cnt : pagePerNum,
 				page : page,
@@ -340,16 +332,14 @@ table, th, td {
 			dataType : 'JSON',
 			success : function(data) {
 				console.log(data);
-				drawList(data.list);
+				drawList(data.list,data.currPage);
 				currPage = data.currPage;
-				//불러오기가 성공되면 플러그인을 이용해 페이징 처리
 				$("#pagination").twbsPagination({
-					startPage : data.currPage,//시작 페이지
-					totalPages : data.pages,//총 페이지(전체 게시물 수 / 한 페이지에 보여줄 게시물 수)
-					visiblePages : 5,//한번에 보여줄 페이지 수[1][2][3][4][5]
-					onPageClick : function(e, page) {
-						//console.log(e);//클릭한 페이지와 관련된 이벤츠 객체
-						console.log(page);//사용자가 클릭한 페이지
+					startPage : data.currPage,
+					totalPages : data.pages,
+					visiblePages : 5,
+					onPageClick : function(e, page) {	
+						console.log(page);
 						currPage = page;
 						listCall(page);
 					}
@@ -361,23 +351,31 @@ table, th, td {
 			}
 		});
 	}
-
-	function drawList(list) {
+	function drawList(list,start) {
 		var content = '';
+		var result = 'X';
+		//console.log(start);
+		var num = ((start-1) * 5)+1;
+		console.log(num);
 		list.forEach(function(item) {
 			console.log(item);
 			content += '<tr>';
-			content += '<td>' + item.mb_id + '</td>';
+			content += '<td>'+(num++)+'</td>';
+			content += '<td><a href="user/detail.go?mb_id=' + item.mb_id + '">'
+					+ item.mb_id + '</a></td>';
 			content += '<td>' + item.mb_name + '</td>';
-			console.log(item.category_idx);
-			content += '<td>' + item.category_idx + '</td>';
+			if(item.category_idx==3){
+				result='O';	
+			}
+			content += '<td>' + result + '</td>';
 			content += '</tr>';
 		});
 		$('#list').empty();
 		$('#list').append(content);
 	}
-	function msg(){
+	function msg() {
 		alert("현재 화면입니다.");
 	}
 </script>
+
 </html>

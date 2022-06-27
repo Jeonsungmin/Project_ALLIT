@@ -89,14 +89,14 @@ public class UserService {
 		return dao.cnt(mb_id);
 	}
 
-	public HashMap<String, Object> joinedu(HashMap<String, Object> params) {
+	public int joinedu(HashMap<String, Object> params) {
 		logger.info("교육기관 회원가입 되는지?");
 		return dao.joinedu(params);
 	}
 
 	public HashMap<String, Object> list(HashMap<String, String> params) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		logger.info("ok");
+		logger.info("일반 회원 페이지");
 		int cnt = Integer.parseInt(params.get("cnt"));
 		int page = Integer.parseInt(params.get("page"));
 		logger.info("보여줄 페이지 : " + page);
@@ -112,15 +112,34 @@ public class UserService {
 		int offset = (page-1) * cnt;
 		logger.info("offset : " + offset);            
 		ArrayList<UserDTO> list = dao.list(cnt, offset);
-		/*for(UserDTO msg : list) {
-			if(msg.getCategory_idx()==3) {
-				
-			}
-		}*/
+		
 		map.put("list", list);
 		return map;
 	}
 	
+	public HashMap<String, Object> edulist(HashMap<String, String> params) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		logger.info("교육기관 회원 페이지");
+		int cnt = Integer.parseInt(params.get("cnt"));
+		int page = Integer.parseInt(params.get("page"));
+		logger.info("보여줄 페이지 : " + page);
+		int allCnt = dao.eduCount();
+		logger.info("allCnt:" + allCnt);
+		int pages = allCnt%cnt > 0 ? (allCnt/cnt)+1 : (allCnt/cnt);
+		logger.info("pages : " + pages);
+		if(page > pages) {
+			page = pages;
+		} 
+		map.put("pages", pages);      //만들 수 있는 최대 페이지 수
+		map.put("currPage", page); //현재 페이지
+		int offset = (page-1) * cnt;
+		logger.info("offset : " + offset);            
+		ArrayList<UserDTO> list = dao.edulist(cnt, offset);
+		logger.info("{} ",list);
+		map.put("list", list);
+		return map;
+	}
+
 	public HashMap<String, Object> mslist(HashMap<String, String> params) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		logger.info("Q&A 답변 페이지");
@@ -143,4 +162,22 @@ public class UserService {
 
 		return map;
 	}
+
+	public UserDTO userDetail(String mb_id) {
+		UserDTO dto = null;
+		logger.info(mb_id + "일반회원 상세보기 서비스 요청");
+		dto = dao.userDetail(mb_id);
+
+		return dto;
+	}
+
+	public UserDTO eduDetail(String mb_id) {
+		UserDTO dto = null;
+		logger.info(mb_id + "교육기관회원 상세보기 서비스 요청");
+		dto = dao.eduDetail(mb_id);
+
+		return dto;
+	}
+
+	
 }

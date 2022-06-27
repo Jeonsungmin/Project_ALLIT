@@ -27,13 +27,8 @@ public HashMap<String, Object> list(HashMap<String, String> params) {
 		int allCnt = dao.allCount();
 		logger.info("allCnt:" + allCnt);
 		int pages = allCnt%cnt > 0 ? (allCnt/cnt)+1 : (allCnt/cnt);
-		//총갯수(allCnt) / 페이지당 보여줄 갯수(cnt) = 생성 가능한 페이지(pages)
-		//464				5								= 93pages (마지막페이지 cnt=4)
-		//464/5=92.8나옴.	
-		
 		logger.info("pages : " + pages);
-		//currPage = pages
-		//currPage가 pages보다 크면 currPage를 pages로 맞춰준다?
+
 		if(page > pages) {
 			page = pages;
 		}
@@ -44,15 +39,6 @@ public HashMap<String, Object> list(HashMap<String, String> params) {
 		
 		int offset = (page-1) * cnt;
 		logger.info("offset : " + offset);
-		// page  :  (cnt)     =    offset
-		// 1			0~4				0		
-		// 2			5~9				5
-		// 3			10~14			10
-		// 4			15~19			15
-		// 5			20	~24			20 
-		// 6 			25	~29			25
-		//1씩 증가하면 5씩 증가?
-		
 			
 		ArrayList<QnaDTO> list = dao.list(cnt, offset);
 		map.put("list", list);
