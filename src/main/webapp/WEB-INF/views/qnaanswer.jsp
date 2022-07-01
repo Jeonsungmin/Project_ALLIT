@@ -54,17 +54,17 @@ h1{margin:200px 40% 10px 40%;}
 		<table>
 			<tr>
 				<th>답변자 ID</th>
-				<td id="qna_answer_id"><input type="text" value="매니저1" readonly/></td>
+				<td><input type="text" id="qna_answer_id" name="qna_answer_id" value="${sessionScope.loginId}" readonly/></td>
 				<th>작성일자</th>
 				<td><input type='date' id='currnetMonth' name="qna_answer_date" readonly></td>
 			</tr>
 			<tr>
 				<td colspan="2" text-align:center>내용</td>
-				<td colspan="2"><textarea name="qna_answer" id="qna_answer" style="width: 399px; height: 241px;"/></textarea></td>
+				<td colspan="2"><textarea name="qna_answer" id="qna_answer" style="width: 399px; height: 241px;">${dto.qna_answer}</textarea></td>
 			</tr>
 			<tr>
 				<th colspan="2">
-					<input type="button" value="돌아가기" onclick="location.href='list.go(매니저qna리스트페이지로 변경해야함)'">
+					<input type="button" value="돌아가기" onclick="location.href='/msdetail.go'">
 					<input type="submit" value="답변하기"/>
 				</th>
 			</tr>

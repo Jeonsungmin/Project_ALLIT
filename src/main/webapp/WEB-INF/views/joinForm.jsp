@@ -191,7 +191,6 @@ function join() {
    var major = $("input[name='mb_major']").val();
    var status = 0;
    var stopcnt = 0;
-   var withdraw = 0;
    var category_idx = 1;
    
    if(checkId&&checkPw!=false){
@@ -213,7 +212,6 @@ function join() {
 			  mb_major:major,
 			  mb_status:status,
 			  mb_stopcnt:stopcnt,
-			  mb_withdraw:withdraw,
 			  category_idx:category_idx
 		  },
 		  dataType:'JSON',

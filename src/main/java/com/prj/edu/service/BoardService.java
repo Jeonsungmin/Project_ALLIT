@@ -69,9 +69,9 @@ public class BoardService {
 	}
 
 
-
+	// 김동훈 수정
 	public BoardDTO boarddetail(String board_idx) {
-		BoardDTO dto = null;
+		BoardDTO dto = new BoardDTO();
 		logger.info(board_idx + "상세보기 서비스 요청");
 		dto = dao.boarddetail(board_idx);
 		logger.info("content : " + dto.getBoard_content());
@@ -132,20 +132,23 @@ public class BoardService {
 		return success;
 	}
 
-
-
 	public void cmtdel(String cmt_idx, String loginId) {
 		dao.cmtdel(cmt_idx, loginId);
 		
 	}
 
-
-
 	
-
 	
+	
+	public String chk_blind(String board_idx) { // 김동훈 추가
+		logger.info("블라인드여부 확인 서비스"); // 김동훈 추가
+		return dao.chk_blind(board_idx); // 김동훈 추가
+	} // 김동훈 추가
 
 
 
+	public String cateId(String id) { // 김동훈 추가
+		return dao.cateId(id); // 김동훈 추가
+	}
 	
 }

@@ -56,6 +56,15 @@ public class BoardController {
 		String page = "boardList"; //redirect:/
 		logger.info("상세보기 요청 : " + board_idx);
 		
+		String blind = service.chk_blind(board_idx); // 김동훈 추가
+		logger.info(blind); // 김동훈 추가
+		
+		String id = (String) session.getAttribute("loginId"); // 김동훈 추가
+		String cateId = service.cateId(id); // 김동훈 추가
+		logger.info(cateId);
+		
+
+		
 		if(session.getAttribute("loginId") != null) {
 			service.board_hits(board_idx); //조회수
 			BoardDTO dto = service.boarddetail(board_idx);
@@ -68,12 +77,20 @@ public class BoardController {
 				logger.info("댓글? : " + cmtlist.size());
 				model.addAttribute("cmtlist", cmtlist);
 				model.addAttribute("cmtsize", cmtlist.size());
-								
-				
 			}
 		}else {
 			model.addAttribute("msg", "로그인이 필요한 서비스입니다,");
+		}	
+		
+		if(blind != null && blind.equals("1")) { // 김동훈 추가
+			model.addAttribute("msg", "블라인드 처리된 게시글입니다."); // 김동훈 추가
+			page = "boardList"; // 김동훈 추가
+			if(cateId.equals("매니저 회원") || cateId.equals("관리자")) {
+				page = "boarddetail";
+			}
 		}
+		
+		model.addAttribute("cateId",cateId);
 			
 		
 		return page;

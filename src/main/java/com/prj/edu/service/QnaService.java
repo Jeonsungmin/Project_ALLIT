@@ -66,15 +66,9 @@ public HashMap<String, Object> list(HashMap<String, String> params) {
 		return dto;
 	}
 
-	public boolean answer(HashMap<String, String> params) {
-		
-		logger.info("글쓰기 서비스");
-		boolean success = false;		
-		
-		if(dao.answer(params)>0) {
-			success = true;
-		}		
-		return success;
+	public int answer(HashMap<String, Object> params) {
+		logger.info("답변 달기 서비스");
+		return dao.answer(params);
 	}
 
 	public QnaDTO dbdetail(String qna_idx) {

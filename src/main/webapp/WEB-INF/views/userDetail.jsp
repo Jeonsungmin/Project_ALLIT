@@ -62,14 +62,45 @@ h1 {
             <th>최종학력</th>
             <td>${dto.mb_edu}</td>
          </tr>
+         </table>
+         
+         <table>
          <tr>
             <th>매니저</th>
-            <td>${dto.category_idx}</td>
+            <td>
+                 <input type="radio" name="authorize" value="권한 위임">권한 위임
+            <input type="radio" name="authorize" value="권한 해제" checked="checked">권한 해제
+         </td>
+         </tr>
+         </table>
+         
+         <table>
+         <tr>
+            <th>정지상태</th>
+            <td>
+               <input type="checkbox" name="mb_status" value="정지" ">정지
+         </td>
+            <th>정지횟수</th>
+            <td>${dto.mb_stopcnt}</td>
+         </tr>
+         <tr>
+            <th>정지기간</th>
+            <td><input type="date" name="stop_start"> ~ <input type="date" name="stop_end"></td>
+         </tr>
+         <tr>
+            <th>정지사유</th>
+            <td>
+               <input type="radio" name="stop_reason" value="욕설">욕설
+            <input type="radio" name="stop_reason" value="개인정보 유출 위험">개인정보 유출 위험
+            <input type="radio" name="stop_reason" value="음란/유해">음란/유해<br>
+            <input type="radio" name="stop_reason" value="허위광고">허위광고
+            <input type="radio" name="stop_reason" value="도배">도배
+         </td>
          </tr>
          <tr>
             <th colspan="2">
                <input type="button" value="돌아가기" onclick="location.href='user/list.ajax'"> 
-               <input type="button" value="답변하기" onclick="location.href='detail.go?mb_id=${dto.mb_id}'" />
+               <input type="button" value="저장하기" onclick="location.href='detail.go?mb_id=${dto.mb_id}'" />
             </th>
          </tr>
    </table>

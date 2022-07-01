@@ -7,11 +7,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.prj.edu.dao.BoardDAO;
 import com.prj.edu.dao.PhotoDAO;
 import com.prj.edu.dao.QnaDAO;
 import com.prj.edu.dao.UserDAO;
+import com.prj.edu.dto.BoardDTO;
 import com.prj.edu.dto.EduDTO;
 import com.prj.edu.dto.QnaDTO;
 import com.prj.edu.dto.UserDTO;
@@ -20,6 +23,8 @@ import com.prj.edu.dto.UserDTO;
 public class UserService {
 	@Autowired UserDAO dao;
 	@Autowired QnaDAO qnadao;
+	@Autowired BoardDAO boarddao;
+	
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	public String login(String mb_id, String mb_pass) {
@@ -112,11 +117,11 @@ public class UserService {
 		int offset = (page-1) * cnt;
 		logger.info("offset : " + offset);            
 		ArrayList<UserDTO> list = dao.list(cnt, offset);
-		
+
 		map.put("list", list);
 		return map;
 	}
-	
+
 	public HashMap<String, Object> edulist(HashMap<String, String> params) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		logger.info("교육기관 회원 페이지");
@@ -158,6 +163,7 @@ public class UserService {
 		int offset = (page-1) * cnt;
 		logger.info("offset : " + offset);            
 		ArrayList<QnaDTO> list = qnadao.mslist(cnt, offset);
+		logger.info("{}, ",list);
 		map.put("list", list);
 
 		return map;
@@ -179,5 +185,125 @@ public class UserService {
 		return dto;
 	}
 
+	public UserDTO userInfo(String id) {
+		UserDTO dto = null;
+		logger.info(id + "개인정보 조회 서비스 요청");
+		dto = dao.userInfo(id);
+
+		return dto;
+	}
+	public void delete(String mb_id) {
+		logger.info("탈퇴 서비스 요청");
+		dao.delete(mb_id);
+	}
+
+	public UserDTO eduInfo(String id) {
+		UserDTO dto = null;
+		logger.info(id + "개인정보 조회 서비스 요청");
+		dto = dao.eduInfo(id);
+
+		return dto;
+	}
+
+	public HashMap<String, Object> userupdate(HashMap<String, Object> params) {
+		logger.info("{} : 수정하기 확인");
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		int num = dao.userupdate(params);
+		map.put("msg",num);
+		return map;
+	}
+
+	public int userCategory(String loginId) {
+		return dao.userCategory(loginId);
+	}
+
+	public HashMap<String, Object> reportList(HashMap<String, String> params) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		logger.info("신고 회원 리스트 페이지");
+		int cnt = Integer.parseInt(params.get("cnt"));
+		int page = Integer.parseInt(params.get("page"));
+		logger.info("보여줄 페이지 : " + page);
+		int rpCnt = boarddao.reportCount();
+		logger.info("rpCnt:" + rpCnt);
+		int pages = rpCnt%cnt > 0 ? (rpCnt/cnt)+1 : (rpCnt/cnt);
+		logger.info("pages : " + pages);
+		if(page > pages) {
+			page = pages;
+		} 
+		map.put("pages", pages);      //만들 수 있는 최대 페이지 수
+		map.put("currPage", page); //현재 페이지
+		int offset = (page-1) * cnt;
+		logger.info("offset : " + offset);            
+		ArrayList<BoardDTO> list = boarddao.reportList(cnt, offset);
+		logger.info("{} ",list);
+		map.put("list", list);
+		return map;
+	}
+
+	public String loginok(String mb_id, int num) {
+		String page = "login";
+		switch(num) {
+		case 1: page = "redirect:/userInfo.go?mb_id="+mb_id;
+		break;
+		case 2: page = "redirect:/eduInfo.go?mb_id="+mb_id;
+		break;
+		case 3: page = "userList";
+		break;
+		case 4: page = "userList";
+		break;  
+		default : page = "login";
+		break;
+		}
+		return page;
+	}
+
+	public HashMap<String, Object> blackList(HashMap<String, String> params) {
+	       HashMap<String, Object> map = new HashMap<String, Object>();
+	         logger.info("정지 회원 리스트 페이지");
+	         int cnt = Integer.parseInt(params.get("cnt"));
+	         int page = Integer.parseInt(params.get("page"));
+	         logger.info("보여줄 페이지 : " + page);
+	         int blCnt = dao.blackCount(); //bl = black
+	         logger.info("blCnt:" + blCnt);
+	         int pages = blCnt%cnt > 0 ? (blCnt/cnt)+1 : (blCnt/cnt);
+	         logger.info("pages : " + pages);
+	         if(page > pages) {
+	            page = pages;
+	         } 
+	         map.put("pages", pages);      //만들 수 있는 최대 페이지 수
+	         map.put("currPage", page); //현재 페이지
+	         int offset = (page-1) * cnt;
+	         logger.info("offset : " + offset);            
+	         ArrayList<UserDTO> list = dao.blackList(cnt, offset);
+	         logger.info("{} ",list);
+	         map.put("list", list);
+	         return map;
+	   }
+
+	public HashMap<String, Object> usqnalist(HashMap<String, String> params, String name) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		logger.info("작성한 Q&A 확인 페이지");
+		int cnt = Integer.parseInt(params.get("cnt"));
+		int page = Integer.parseInt(params.get("page"));
+		int allCnt = dao.allCount();
+		int pages = allCnt%cnt > 0 ? (allCnt/cnt)+1 : (allCnt/cnt);
+		if(page > pages) {
+			page = pages;
+		} 
+		map.put("pages", pages);      //만들 수 있는 최대 페이지 수
+		map.put("currPage", page); //현재 페이지
+		int offset = (page-1) * cnt;
+		logger.info("offset : " + offset);            
+		ArrayList<QnaDTO> list = qnadao.usqnalist(cnt, offset, name);
+		
+		map.put("list", list);
+		return map;
+	}
+
+	public void blind(String board_idx, String blindYn, String report_idx , String report_state) {
+		boarddao.blind(board_idx, blindYn);
+		boarddao.report_state(report_idx, report_state);
+		logger.info("업데이트 요청한 report : " + report_idx + " / " + report_state);
+	}
 	
 }

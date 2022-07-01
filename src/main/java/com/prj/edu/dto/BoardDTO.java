@@ -12,8 +12,18 @@ public class BoardDTO {
 	private String board_category;
 	private boolean board_blind;
 	private String mb_id;
+	private String report_reason;
+	private Date report_date;
+	private String report_state;
+	private String report_idx; //김동훈
 	
-	
+
+	public String getReport_idx() {
+		return report_idx;
+	}
+	public void setReport_idx(String report_idx) {
+		this.report_idx = report_idx;
+	}
 	public String getMb_id() {
 		return mb_id;
 	}
@@ -62,9 +72,25 @@ public class BoardDTO {
 	public void setBoard_blind(boolean board_blind) {
 		this.board_blind = board_blind;
 	}
-	
-	
-	
-	
-	
+	public String getReport_reason() {
+		return report_reason;
+	}
+	public void setReport_reason(String report_reason) {
+		this.report_reason = report_reason;
+	}
+	public Date getReport_date() {
+		return report_date;
+	}
+	public void setReport_date(Date report_date) {
+		this.report_date = report_date;
+	}
+	public String getReport_state() {
+		return report_state;
+	}
+	public void setReport_state(String report_state) {
+		this.report_state = report_state;
+	}
+
+
+
 }

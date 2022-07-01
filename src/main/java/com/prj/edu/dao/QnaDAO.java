@@ -16,12 +16,14 @@ public interface QnaDAO {
 
 	QnaDTO detail(String qna_idx);
 
-	int answer(HashMap<String, String> params);
+	int answer(HashMap<String, Object> params);
 
 	QnaDTO dbdetail(String qna_idx);
 
 	int msCount();
 	
 	ArrayList<QnaDTO> mslist(int cnt, int offset);
+
+	ArrayList<QnaDTO> usqnalist(int cnt, int offset, String name);
 
 }

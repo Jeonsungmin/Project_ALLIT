@@ -1,21 +1,22 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Q&A 페이지</title>
-<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+<title>Insert title here</title>
+<link
+	href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="resources/js/jquery.twbsPagination.js"></script> <!-- 페이징 처리 -->
+<script
+	src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+<script type="text/javascript"
+	src="resources/js/jquery.twbsPagination.js"></script>
+<!-- 페이징 처리 -->
 <style>
-* {
-   margin: 0;
-   padding: 0;
-}
-
-body {
+   body {
    font-family: sans-serif;
 }
 
@@ -251,58 +252,52 @@ table, th, td {
 th {
    background-color: #e8ecf4ff;
 }
+
 </style>
-<jsp:include page="./commons/loginBox.jsp" />
 </head>
 <body>
-	<!--<h1>Q&A</h1>
-	<p>서비스 이용에 대하여 궁금한 점이나 문의사항을 등록해 주시면 빠른 시간 내에 답변해 드리겠습니다.</p>-->
-	<!--<h3>검색<input type="text" name="search"><button onclick="location.href='searching.do'">검색</button></h3>-->
-   <header>
-			<a href="/"><img class="logo" src="resources/images/logo1.png" /></a>
-			<nav>
-				<div class="nav">
-					<ul>
-						<li><a href="/">모집공고</a></li>
-						<li><a href="/boardlist.go">게시판</a></li>
-						<li><a href="/qna.go">Q&A</a></li>
-						<li><a href="/vslogin.go">마이페이지</a></li>
-					</ul>
-				</div>
-			</nav>
-		</header>
-		<br>
-   <select id="pagePerNum" style = "margin-left: 150px;">
-      <option value="5">5개씩 보기</option>
-      <option value="10">10개씩 보기</option>
-      <option value="15">15개씩 보기</option>
-      <option value="20">20개씩 보기</option>
-   </select>
-   <button onclick="location.href='qnaWrite.go'">글쓰기</button>
+<input type="hidden" id="loginid" value="${sessionScope.loginId}"/>
+	<select id="pagePerNum">
+		<option value="5">5개씩</option>
+		<option value="10">10개씩</option>
+		<option value="15">15개씩</option>
+		<option value="20">20개씩</option>
+	</select>
+	<select id="msg_open">
+		<option value="1" >읽음</option>
+		<option value="0" selected="selected">안읽음</option>
+	</select>
+	<tr>
+		<th colspan="2"><input type="button" value="쪽지 수신함"> <input
+			type="button" value="쪽지 발신함" onclick="location.href='sendHistory.go?'" /><!--${sessionScope.loginId}-->
+		</th>
+	</tr>
 	<table>
 		<thead>
 			<tr>
+				<th><input type="checkbox" id="all"></input></th>
 				<th>번호</th>
-				<th>제목</th>
-				<th>작성일</th>
-				<th>작성자ID</th>
-				<th>답변여부</th>
+				<th>발신자ID</th>
+				<th>내용</th>
+				<th>수신일</th>
+				<th>알람여부</th>
 			</tr>
 		</thead>
-		<tbody id="list">
-		
+		<tbody id="msgreceivelist">
+
 		</tbody>
 		<tr>
-         <td colspan="4" id="paging">
-            <!-- plugin 사용법(twbspagination) , 이렇게 쓰라고 명시되어있음. -->
-            <div class="container">
-               <nav arial-label="Page navigation" style="text-align:center">
-               <ul class="pagination" id="pagination"></ul>
-               </nav>
-            </div>
-         </td>
-      	</tr>	
+			<td colspan="4" id="paging">
+				<!-- plugin 사용법(twbspagination) , 이렇게 쓰라고 명시되어있음. -->
+				<div class="container">
+					<nav arial-label="Page navigation" style="text-align: center">
+						<ul class="pagination" id="pagination"></ul>
+					</nav>
+				</div>
+			</td>
+		</tr>
 	</table>
+	<button onclick="del()">삭제</button>
 </body>
 <script>
 
@@ -318,21 +313,43 @@ $('#pagePerNum').on('change',function(){
   listCall(currPage);    
 });
 
+$('#msg_open').on('change', function(){
+	 var openok = $('#msg_open').val();
+	 	console.log(openok);
+	 	$.ajax({
+	 		type:'get',
+	 		url:'opentest.ajax',
+	 		data : {openok : openok},
+	 		dataType:'JSON',
+	 		success:function(data){
+	 			console.log("성공");
+	 			listCall(currPage);
+	 		},
+	 		error:function(e){
+	 			consloe.log(e);
+	 		}
+	 	});
+	});
+
 function listCall(page){
-   
+	var id = $('#loginid').val();
+	var openok = $('#msg_open').val();
    var pagePerNum = $('#pagePerNum').val();
    console.log("param page : " +page);
    $.ajax({
       type:'GET',
-      url:'list.ajax',
+      url:'msgreceivelist.ajax',
       data:{
          cnt : pagePerNum,
-         page : page
+         page : page,
+         opentest : openok,
+         id : id
          },
       dataType:'JSON',
       success:function(data){
          console.log(data);
-         drawList(data.list);
+         console.log(data.msgcnt);
+         drawList(data.msgreceivelist);
          currPage = data.currPage;
          //불러오기가 성공되면 플러그인을 이용해 페이징 처리
          $("#pagination").twbsPagination({
@@ -354,27 +371,64 @@ function listCall(page){
    });
 }
 
-function drawList(list){
+function drawList(msgreceivelist){
     var content = '';
-    list.forEach(function(item){
-    	var date = new Date(item.qna_date); 
+    msgreceivelist.forEach(function(item){
+    	var date = new Date(item.msg_receive_date);
        console.log(item);
        content += '<tr>';
-       content += '<td>'+item.qna_idx+'</td>';
-       content += '<td><a href="detail.go?qna_idx='+item.qna_idx+'">'+item.qna_title+'</a></td>';
+       content += '<td><input type="checkbox" value="'+item.msg_idx+'" /></td>';
+       content += '<td>'+item.msg_idx+'</td>';
+       content += '<td>'+item.sender_id+'</td>';
+       content += '<td><a href="msgdetail.go?msg_idx='+item.msg_idx+'">'+item.msg_content+'</a></td>';
        content += '<td>'+date.toLocaleDateString("ko-KR")+'</td>';
-       content += '<td>'+item.mb_id+'</td>';
-       if(item.qna_answer_chk == false ){
-    	   content += '<td>'+"미답변"+'</td>';	   
-       }else {content += '<td>'+"답변완료"+'</td>';	
+       if(item.msg_open == false ){
+    	   content += '<td>'+"안읽음"+'</td>';	   
+       }else {content += '<td>'+"읽음"+'</td>';	
        }
-       //content += '<td>'+item.qna_answer_chk+'</td>';
        content += '</tr>';
-    });
-    $('#list').empty();
-    $('#list').append(content);
- }
+    	});
+    $('#msgreceivelist').empty();
+    $('#msgreceivelist').append(content);
 
+}   	
+    	
+ $('#all').click(function(){
+	 
+	 var $chk = $('input[type="checkbox"]');
+	 
+	 if($(this).is(":checked")){
+		 $chk.prop("checked",true);
+	 }else{
+		 $chk.prop("checked",false);
+	 }
+ });
 
+ 
+ function del(){
+		var chkArr = [];
+		
+		//check 된 체크박스의 박을 가져온다.
+		$('#msgreceivelist input[type="checkbox"]:checked').each(function(msg_idx,item){
+			chkArr.push($(this).val());
+		});
+		
+		console.log(chkArr);
+		
+		$.ajax({
+			type:'get',
+			url:'receivedelete.ajax',
+			data:{delList:chkArr},
+			dataType:'JSON',
+			success:function(data){
+					listCall(currPage);	
+			},
+			error:function(e){
+				console.log(e);
+			}		
+		});
+}
+
+	
 </script>
 </html>

@@ -6,6 +6,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <style>
 
 table{
@@ -64,13 +65,13 @@ h1{margin:200px 40% 10px 40%;}
 			</tr>
 			<tr>
 				<th colspan="2">
-					<input type="button" value="돌아가기" onclick="location.href='/list.go'">
-					<!--<input type="button" value="답변하기" onclick="location.href='answer.go?qna_idx=${dto.qna_idx}'"/>-->
+					<input type="button" value="돌아가기" onclick="location.href='/qnaHistory.go'">
 				</th>
 		</thead>
 	</table>
 </body>
 <script>
+
 
 </script>
 </html>

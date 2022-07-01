@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.prj.edu.dto.EduDTO;
-import com.prj.edu.dto.QnaDTO;
 import com.prj.edu.dto.UserDTO;
 
 public interface UserDAO {
@@ -28,18 +27,31 @@ public interface UserDAO {
 	int cnt(String mb_id);
 
 	int joinedu(HashMap<String, Object> params);
-	
+
 	int allCount();
 
 	int eduCount();
-	
+
 	ArrayList<UserDTO> list(int cnt, int offset);
-	
+
 	ArrayList<UserDTO> edulist(int cnt, int offset);
-	
+
 	UserDTO userDetail(String mb_id);
 
 	UserDTO eduDetail(String mb_id);
 
-	
+	UserDTO userInfo(String id);
+
+	void delete(String mb_id);
+
+	UserDTO eduInfo(String id);
+
+	int userupdate(HashMap<String, Object> params);
+
+	int userCategory(String loginId);
+
+	int blackCount();
+
+	ArrayList<UserDTO> blackList(int cnt, int offset);
+
 }

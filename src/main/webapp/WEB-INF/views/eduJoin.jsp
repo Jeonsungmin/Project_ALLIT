@@ -177,7 +177,6 @@ function join() {
 	   //var photo = $("input[name='photo_category']").val();
 	   var status = 0;
 	   var stopcnt = 0;
-	   var withdraw = 0;
 	   var category_idx = 2;
 	   
 	   if(checkId&&checkPw!=false){
@@ -198,7 +197,6 @@ function join() {
 				  //포토 자리 추가해야됨
 				  mb_status:status,
 				  mb_stopcnt:stopcnt,
-				  mb_withdraw:withdraw,
 				  category_idx:category_idx
 			  },
 			  dataType:'JSON',

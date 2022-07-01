@@ -1,14 +1,26 @@
+<%@page import="org.apache.ibatis.reflection.SystemMetaObject"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page session="false"%>
-<!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>ALLIT</title>
-<style>
+<meta charset="UTF-8">
+<title>교육기관회원 마이페이지</title>
+<link
+   href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+   rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script
+   src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+<script type="text/javascript"
+   src="resources/js/jquery.twbsPagination.js"></script>
+<!-- 페이징 처리 -->
+
+</head>
+<body>
+   <jsp:include page="./commons/loginBox.jsp" />
+   <jsp:include page="./commons/smnav.jsp" />
+   <style>
 * {
    margin: 0;
    padding: 0;
@@ -141,7 +153,10 @@ header>nav {
    align-items: center;
 }
 
-
+main {
+   background: #ffffff;
+   min-height: 700px;
+}
 
 .test_box {
    margin: 400px;
@@ -169,6 +184,37 @@ ul {
    padding: 0;
 }
 
+#leftnav>ul {
+   background-color: #a4bdefff;
+   width: 150px;
+   list-style-type: none;
+   margin: 0;
+   padding: 0;
+}
+
+#leftnav>ul>li:first-child {
+   background-color: #efd2a4ff;
+}
+
+#leftnav>ul>li {
+   height: 80px;
+   text-align: center;
+   padding-top: 30px;
+}
+
+#leftnav>ul>li a {
+   display: block;
+   color: #000000;
+   padding: 8px;
+   text-decoration: none;
+   font-weight: bold;
+}
+
+#leftnav>ul>li a:hover {
+   background-color: #CD853F;
+   color: white;
+}
+
 footer {
    width: 1080px;
    height: 40px;
@@ -194,36 +240,80 @@ footer {
 .bottom_box ul>li:last-child { /* 마지막 li요소 (Naver Corp.) 굵게 */
    font-weight: bold;
 }
+
+.links {
+   margin-right: 30px;
+}
+
+table {
+   width: 1080px;
+   margin-left: 50%;
+   margin-right: 50%;
+}
+
+table, th, td {
+   border: 1px solid black;
+   border-collapse: collapse;
+   padding: 5px;
+   margin: auto;
+   text-align: center;
+}
+
+th {
+   background-color: #e8ecf4ff;
+}
 </style>
-</head>
-<body>
-	<header>
-			<a href="/"><img class="logo" src="resources/images/logo1.png" /></a>
-			<nav>
-				<div class="nav">
-					<ul>
-						<li><a href="/">모집공고</a></li>
-						<li><a href="/boardlist.go">게시판</a></li>
-						<li><a href="/qna.go">Q&A</a></li>
-						<li><a href="/vslogin.go">마이페이지</a></li>
-					</ul>
-				</div>
-			</nav>
-		</header>
-		<!--<footer>
-         <div class="bottom_box">
-            <ul>
-               <li><a href="/">회사소개</a></li>
-               <li><a href="/">인재채용</a></li>
-               <li><a href="/">이용약관</a></li>
-               <li><a href="/">개인정보처리방침</a></li>
-               <li><a href="/">청소년보호정책</a></li>
-               <li><a href="/">ALLIT 정책</a></li>
-               <li><a href="/">고객센터</a></li>
-            </ul>
-         </div>
-      </footer>-->
+   <form action="eduInfo" method="post">
+      <div id="leftnav">
+         <ul id="leftli">
+            <li><a href="/eduInfo.go?mb_id=${id}">마이페이지</a></li>
+            <li><a href="/">상담신청 내역</a></li>
+            <li><a onclick="msg()">작성한 모집공고</a></li>
+            <li><a href="/">작성한 Q&A</a></li>
+            <li><a href="/eduInfo.go?mb_id=${id}">교육기관 정보 조회</a></li>
+         </ul>
+      </div>
+      <table class="info" style="margin-left: 225px; margin-top: -300px;">
+         <tr>
+            <th>아이디</th>
+            <td>${dto.mb_id}</td>
+         </tr>
+         <tr>
+            <th>대표자 성명</th>
+            <td style="width: 400px;">${dto.rep_name}</td>
+         </tr>
+         <tr>
+            <th>패스워드</th>
+            <td>${dto.mb_pass}</td>
+         </tr>
+         <tr>
+            <th>연락처</th>
+            <td>${dto.mb_tel}</td>
+         </tr>
+         <tr>
+            <th>이메일</th>
+            <td>${dto.mb_email}</td>
+         </tr>
+         <tr>
+            <th>상세주소</th>
+            <td>${dto.mb_detail_addr}</td>
+            <th>우편번호</th>
+            <td style="width: 400px;">${dto.mb_postcode}</td>
+         </tr>
+
+         <tr>
+            <th>교육기관명</th>
+            <td>${dto.edu_name}</td>
+         </tr>
+      </table>
+      <div style="margin-left: 1175px; margin-top: 50px;">
+         <input type="button" value="수정하기" onclick="location.href=''">
+         <input type="button" value="탈퇴하기"
+            onclick="location.href='userInfo.go?mb_id=${dto.mb_id}'" />
+      </div>
+   </form>
 </body>
 <script>
+   
 </script>
 </html>

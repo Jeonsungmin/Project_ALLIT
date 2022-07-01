@@ -215,7 +215,7 @@ footer {
                   <li><a href="/">모집공고</a></li>
                   <li><a href="/boardlist.go">게시판</a></li>
                   <li><a href="/qna.go">Q&A</a></li>
-                  <li><a href="/">마이페이지</a></li>
+                  <li><a href="/vslogin.go">마이페이지</a></li>
                </ul>
             </div>
          </nav>

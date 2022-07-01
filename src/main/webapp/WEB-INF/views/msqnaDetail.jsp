@@ -15,11 +15,7 @@
 <script type="text/javascript"
 	src="resources/js/jquery.twbsPagination.js"></script>
 <!-- 페이징 처리 -->
-<style></style>
-
-</head>
-<body>
-	<style>
+<style>
 * {
 	margin: 0;
 	padding: 0;
@@ -245,34 +241,30 @@ table, th, td {
 	text-align: center;
 }
 </style>
+<jsp:include page="./commons/loginBox.jsp" />
 </head>
-
 <body>
 	<form action="userList" method="post">
 		<header>
-			<div class="links">
-				<a><%=session.getAttribute("loginId")%>님 환영합니다.</a>
-				 <a href="logout" class="link_text">로그아웃</a>
-			</div>
 			<a href="/"><img class="logo" src="resources/images/logo1.png" /></a>
 			<nav>
 				<div class="nav">
 					<ul>
 						<li><a href="/">모집공고</a></li>
-						<li><a href="/">게시판</a></li>
-						<li><a href="/">Q&A</a></li>
-						<li><a href="/">마이페이지</a></li>
+						<li><a href="/boardlist.go">게시판</a></li>
+						<li><a href="/qna.go">Q&A</a></li>
+						<li><a href="/vslogin.go">마이페이지</a></li>
 					</ul>
 				</div>
 			</nav>
 		</header>
 		<div id="leftnav">
 			<ul id="leftli">
-				<li><a href="/">마이페이지</a></li>
-				<li><a href="/userList.go">회원정보조회</a></li>
-				<li><a onclick="down()">Q&A 답변</a></li>
-				<li><a href="/">회원신고관리</a></li>
-				<li><a href="/">정지회원관리</a></li>
+				<li><a>마이페이지</a></li>
+				<li><a href="/vslogin.go">회원정보조회</a></li>
+				<li><a href="/msdetail.go">Q&A 답변</a></li>
+				<li><a href="/reportList.go">회원신고관리</a></li>
+				<li><a href="/blackList.go">정지회원관리</a></li>
 			</ul>
 		</div>
 
@@ -299,7 +291,6 @@ table, th, td {
 			</tbody>
 			<tr>
 				<td colspan="4" id="paging">
-					<!-- plugin 사용법(twbspagination) , 이렇게 쓰라고 명시되어있음. -->
 					<div class="container">
 						<nav arial-label="Page navigation" style="text-align: center">
 							<ul class="pagination" id="pagination"></ul>
@@ -308,8 +299,6 @@ table, th, td {
 				</td>
 			</tr>
 		</table>
-
-
 	</form>
 </body>
 <script>
@@ -366,13 +355,19 @@ table, th, td {
 
 	function drawList(list) {
 		var content = '';
+		var num='미답변';
 		list.forEach(function(item) {
+			var date = new Date(item.qna_date);
 			console.log(item);
 			content += '<tr>';
+			content += '<td>' + item.qna_idx + '</td>';
+			content += '<td><a href="/answer.go?qna_idx=' + item.qna_idx +'">' + item.qna_title + '</a></td>';
 			content += '<td>' + item.mb_id + '</td>';
-			content += '<td>' + item.mb_name + '</td>';
-			console.log(item.category_idx);
-			content += '<td>' + item.category_idx + '</td>';
+			content += '<td>' + date.toLocaleDateString("ko-KR").replace(/\.$/, '') + '</td>';
+			if(item.qna_answer_chk==1){
+				num='답변완료';
+			}
+			content += '<td>' + num + '</td>';
 			content += '</tr>';
 		});
 		$('#list').empty();

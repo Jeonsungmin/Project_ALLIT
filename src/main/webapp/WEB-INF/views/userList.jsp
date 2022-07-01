@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>관리자 유저관리 페이지</title>
 <link
 	href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
 	rel="stylesheet">
@@ -15,11 +15,7 @@
 <script type="text/javascript"
 	src="resources/js/jquery.twbsPagination.js"></script>
 <!-- 페이징 처리 -->
-<style></style>
-
-</head>
-<body>
-	<style>
+<style>
 * {
 	margin: 0;
 	padding: 0;
@@ -244,19 +240,31 @@ table, th, td {
 	text-align: center;
 }
 </style>
-	<jsp:include page="./commons/loginBox.jsp"/>
-	<jsp:include page="./commons/smnav.jsp"/>
-
-	</head>
+<jsp:include page="./commons/loginBox.jsp" />
+<%-- <jsp:include page="./commons/smnav.jsp"/> --%>
+</head>
 <body>
-	<form action="userList" method="post">
+	<header>
+		<a href="/"><img class="logo" src="resources/images/logo1.png" /></a>
+		<nav>
+			<div class="nav">
+				<ul>
+					<li><a href="/">모집공고</a></li>
+					<li><a href="/boardlist.go">게시판</a></li>
+					<li><a href="/qna.go">Q&A</a></li>
+					<li><a href="/vslogin.go">마이페이지</a></li>
+				</ul>
+			</div>
+		</nav>
+	</header>
+	<form action="userList.go" method="post">
 		<div id="leftnav">
 			<ul id="leftli">
-				<li><a href="/">마이페이지</a></li>
-				<li><a onclick="msg()">회원정보조회</a></li>
+				<li><a>마이페이지</a></li>
+				<li><a href="/vslogin.go">회원정보조회</a></li>
 				<li><a href="/msdetail.go">Q&A 답변</a></li>
-				<li><a href="/">회원신고관리</a></li>
-				<li><a href="/">정지회원관리</a></li>
+				<li><a href="/reportList.go">회원신고관리</a></li>
+				<li><a href="/blackList.go">정지회원관리</a></li>
 			</ul>
 		</div>
 
@@ -298,11 +306,15 @@ table, th, td {
 					</div>
 				</td>
 			</tr>
-	</table>
+		</table>
 	</form>
 </body>
-
 <script>
+	var msg = "${msg}";
+	
+	if(msg != ""){
+	   alert(msg);
+	}
 	var currPage = 1;
 
 	listCall(currPage);
@@ -373,9 +385,5 @@ table, th, td {
 		$('#list').empty();
 		$('#list').append(content);
 	}
-	function msg() {
-		alert("현재 화면입니다.");
-	}
 </script>
-
 </html>

@@ -4,18 +4,14 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Q&A 페이지</title>
+<title>Insert title here</title>
 <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="resources/js/jquery.twbsPagination.js"></script> <!-- 페이징 처리 -->
 <style>
-* {
-   margin: 0;
-   padding: 0;
-}
-
-body {
+   
+   body {
    font-family: sans-serif;
 }
 
@@ -252,44 +248,32 @@ th {
    background-color: #e8ecf4ff;
 }
 </style>
-<jsp:include page="./commons/loginBox.jsp" />
 </head>
 <body>
-	<!--<h1>Q&A</h1>
-	<p>서비스 이용에 대하여 궁금한 점이나 문의사항을 등록해 주시면 빠른 시간 내에 답변해 드리겠습니다.</p>-->
-	<!--<h3>검색<input type="text" name="search"><button onclick="location.href='searching.do'">검색</button></h3>-->
-   <header>
-			<a href="/"><img class="logo" src="resources/images/logo1.png" /></a>
-			<nav>
-				<div class="nav">
-					<ul>
-						<li><a href="/">모집공고</a></li>
-						<li><a href="/boardlist.go">게시판</a></li>
-						<li><a href="/qna.go">Q&A</a></li>
-						<li><a href="/vslogin.go">마이페이지</a></li>
-					</ul>
-				</div>
-			</nav>
-		</header>
-		<br>
-   <select id="pagePerNum" style = "margin-left: 150px;">
-      <option value="5">5개씩 보기</option>
-      <option value="10">10개씩 보기</option>
-      <option value="15">15개씩 보기</option>
-      <option value="20">20개씩 보기</option>
+<input type="hidden" id="loginid" value="${sessionScope.loginId}"/>
+   <select id="pagePerNum">
+      <option value="5">5개씩</option>
+      <option value="10">10개씩</option>
+      <option value="15">15개씩</option>
+      <option value="20">20개씩</option>
    </select>
-   <button onclick="location.href='qnaWrite.go'">글쓰기</button>
+   <tr>
+		<th colspan="2">
+		<input type="button" value="쪽지 수신함" onclick="location.href='msgsend.go'">
+		<input type="button" value="쪽지 발신함"/>
+		</th>
+	</tr>
 	<table>
 		<thead>
 			<tr>
+				<th><input type="checkbox" id="all"></input></th>
 				<th>번호</th>
-				<th>제목</th>
-				<th>작성일</th>
-				<th>작성자ID</th>
-				<th>답변여부</th>
+				<th>수신자ID</th>
+				<th>내용</th>
+				<th>발신일</th>
 			</tr>
 		</thead>
-		<tbody id="list">
+		<tbody id="msgsendlist">
 		
 		</tbody>
 		<tr>
@@ -303,11 +287,12 @@ th {
          </td>
       	</tr>	
 	</table>
+	<button onclick="del()">삭제</button>
 </body>
 <script>
-
 var currPage = 1;
 
+currPage=1;
 listCall(currPage);
 //페이징 처리
 $('#pagePerNum').on('change',function(){
@@ -318,21 +303,26 @@ $('#pagePerNum').on('change',function(){
   listCall(currPage);    
 });
 
+
+
+
 function listCall(page){
-   
+	var id = $('#loginid').val()
    var pagePerNum = $('#pagePerNum').val();
+   console.log("속성값 : "+pagePerNum)
    console.log("param page : " +page);
    $.ajax({
       type:'GET',
-      url:'list.ajax',
+      url:'msgsendlist.ajax',
       data:{
          cnt : pagePerNum,
-         page : page
+         page : page,
+         id : id
          },
       dataType:'JSON',
       success:function(data){
          console.log(data);
-         drawList(data.list);
+         drawList(data.msgsendlist);
          currPage = data.currPage;
          //불러오기가 성공되면 플러그인을 이용해 페이징 처리
          $("#pagination").twbsPagination({
@@ -354,27 +344,60 @@ function listCall(page){
    });
 }
 
-function drawList(list){
+
+
+function drawList(msgsendlist){
     var content = '';
-    list.forEach(function(item){
-    	var date = new Date(item.qna_date); 
+    msgsendlist.forEach(function(item){
+    	var date = new Date(item.msg_send_date); 
        console.log(item);
        content += '<tr>';
-       content += '<td>'+item.qna_idx+'</td>';
-       content += '<td><a href="detail.go?qna_idx='+item.qna_idx+'">'+item.qna_title+'</a></td>';
+       content += '<td><input type="checkbox" value="'+item.msg_idx+'" /></td>';
+       content += '<td>'+item.msg_idx+'</td>';
+       content += '<td>'+item.receiver_id+'</td>';
+       content += '<td><a href="msgdetail.go?msg_idx='+item.msg_idx+'">'+item.msg_content+'</a></td>';
        content += '<td>'+date.toLocaleDateString("ko-KR")+'</td>';
-       content += '<td>'+item.mb_id+'</td>';
-       if(item.qna_answer_chk == false ){
-    	   content += '<td>'+"미답변"+'</td>';	   
-       }else {content += '<td>'+"답변완료"+'</td>';	
-       }
-       //content += '<td>'+item.qna_answer_chk+'</td>';
        content += '</tr>';
     });
-    $('#list').empty();
-    $('#list').append(content);
+    $('#msgsendlist').empty();
+    $('#msgsendlist').append(content);
  }
+ 
+ $('#all').click(function(){
+	 
+	 var $chk = $('input[type="checkbox"]');
+	 
+	 if($(this).is(":checked")){
+		 $chk.prop("checked",true);
+	 }else{
+		 $chk.prop("checked",false);
+	 }
+	 
+ });
 
+function del(){
+	var chkArr = [];
+	
+	$('#msgsendlist input[type="checkbox"]:checked').each(function(msg_idx,item){
+		chkArr.push($(this).val());
+	});
+	
+	console.log(chkArr);
+	
+	$.ajax({
+		type:'get',
+		url:'senddelete.ajax',
+		data:{delList:chkArr},
+		dataType:'JSON',
+		success:function(data){
+			console.log(data);
+				listCall(currPage);
+			},
+		error:function(e){
+		}		
+	});
+	
+}
 
 </script>
 </html>

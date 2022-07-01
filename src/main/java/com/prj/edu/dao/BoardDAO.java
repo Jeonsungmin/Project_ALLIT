@@ -8,7 +8,7 @@ import com.prj.edu.dto.CmtDTO;
 
 public interface BoardDAO {
 
-	
+
 
 	int allCount(String board_category);
 
@@ -30,13 +30,15 @@ public interface BoardDAO {
 
 	void cmtdel(String cmt_idx, String loginId);
 
+	int reportCount();// 김동훈 추가
 
+	ArrayList<BoardDTO> reportList(int cnt, int offset);// 김동훈 추가
 
+	void blind(String board_idx, String blindYn); // 김동훈 추가
 
-	
+	String chk_blind(String board_idx); // 김동훈 추가
 
-	
+	String cateId(String id); // 김동훈 추가
 
-
-
+	void report_state(String report_idx, String report_state);// 김동훈 추가
 }
