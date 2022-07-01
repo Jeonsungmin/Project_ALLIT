@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.prj.edu.dto.UserDTO;
 import com.prj.edu.service.UserService;
@@ -166,7 +167,7 @@ public class UserController {
 
 	@RequestMapping("/join.ajax")
 	@ResponseBody
-	public HashMap<String, Object> join(@RequestParam HashMap<String, Object> params){
+	public HashMap<String, Object> join(MultipartHttpServletRequest fileRequest, @RequestParam HashMap<String, Object> params){
 		logger.info("회원가입: "+params);
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		service.join(params); 

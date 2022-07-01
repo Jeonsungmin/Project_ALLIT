@@ -21,7 +21,7 @@ public interface UserDAO {
 
 	int save(EduDTO dto);
 
-	int eduJoin(HashMap<String, Object> params);
+	//int eduJoin(HashMap<String, Object> params);
 
 	String overlay(String chkId);
 

@@ -150,29 +150,12 @@ function pw() {
 }
 
 
-function photo(){
-	var name = $("input[name='rep_name']").val();
-	var edu = $("input[name='edu_name']").val();
-	var id = $("input[name='mb_id']").val();
-	$.ajax({
-		  type:'post',
-		  url:'photo.ajax',
-		  data: formData,
-		  contentType:false,
-		  
-		  dataType:'JSON',
-		  success:function(data){
-			  console.log(data);
-		  },
-		  error:function(e){
-			  console.log(e);
-		  }
-	   });
-}
 
 
 function join() {
 	   console.log("회원가입");
+	   
+	   
 	   var id = $("input[name='mb_id']").val();
 	   var pw = $("input[name='mb_pass']").val();
 	   var name = $("input[name='rep_name']").val();
@@ -185,14 +168,31 @@ function join() {
 	   
 
 	   var photo_name = $("input[name='photo_name']").val();
+	   var formData = new FormData(document.getElementById('myForm'));
 	   
 	   
 	   var status = 0;
-	   var stopcnt = 0;
-	   var withdraw = 0;
+	   var stopcnt = 0;	   
 	   var category_idx = 2;
 	   
 	   if(checkId&&checkPw!=false){
+		   
+		   $.ajax({
+			   type:"POST",
+			   enctype: 'multipart/form-data',
+			   processData:false,
+			   contentType:false,
+			   url:"photo.ajax",
+			   data:formData,
+			   success:function(data){
+			   console.log("success") 
+			   }
+			   });  
+			
+		   
+		   
+		   
+		   
 		   $.ajax({
 			  type:'post',
 			  url:'join.ajax',

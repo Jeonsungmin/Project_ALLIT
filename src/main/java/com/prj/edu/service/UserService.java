@@ -50,31 +50,7 @@ public class UserService {
 		logger.info("비밀번호 변경이 잘 되는가?");
 		return dao.newpass(mb_pass1);
 	}
-
-	/*public int edujoin(MultipartFile[] photos, HashMap<String, Object> params) {
-	    logger.info("교육기관 회원 이동이 잘되는지?");  
-	    int row = dao.save(dto); 
-
-	    int photo_pr_num = dto.getEdu_idx();
-
-	    for(MultipartFile photo:photos) {
-	         String photo_original = photo.getOriginalFilename();
-	         logger.info("photo name: " + photo.getOriginalFilename());
-
-	         if(!photo.getOriginalFilename().equals("")) {
-	            logger.info("업로드 진행");
-	            String ext = photo_original.substring(photo_original.lastIndexOf(".")).toLowerCase();
-	            String photo_copy = System.currentTimeMillis() + ext;
-	            String photo_category = "사업자 등록증";
-
-	            logger.info(photo_original + photo_copy + photo_category);            
-
-	            PhotoDAO.fileWrite(photo_original, photo_copy, photo_pr_num, photo_category);
-	            logger.info(photo_copy + "save ok");      
-	         }
-	      }                
-	      return dao.eduJoin(params);
-	   }*/
+	
 
 	public HashMap<String, Object> overlay(String chkId) {
 		HashMap<String, Object> map = new HashMap<String, Object>();

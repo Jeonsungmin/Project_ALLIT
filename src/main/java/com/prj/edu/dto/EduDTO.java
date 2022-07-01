@@ -5,6 +5,17 @@ public class EduDTO {
 	private String rep_name;
 	private String edu_name;
 	private String mb_id;
+	
+	private String photo_name;
+	
+	
+	
+	public String getPhoto_name() {
+		return photo_name;
+	}
+	public void setPhoto_name(String photo_name) {
+		this.photo_name = photo_name;
+	}
 	public int getEdu_idx() {
 		return edu_idx;
 	}

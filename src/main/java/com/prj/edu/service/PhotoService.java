@@ -39,7 +39,7 @@ public class PhotoService {
 				
 				logger.info(photo_original + photo_copy + photo_category);				
 				logger.info(photo_copy + "save ok");
-				dao.upload(photo_original, photo_copy, photo_category);	
+				
 			}
 		}
 				
