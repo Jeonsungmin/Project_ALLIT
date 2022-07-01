@@ -287,28 +287,32 @@ th {
             <li><a href="/userInfo.go?mb_id=${mb_id}">개인정보 조회</a></li>
          </ul>
       </div>
+ 	     
       <select id="pagePerNum"
          style="margin-left: 200px; margin-top: -500px;">
-         <option value="5">5</option>
-         <option value="10">10</option>
-         <option value="15">15</option>
-         <option value="20">20</option>
+         <option value="5">5개씩</option>
+         <option value="10">10개씩</option>
+         <option value="15">15개씩</option>
+         <option value="20">20개씩</option>
       </select>
-      
       <table class="info" style="margin-left: 225px; margin-top: -450px;">
          <thead>
             <tr>
+               <!-- <th><input type="checkbox" id="all"/></th> -->
                <th>번호</th>
-               <th>Q&A 제목</th>
+               <th>게시글제목</th>
+               <th>조회수</th>
                <th>작성일</th>
-               <th>답변여부</th>
             </tr>
+            
          </thead>
          <tbody id="list">
       
          </tbody>
+         
          <tr>
             <td colspan="4" id="paging">
+         	<!-- <button onclick="boardHisdel()">삭제</button> -->
                <div class="container">
                   <nav arial-label="Page navigation" style="text-align: center">
                      <ul class="pagination" id="pagination"></ul>
@@ -348,7 +352,7 @@ function listCall(page) {
    
    $.ajax({
       type : 'GET',
-      url : '/usqnalist.ajax',
+      url : '/boardHistory.ajax',
       data : {
          cnt : pagePerNum,
          page : page, 
@@ -377,25 +381,76 @@ function listCall(page) {
 }
 function drawList(list,start) {
    var content = '';
-   var result = '미답변';
+   
+
    //console.log(start);
    var num = ((start-1) * 5)+1;
    console.log(num);
    list.forEach(function(item) {
+	   var date = new Date(item.board_date);
+	  
       console.log(item);
       content += '<tr>';
       content += '<td>'+(num++)+'</td>';
-      content += '<td><a href="/qnadetail.go?mb_id=' + item.mb_i1d + '">'
-            + item.qna_title + '</a></td>';
-      content += '<td>' + item.qna_date + '</td>';
-      if(item.qna_answer_chk){
-         result='답변완료';   
-      }
-      content += '<td>' + result + '</td>';
+      content += '<td><a href="boarddetail.go?board_idx='+item.board_idx+'">'+item.board_title+'</a></td>';
+      content += '<td>'+item.board_hits+'</td>';
+      
+      content += '<td>'+date.toLocaleDateString("ko-KR").replace(/\.$/, '')+'</td>';
       content += '</tr>';
    });
    $('#list').empty();
    $('#list').append(content);
 }
+
+/* $('#all').click(function(){
+	
+	var $chk = $('input[type="checkbox"]');	//체크박스를 모두 가져옴
+	
+	if($(this).is(":checked")){
+		$chk.prop("checked",true);	
+	}else{
+		$chk.prop("checked",false);
+	}
+	
+});
+
+
+
+function boardHisdel(){
+	var idx = "${sessionScope.loginId}";
+	var chkarr=[];
+	//check 된 체크박스의 값을 가져온다.
+	$('#list input[type="checkbox"]:checked').each(function(idx,item){
+		chkarr.push($(this).val());
+	});
+	
+	console.log(chkarr);
+	
+	//체크된 박스들 아작스로 컨트롤에 보내기
+	$.ajax({
+		type:'get',
+		url:'/boardHisdel.ajax',
+		data:{boarddelList:chkarr,
+				idx : idx,	
+		},
+		dataType:'JSON',
+		success:function(data){
+			console.log(data);
+			if(data.login){
+				location.href='/boardHistory.go';
+				listCall(currPage);
+				alert(data.msg);
+			}else{
+				alert("로그인이 필요한 서비스 입니다.");
+				
+			}
+		},
+		error:function(e){
+			console.log(e);
+		}
+	});
+	
+} */
+
 </script>
 </html>

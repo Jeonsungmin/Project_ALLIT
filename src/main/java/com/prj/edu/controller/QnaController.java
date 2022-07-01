@@ -1,6 +1,7 @@
 package com.prj.edu.controller;
 
 
+import java.sql.Date;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
@@ -31,23 +32,13 @@ public class QnaController {
       return "qnalist";
    }
 
-   
    //상세보기 이동
-   @RequestMapping(value = "/qnadetail.go")
+   @RequestMapping(value = "/detail.go")
    public String detail(Model model, HttpSession session, @RequestParam String qna_idx) {
       logger.info("상세보기 요청 : " + qna_idx);   
       QnaDTO dto = service.detail(qna_idx);
       model.addAttribute("dto", dto);
       return "qnadetail";
-   }
-   
-   
-   @RequestMapping(value = "/myqnadetail.go")
-   public String myqnadetail(Model model, HttpSession session, @RequestParam String qna_idx) {
-      logger.info("상세보기 요청 : " + qna_idx);   
-      QnaDTO dto = service.detail(qna_idx);
-      model.addAttribute("dto", dto);
-      return "myqnadetail";
    }
 
 
@@ -101,7 +92,7 @@ public class QnaController {
    @RequestMapping(value = "/answer.do", method = RequestMethod.POST)
    public String answer(@RequestParam HashMap<String, Object> params) {
       service.answer(params);
-      return "redirect:/list.go"; // 매니저 qna 리스트 페이지로 변경 필요
+      return "redirect:/msdetail.go"; // 매니저 qna 리스트 페이지로 변경 필요
    }
 }
 

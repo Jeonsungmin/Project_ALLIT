@@ -19,7 +19,7 @@ public class QnaService {
    @Autowired QnaDAO dao;
    
 public HashMap<String, Object> list(HashMap<String, String> params) {
-
+      
       HashMap<String, Object> map = new HashMap<String, Object>();
       int cnt = Integer.parseInt(params.get("cnt"));
       int page = Integer.parseInt(params.get("page"));
@@ -58,15 +58,6 @@ public HashMap<String, Object> list(HashMap<String, String> params) {
    }
 
 
-   public QnaDTO myqnadetail(String qna_idx) {
-      QnaDTO dto = null;
-      logger.info(qna_idx + "상세보기 서비스 요청");
-      dto = dao.detail(qna_idx);
-      logger.info("content : " + dto.getQna_content());
-      return dto;
-   }
-   
-   
    public QnaDTO detail(String qna_idx) {
       QnaDTO dto = null;
       logger.info(qna_idx + "상세보기 서비스 요청");

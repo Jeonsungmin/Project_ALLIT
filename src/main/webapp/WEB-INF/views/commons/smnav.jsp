@@ -58,6 +58,7 @@ header {
    position: relative;
 }
 
+
 .visually-hidden { /* legend 안보이게 설정. 이렇게하면 접근성을 준수하면서 디자인을 해치지 않습니다. */
    position: absolute !important;
    height: 1px;
@@ -195,6 +196,7 @@ footer {
    font-weight: bold;
 }
 </style>
+
 </head>
 <body>
 	<header>
@@ -203,14 +205,14 @@ footer {
 				<div class="nav">
 					<ul>
 						<li><a href="/">모집공고</a></li>
-						<li><a href="/boardlist.go">게시판</a></li>
+						<li><a href="/boardlist.go?board_category=공지사항">게시판</a></li>
 						<li><a href="/qna.go">Q&A</a></li>
-						<li><a href="/vslogin.go">마이페이지</a></li>
+						<li><a href="/userList.go">마이페이지</a></li>
 					</ul>
 				</div>
 			</nav>
 		</header>
-		<!--<footer>
+		<!-- <footer>
          <div class="bottom_box">
             <ul>
                <li><a href="/">회사소개</a></li>
@@ -222,8 +224,6 @@ footer {
                <li><a href="/">고객센터</a></li>
             </ul>
          </div>
-      </footer>-->
+      </footer> -->
 </body>
-<script>
-</script>
 </html>

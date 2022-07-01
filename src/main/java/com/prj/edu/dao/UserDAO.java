@@ -1,7 +1,6 @@
 package com.prj.edu.dao;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 
 import com.prj.edu.dto.EduDTO;
@@ -10,61 +9,52 @@ import com.prj.edu.dto.UserDTO;
 
 public interface UserDAO {
 
-	String login(String mb_id, String mb_pass);
+   String login(String mb_id, String mb_pass);
 
-	int join(HashMap<String, Object> params);
+   int join(HashMap<String, Object> params);
 
-	String idsearch(String mb_email, String mb_tel);
+   String idsearch(String mb_email, String mb_tel);
 
-	String pwsearch(String mb_id, String mb_email, String mb_tel);
+   String pwsearch(String mb_id, String mb_email, String mb_tel);
 
-	int newpass(String mb_pass1);
+   int newpass(String mb_pass1);
 
-	int save(EduDTO dto);
+   int save(EduDTO dto);
 
-	int eduJoin(HashMap<String, Object> params);
+   int eduJoin(HashMap<String, Object> params);
 
-	String overlay(String chkId);
+   String overlay(String chkId);
 
-	int cnt(String mb_id, int i);
+   int cnt(String mb_id);
 
-	int joinedu(HashMap<String, Object> params);
+   int joinedu(HashMap<String, Object> params);
 
-	int allCount();
+   int allCount();
 
-	int eduCount();
+   int eduCount();
 
-	ArrayList<UserDTO> list(int cnt, int offset);
+   ArrayList<UserDTO> list(int cnt, int offset);
 
-	ArrayList<UserDTO> edulist(int cnt, int offset);
+   ArrayList<UserDTO> edulist(int cnt, int offset);
 
-	UserDTO userDetail(String mb_id);
+   UserDTO userDetail(String mb_id);
 
-	UserDTO eduDetail(String mb_id);
+   UserDTO eduDetail(String mb_id);
 
-	UserDTO userInfo(String id);
+   UserDTO userInfo(String id);
 
-	void delete(String mb_id);
+   void delete(String mb_id);
 
-	UserDTO eduInfo(String id);
+   UserDTO eduInfo(String id);
 
-	int userupdate(HashMap<String, Object> params);
+   int userupdate(HashMap<String, Object> params);
 
-	int userCategory(String loginId);
+   int userCategory(String loginId);
 
-	int blackCount();
+   int blackCount();
 
-	ArrayList<UserDTO> blackList(int cnt, int offset);
-
-	int userStop(HashMap<String, Object> params);
-
- 	int mbStop(HashMap<String, Object> params);
-
-	Date stopdate(String loginId);
-
-	UserDTO userdto(String loginId);
-
-	int cate(String mb_id, int i);
-
-	int usallCount(String loginId);
+   ArrayList<UserDTO> blackList(int cnt, int offset);
+   
+ 
+  
 }

@@ -17,7 +17,7 @@
 					<th>제목</th>
 					<td>
 						<input type="hidden" name="board_idx" value="${dto.board_idx}"/>
-						<input type="text" name ="board_title" value="${dto.board_title}"/>
+						<input type="text" name ="board_title" value="${dto.board_title}" maxlength="30" required />
 					</td>
 				</tr>
 				<tr>
@@ -33,19 +33,21 @@
 				<tr>
 					<th>내용</th>
 					<td>
-						<input type="text" name ="board_content" value="${dto.board_content}"/>
+						<input type="text" name ="board_content" value="${dto.board_content}" maxlength="500" required />
 					</td>
 				</tr>
 				<tr>
 					<th colspan="2">
 						<input type="submit" value ="저장"/> <%--  onclick="location.href='datail.go?idx=${dto.board_idx}'" --%>
-						<input type="button" value ="돌아가기" onclick="location.href='list.go'"/>
+						<input type="button" value ="돌아가기" onclick="location.href='boarddetail.go?board_idx=${dto.board_idx}'"/>
 					</th>
 				</tr>
 			</table>
 		</form>
 </body>
 <script>
+
+
 /* var msg = "${msg}";
 if(msg != "") {
 	alert(msg);

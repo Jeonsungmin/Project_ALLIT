@@ -15,8 +15,6 @@ public interface QnaDAO {
    int write(HashMap<String, String> params);
 
    QnaDTO detail(String qna_idx);
-   
-   QnaDTO myqnadetail(String qna_idx);
 
    int answer(HashMap<String, Object> params);
 

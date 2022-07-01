@@ -33,15 +33,22 @@
   .nav1 ul > li.on > a {
   	color:#ff0000;
   }
+  
+ table {
+  margin: 0 auto;
+  }
+  
   #good, #list{
   	border:1px black solid;
   	width: 100%;
     height: 100%;
     font-size: 20px;
-
+    margin: 0 auto;
     
   }
   
+ 
+
 </style>
 <jsp:include page="./commons/loginBox.jsp"/>
 <jsp:include page="./commons/smnav.jsp"/>
@@ -55,7 +62,7 @@
           		jQuery 에서 해당 요소의 속성을 이용해 값을 가져오기 편하고,
           		Ajax로 통신할 때 DB에 WHERE 을 추가하여 board_category 컬럼(필드)와 비교하여 해당 카테고리 내 게시물만 가져오기 위한 선행 작업인 것이다.
           	-->
-            <li data="공지사항" class="on"><a href="#">공지사항</a></li>
+            <li data="공지사항"><a href="#">공지사항</a></li>
             <li data="질문"><a href="#">질문하기</a></li>
             <li data="tip"><a href="#">tip</a></li>
             <li data="잡담"><a href="#">잡담</a></li>
@@ -64,24 +71,11 @@
         </div>
 	게시물 갯수
    <select id="pagePerNum">
-      <option value="5">5</option>
-      <option value="10">10</option>
-      <option value="15">15</option>
-      <option value="20">20</option>
+      <option value="5">5개씩</option>
+      <option value="10">10개씩</option>
+      <option value="15">15개씩</option>
+      <option value="20">20개씩</option>
    </select>
-   보기
-   <select id="listPerName">
-   		<option value="">최신순</option>
-   		<option value="">오래된순</option>
-   </select>
-   
-	<div class="searchbox">
-		<div class="header">
-			<h1>검색</h1>
-			<input type="text" id="board_search" placeholder="Type to Search">
-			<button type="button" onclick="filter()">검색</button>
-		</div>
-	</div>
 	
    <table>
       <thead  id="good">
@@ -109,7 +103,7 @@
       </tr>
       <tr>
 		<th colspan="2">
-			<input type="button" value ="글쓰기" onclick="location.href='boardWrite.go'"/>
+			<input id="board_write" type="button" value ="글쓰기" onclick="location.href='boardWrite.go?'"/>
 		</th>
 	</tr>
    </table>
@@ -120,6 +114,21 @@
 <script>
 
 var currPage = 1;
+var boardcateName = "${board_cateId}";
+
+//파라메터로 board_category 로 들어온 경우는 해당 그 li 요소에 불이 들어오도록 해야 한다.
+//${board_category}
+//'.nav1 > ul > li'
+var pa_board_category = "${board_category}";
+
+//$(pa_board_category == '공지사항').addClass('on');
+
+$('.nav1 > ul > li').each(function(){
+	if($(this).attr('data') == pa_board_category) {
+		$(this).addClass('on');
+	}
+});
+//.addClass('on');
 
 listCall(currPage);
 //페이징 처리
@@ -132,14 +141,7 @@ $('#pagePerNum').on('change',function(){
 });
 
 
-function filter() {
-	// 1. search라는 이름으로 id를 가진 녀석의 value 값을 먼저 알아낸다.
-	
-	var board_search = $('#search').val();
-	// 2. Ajax 리스트 함수를 호출하되, 1에서 얻은 값을 요청하는 것이다.
-	
-	
-}
+
 
 
 // 내비게이션 요소(공지사항, 질문하기, tip, 잡담)를 클릭하면 발생할 이벤트
@@ -186,6 +188,18 @@ function listCall(page){
                listCall(page);
             }
          });
+        
+         //리스트로 들어온 로그인 아이디가 관리자, 매니저가 아니면 공지사항 글쓰기를 숨긴다.
+		if(boardcateName != "교육기관 회원") {
+			//현재 활성화 되어 있는 탭이 공지사항이면서 일반회원일 경우를 제외하고 모두 show를 하면 된다.
+			if($('.nav1 > ul > li.on').attr('data') == '공지사항' && boardcateName == '일반회원') {
+		     	$("#board_write").hide();
+			} else {
+				$("#board_write").show();
+			}
+		} else {
+			$("#board_write").hide();
+		}
          
       },
       error:function(e){
@@ -209,10 +223,11 @@ function drawList(list){
     var content = '';
     list.forEach(function(item){
     	var date = new Date(item.board_date);
+    	var board_category = $('.nav1 > ul > li.on').attr('data')
        console.log(item);
        content += '<tr>';
        content += '<td>'+item.board_idx+'</td>';
-       content += '<td><a href="boarddetail.go?board_idx='+item.board_idx+'">'+item.board_title+'</a></td>';
+       content += '<td><a href="boarddetail.go?board_idx='+item.board_idx+'&board_category='+board_category+'">'+item.board_title+'</a></td>';
        content += '<td>'+item.mb_id+'</td>';
        content += '<td>'+date.toLocaleDateString("ko-KR").replace(/\.$/, '')+'</td>';
        
@@ -229,6 +244,12 @@ var msg = "${msg}";
 if(msg != "") {
 	alert(msg);
 }  
+
+
+
+
+
+
 
 
 

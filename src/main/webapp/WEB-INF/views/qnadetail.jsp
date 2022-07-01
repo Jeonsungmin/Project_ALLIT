@@ -9,10 +9,10 @@
 <style>
 
 table{
-	width:600px;
-	margin-left:50%;
-	margin-right:50%;
-	}
+   width:600px;
+   margin-left:50%;
+   margin-right:50%;
+   }
 
 
 table,th,td{
@@ -21,7 +21,7 @@ table,th,td{
       padding: 5px;
       margin: auto;
       text-align:center;
-   	}
+      }
 
 h4{margin-left: 40%; }
 
@@ -31,44 +31,44 @@ h1{margin:200px 40% 10px 40%;}
 <body>
 <h1>Q&A 상세보기</h1>
 <h4>작성 내용</h4>
-	<table>
-		<thead>
-			<tr>
-				<th>작성자 ID</th>
-				<td>${dto.mb_id}</td>
-				<th>작성일자</th>
-				<td>${dto.qna_date}</td>
-			</tr>
-			<tr>
-				<th>제목</th>
-				<td>${dto.qna_title}</td>
-			</tr>
-			<tr>
-				<th>내용</th>
-				<td>${dto.qna_content}</td>
-			</tr>
-		</thead>
-	</table><br/><br/><br/><br/>
-	<h4>답변 내용</h4>
-	<table>
-		<thead>
-			<tr>
-				<th>답변자 ID</th>
-				<td>${dto.qna_answer_id}</td>
-				<th>답변일자</th>
-				<td>${dto.qna_answer_date}</td>
-			</tr>
-			<tr>
-				<th>내용</th>
-				<td>${dto.qna_answer}</td>
-			</tr>
-			<tr>
-				<th colspan="2">
-					<input type="button" value="돌아가기" onclick="location.href='/list.go'">
-					<!--<input type="button" value="답변하기" onclick="location.href='answer.go?qna_idx=${dto.qna_idx}'"/>-->
-				</th>
-		</thead>
-	</table>
+   <table>
+      <thead>
+         <tr>
+            <th>작성자 ID</th>
+            <td>${dto.mb_id}</td>
+            <th>작성일자</th>
+            <td>${dto.qna_date}</td>
+         </tr>
+         <tr>
+            <th>제목</th>
+            <td>${dto.qna_title}</td>
+         </tr>
+         <tr>
+            <th>내용</th>
+            <td>${dto.qna_content}</td>
+         </tr>
+      </thead>
+   </table><br/><br/><br/><br/>
+   <h4>답변 내용</h4>
+   <table>
+      <thead>
+         <tr>
+            <th>답변자 ID</th>
+            <td>${dto.qna_answer_id}</td>
+            <th>답변일자</th>
+            <td>${dto.qna_answer_date}</td>
+         </tr>
+         <tr>
+            <th>내용</th>
+            <td>${dto.qna_answer}</td>
+         </tr>
+         <tr>
+            <th colspan="2">
+               <input type="button" value="돌아가기" onclick="location.href='/list.go'">
+               <!--<input type="button" value="답변하기" onclick="location.href='answer.go?qna_idx=${dto.qna_idx}'"/>-->
+            </th>
+      </thead>
+   </table>
 </body>
 <script>
 

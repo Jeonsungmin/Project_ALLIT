@@ -261,28 +261,28 @@ th {
 <jsp:include page="./commons/loginBox.jsp" />
 </head>
 <body>
-	<header>
-		<a href="/"><img class="logo" src="resources/images/logo1.png" /></a>
-		<nav>
-			<div class="nav">
-				<ul>
-					<li><a href="/">모집공고</a></li>
-					<li><a href="/boardlist.go">게시판</a></li>
-					<li><a href="/qna.go">Q&A</a></li>
-					<%-- <li><a href="/userInfo.go?mb_id=${id}">마이페이지</a></li> --%>
-					<li><a href="/vslogin.go">마이페이지</a></li>
-				</ul>
-			</div>
-		</nav>
-	</header>
-	<form action="userInfo" method="post">
+   <header>
+      <a href="/"><img class="logo" src="resources/images/logo1.png" /></a>
+      <nav>
+         <div class="nav">
+            <ul>
+               <li><a href="/">모집공고</a></li>
+               <li><a href="/boardlist.go?board_category=공지사항">게시판</a></li>
+               <li><a href="/qna.go">Q&A</a></li>
+               <%-- <li><a href="/userInfo.go?mb_id=${id}">마이페이지</a></li> --%>
+               <li><a href="/vslogin.go">마이페이지</a></li>
+            </ul>
+         </div>
+      </nav>
+   </header>
+   <form action="userInfo" method="post">
       <div id="leftnav">
          <ul id="leftli">
             <li><a href="/">마이페이지</a></li>
             <li><a onclick="msg()">상담신청 내역</a></li>
             <li><a href="/">찜한 공고</a></li>
-            <li><a href="/msgsend.go">쪽지함</a></li>
-            <li><a href="/">작성한 게시글</a></li>
+            <li><a href="/">쪽지함</a></li>
+            <li><a href="/boardHistory.go">작성한 게시글</a></li>
             <li><a href="/qnaHistory.go">작성한 Q&A</a></li>
             <li><a href="/userInfo.go?mb_id=${id}">개인정보 조회</a></li>
          </ul>
