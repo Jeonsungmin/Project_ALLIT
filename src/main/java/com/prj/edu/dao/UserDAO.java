@@ -1,22 +1,15 @@
 package com.prj.edu.dao;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
-<<<<<<< HEAD
-import javax.servlet.http.HttpSession;
-
-=======
->>>>>>> origin/master
 import com.prj.edu.dto.EduDTO;
+import com.prj.edu.dto.QnaDTO;
+import com.prj.edu.dto.UserDTO;
 
 public interface UserDAO {
 
 	String login(String mb_id, String mb_pass);
-<<<<<<< HEAD
-	
-	
-=======
->>>>>>> origin/master
 
 	int join(HashMap<String, Object> params);
 
@@ -24,22 +17,28 @@ public interface UserDAO {
 
 	String pwsearch(String mb_id, String mb_email, String mb_tel);
 
-<<<<<<< HEAD
-=======
 	int newpass(String mb_pass1);
 
->>>>>>> origin/master
 	int save(EduDTO dto);
 
 	int eduJoin(HashMap<String, Object> params);
 
-<<<<<<< HEAD
-	String delete(HttpSession session);
-
-	
-=======
 	String overlay(String chkId);
 
 	int cnt(String mb_id);
->>>>>>> origin/master
+
+	int joinedu(HashMap<String, Object> params);
+	
+	int allCount();
+
+	ArrayList<UserDTO> list(int cnt, int offset);
+	
+	UserDTO userDetail(String mb_id);
+
+	UserDTO eduDetail(String mb_id);
+
+
+
+	
+	
 }

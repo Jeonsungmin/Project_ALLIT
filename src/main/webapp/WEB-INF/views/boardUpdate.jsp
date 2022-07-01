@@ -28,7 +28,7 @@
 				</tr>
 				<tr>
 					<th>작성자</th>
-					<td><textarea name="mb_id" value= "${dto.mb_id}" readonly></textarea></td>
+					<td><input type="text" name="mb_id" value="${dto.mb_id}" readonly/></td>
 				</tr>
 				<tr>
 					<th>내용</th>

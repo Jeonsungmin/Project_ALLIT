@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.prj.edu.dao.BoardDAO;
 import com.prj.edu.dto.BoardDTO;
+import com.prj.edu.dto.CmtDTO;
 
 @Service
 public class BoardService {
@@ -69,10 +70,10 @@ public class BoardService {
 
 
 
-	public BoardDTO detail(String board_idx) {
+	public BoardDTO boarddetail(String board_idx) {
 		BoardDTO dto = null;
 		logger.info(board_idx + "상세보기 서비스 요청");
-		dto = dao.detail(board_idx);
+		dto = dao.boarddetail(board_idx);
 		logger.info("content : " + dto.getBoard_content());
 		return dto;
 	}
@@ -104,5 +105,47 @@ public class BoardService {
 		logger.info("조회수 증가? " + board_idx);
 		dao.board_hits(board_idx);
 	}
+
+
+
+	public String writerId(Object mb_id) {
+		return dao.writerId(mb_id);
+	}
+
+
+
+	public ArrayList<CmtDTO> cmt(String board_idx) {
+		
+		return dao.cmtlist(board_idx);
+	}
+
+
+
+	public boolean cmt_write(HashMap<String, String> params) {
+		
+		boolean success = false;
+		
+		if(dao.cmtwrite(params)>0) {
+			success = true;
+		}
+		
+		return success;
+	}
+
+
+
+	public void cmtdel(String cmt_idx, String loginId) {
+		dao.cmtdel(cmt_idx, loginId);
+		
+	}
+
+
+
+	
+
+	
+
+
+
 	
 }

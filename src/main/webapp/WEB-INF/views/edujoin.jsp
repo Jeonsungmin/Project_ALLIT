@@ -27,6 +27,8 @@
 <body>
 	<h3>교육기관 회원가입</h3>
 	<div style="padding:30px; background:#e8ecf4">
+	
+	
 		<table>
 			<tr>
 				<th>
@@ -52,7 +54,7 @@
 			</tr>
 			<tr>
 				<th>대표자 성명</th>
-				<td><input type ="text" name="mb_name"/></td>
+				<td><input type ="text" name="rep_name"/></td>
 			</tr>
 			<tr>
 				<th>교육기관명</th>
@@ -78,12 +80,16 @@
 				<th>상세주소</th>
 				<td><input type ="text" name="mb_detail_addr"/></td>
 			</tr>
-			<tr>
-				<th>사업자등록증</th>
-				<td><input type ="file" name="photo_category"/></td>
-			</tr>
 			
+			
+			<tr>			
+				<th>사업자등록증</th>
+				<form action="" method= "post" enctype="multipart/form-data">
+				<td><input type ="file" name="photo_name" id="file" />등록</td>
+				</form>
+				<!-- <td><input type="button" value="등록" id="files_send"></td> -->							
 			<tr>
+			
 				<th colspan="2" style="text-align:right; padding-right: 30px;">
 					<input type="button" onclick="join()" value="회원가입" style="background-color:#9fc5e8;"/>
 				</th>
@@ -142,17 +148,44 @@ function pw() {
 	      }
 	   });
 }
+
+
+function photo(){
+	var name = $("input[name='rep_name']").val();
+	var edu = $("input[name='edu_name']").val();
+	var id = $("input[name='mb_id']").val();
+	$.ajax({
+		  type:'post',
+		  url:'photo.ajax',
+		  data:{
+			  mb_id:id,
+			  rep_name:name,
+			  edu_name:edu,
+		  },
+		  dataType:'JSON',
+		  success:function(data){
+			  console.log(data);
+		  },
+		  error:function(e){
+			  console.log(e);
+		  }
+	   });
+}
+
+
 function join() {
 	   console.log("회원가입");
 	   var id = $("input[name='mb_id']").val();
 	   var pw = $("input[name='mb_pass']").val();
-	   var name = $("input[name='mb_name']").val();
+	   var name = $("input[name='rep_name']").val();
 	   var edu = $("input[name='edu_name']").val();
 	   var email = $("input[name='mb_email']").val();
 	   var tel = $("input[name='mb_tel']").val();
 	   var postcode = $("input[name='mb_postcode']").val();
 	   var basic_addr = $("input[name='mb_basic_addr']").val();
 	   var detail_addr = $("input[name='mb_detail_addr']").val();
+	   
+
 	   //var photo = $("input[name='photo_category']").val();
 	   var status = 0;
 	   var stopcnt = 0;
@@ -164,9 +197,10 @@ function join() {
 			  type:'post',
 			  url:'join.ajax',
 			  data:{
+
 				  mb_id:id,
 				  mb_pass:pw,
-				  mb_name:name,
+				  rep_name:name,
 				  edu_name:edu,
 				  mb_email:email,
 				  mb_tel:tel,

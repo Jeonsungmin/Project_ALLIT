@@ -265,7 +265,6 @@ table, th, td {
 					</ul>
 				</div>
 			</nav>
-			
 		</header>
 		<div id="leftnav">
 			<ul id="leftli">
@@ -276,34 +275,29 @@ table, th, td {
 				<li><a href="/">정지회원관리</a></li>
 			</ul>
 		</div>
-		
-		<select id="pagePerNum">
-	      <option value="5">5개씩</option>
-	      <option value="10">10개씩</option>
-	      <option value="15">15개씩</option>
-	      <option value="20">20개씩</option>
-	   </select>
 
-		
+		<select id="pagePerNum"
+			style="margin-left: 200px; margin-top: -500px;">
+			<option value="5">5</option>
+			<option value="10">10</option>
+			<option value="15">15</option>
+			<option value="20">20</option>
+		</select>
 		<table style="margin-left: 200px; margin-top: -450px;">
 			<thead>
 				<tr>
-					<th>찜번호</th>
-					<th>교육기관명</th>
-					<th>교육과정명</th>
-					<th>훈련기간</th>
-					<th>마감여부</th>
-					<th>찜한 날짜</th>
-					<th>찜여부</th>
+					<th>번호</th>
+					<th>제목</th>
+					<th>회원ID</th>
+					<th>작성일</th>
+					<th>답변상태</th>
 				</tr>
 			</thead>
-		
-			<tbody id="cartList">
 
-			
+			<tbody id="list">
+
 			</tbody>
-			
-		<tr>
+			<tr>
 				<td colspan="4" id="paging">
 					<!-- plugin 사용법(twbspagination) , 이렇게 쓰라고 명시되어있음. -->
 					<div class="container">
@@ -313,13 +307,8 @@ table, th, td {
 					</div>
 				</td>
 			</tr>
-	
 		</table>
-		
-		
-			
-			
-			
+
 
 	</form>
 </body>
@@ -327,7 +316,6 @@ table, th, td {
 	var currPage = 1;
 
 	listCall(currPage);
-	
 	//페이징 처리
 	$('#pagePerNum').on('change', function() {
 		console.log("currPage: " + currPage);
@@ -346,15 +334,15 @@ table, th, td {
 
 		$.ajax({
 			type : 'GET',
-			url : 'cartList.ajax',
+			url : '/mslist.ajax',
 			data : {
 				cnt : pagePerNum,
 				page : page,
 			},
-			dataType : 'json',
+			dataType : 'JSON',
 			success : function(data) {
 				console.log(data);
-				drawList(data.cartList);
+				drawList(data.list);
 				currPage = data.currPage;
 				//불러오기가 성공되면 플러그인을 이용해 페이징 처리
 				$("#pagination").twbsPagination({
@@ -375,45 +363,23 @@ table, th, td {
 			}
 		});
 	}
-	
-	 function drawList(cartList){
-		    var content = '';
-		   	 cartList.forEach(function(item){
-		   		 
-		       var dateStart2 = new Date(item.recruit_period_sta);
-		       var dateEnd2 = new Date(item.recruit_period_end);
-		       var date = new Date(item.cart_date);
-		       
-		       
-		       // 1. 마감여부(recruit_close)가 0(false)이면 "마감"이라는 표시가 나타난다. (1 = "모집중")
-		       // 2. 공고글을 작성 시, 마감여부(recruit_close)는 1(true / "모집중")이 기본값으로 들어간다.
-		       // 3. 모집공고 리스트를 보여줄 때, 모집마감일(recruit_end)이 시스템의 '오늘날짜(recruit_curdate)'보다 이전이라면 마감여부(recruit_close)는 0(false)로 변경된다(update).
-		       var closeYn = item.recruit_close;
-		       
-		       if(closeYn == 1) {
-		    	   closeYn = "모집중";
-		       } else
-		    	   closeYn = "마감";
-		       
-		       
-		       console.log(item);
-		       content += '<tr>';
-		       
-		       content += '<td>'+item.cart_idx+'</td>';
-		       content += '<td>'+item.edu_name+'</td>';
-		       content += '<td><a href="recruit/detail.do?idx='+item.recruit_idx+'">'+item.recruit_title+'</a></td>';
-		       
-		       content += '<td>'+dateStart2.toLocaleDateString("ko-KR").replace(/\.$/, '')+' ~ '+dateEnd2.toLocaleDateString("ko-KR").replace(/\.$/, '')+'</td>';
-	       
-		       content += '<td>'+closeYn+'</td>';
-		       content += '<td>'+ date.toLocaleDateString("ko-KR").replace(/\.$/, '')+'</td>';
-		       content += '<td><a href="/deletecart?cart_idx='+item.cart_idx+'">♥</a></td>';
-		       content += '</tr>';
-		    });
-		    $('#cartList').empty();
-		    $('#cartList').append(content);
-		 }
-		 
 
+	function drawList(list) {
+		var content = '';
+		list.forEach(function(item) {
+			console.log(item);
+			content += '<tr>';
+			content += '<td>' + item.mb_id + '</td>';
+			content += '<td>' + item.mb_name + '</td>';
+			console.log(item.category_idx);
+			content += '<td>' + item.category_idx + '</td>';
+			content += '</tr>';
+		});
+		$('#list').empty();
+		$('#list').append(content);
+	}
+	function down(){
+		alert("현재 화면입니다.");
+	}
 </script>
 </html>

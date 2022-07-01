@@ -5,7 +5,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script>"https://code.jquery.com/jquery-3.6.0.min.js"</script>
+<script>"https://code.jquery.com/jquery-3.6.0.min.js"
+
+
+</script>
 <style>
   
    * {
@@ -44,8 +47,13 @@
    table {
    width: 100%;
    }
+   
+   
 
 </style>
+
+<jsp:include page="./commons/loginBox.jsp"/>
+<jsp:include page="./commons/smnav.jsp"/>
 </head>
 <body>
     <div id="main-text"> 글쓰기</div>
@@ -54,7 +62,7 @@
     <table>
     	<tr>
 	    	<th>작성자 ID</th>
-	    	<td><textarea name="mb_id" readonly></textarea></td>
+	    	<td><textarea name="mb_id" readonly>${sessionScope.loginId}</textarea></td>
 	    	<th>작성일</th>
 	    	<td><input type='date' id='currnetMonth' name="board_date" readonly></td>
 	    </tr>

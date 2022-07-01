@@ -1,12 +1,8 @@
 package com.prj.edu.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
-<<<<<<< HEAD
-import javax.servlet.http.HttpSession;
-
-=======
->>>>>>> origin/master
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,21 +10,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.prj.edu.dao.PhotoDAO;
+import com.prj.edu.dao.QnaDAO;
 import com.prj.edu.dao.UserDAO;
 import com.prj.edu.dto.EduDTO;
-<<<<<<< HEAD
+import com.prj.edu.dto.QnaDTO;
 import com.prj.edu.dto.UserDTO;
-=======
->>>>>>> origin/master
 
 @Service
 public class UserService {
 	@Autowired UserDAO dao;
-<<<<<<< HEAD
-	@Autowired PhotoDAO photodao;
-	
-=======
->>>>>>> origin/master
+	@Autowired QnaDAO qnadao;
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	public String login(String mb_id, String mb_pass) {
@@ -36,13 +27,6 @@ public class UserService {
 		return dao.login(mb_id,mb_pass);
 	}
 
-<<<<<<< HEAD
-	public int join(HashMap<String, Object> params) {
-		
-		return dao.join(params);
-		
-		
-=======
 	public HashMap<String, Object> join(HashMap<String, Object> params) {
 		logger.info("회원가입 이동이 되나?");
 		HashMap<String, Object> map = new HashMap<String, Object>();
@@ -50,7 +34,6 @@ public class UserService {
 		boolean msg = row>0?true:false;
 		map.put("msg", msg);
 		return map;
->>>>>>> origin/master
 	}
 
 	public String idsearch(String mb_email, String mb_tel) {
@@ -63,54 +46,6 @@ public class UserService {
 		return dao.pwsearch(mb_id,mb_email,mb_tel);
 	}
 
-<<<<<<< HEAD
-	
-	
-	public int edujoin(MultipartFile[] photos, HashMap<String, Object> params) {
-		
-		logger.info("교육회원 가입");
-		
-		EduDTO dto = new EduDTO();
-		UserDTO udto = new UserDTO();
-		
-		
-		//dto.setEdu_idx(params.get("edu_idx"));		
-				
-		int photo_pr_num = dto.getEdu_idx();
-		
-		for(MultipartFile photo:photos) {
-			String photo_original = photo.getOriginalFilename(); //3-1파일명 추출
-			logger.info("photo name: " + photo.getOriginalFilename());
-			
-			if(!photo.getOriginalFilename().equals("")) {
-				logger.info("업로드 진행");
-				
-				//3-2 확장자 분리
-				String ext = photo_original.substring(photo_original.lastIndexOf(".")).toLowerCase();
-				
-				//3-3 새 이름 만들기
-				String photo_copy = System.currentTimeMillis() + ext;
-				String photo_category = "사업자 등록증";
-				
-				logger.info(photo_original + photo_copy + photo_category);				
-							
-				photodao.fileWrite(photo_original, photo_copy, photo_pr_num, photo_category);
-				logger.info(photo_copy + "save ok");		
-			
-			}
-		}	
-		
-		return dao.eduJoin(params);
-		
-	
-	}
-
-	public String delete(HttpSession session) {
-		logger.info("탈퇴요청" + session);		
-		return dao.delete(session);
-	}
-
-=======
 	public int newpass(String mb_pass1) {
 		logger.info("비밀번호 변경이 잘 되는가?");
 		return dao.newpass(mb_pass1);
@@ -119,21 +54,21 @@ public class UserService {
 	/*public int edujoin(MultipartFile[] photos, HashMap<String, Object> params) {
 	    logger.info("교육기관 회원 이동이 잘되는지?");  
 	    int row = dao.save(dto); 
-	      
+
 	    int photo_pr_num = dto.getEdu_idx();
-	      
+
 	    for(MultipartFile photo:photos) {
 	         String photo_original = photo.getOriginalFilename();
 	         logger.info("photo name: " + photo.getOriginalFilename());
-	         
+
 	         if(!photo.getOriginalFilename().equals("")) {
 	            logger.info("업로드 진행");
 	            String ext = photo_original.substring(photo_original.lastIndexOf(".")).toLowerCase();
 	            String photo_copy = System.currentTimeMillis() + ext;
 	            String photo_category = "사업자 등록증";
-	            
+
 	            logger.info(photo_original + photo_copy + photo_category);            
-	                     
+
 	            PhotoDAO.fileWrite(photo_original, photo_copy, photo_pr_num, photo_category);
 	            logger.info(photo_copy + "save ok");      
 	         }
@@ -153,5 +88,72 @@ public class UserService {
 		logger.info("정지된 회원인지?");
 		return dao.cnt(mb_id);
 	}
->>>>>>> origin/master
+
+	public int joinedu(HashMap<String, Object> params) {
+		logger.info("교육기관 회원가입 되는지?");
+		return dao.joinedu(params);
+	}
+
+	public HashMap<String, Object> list(HashMap<String, String> params) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		logger.info("ok");
+		int cnt = Integer.parseInt(params.get("cnt"));
+		int page = Integer.parseInt(params.get("page"));
+		logger.info("보여줄 페이지 : " + page);
+		int allCnt = dao.allCount();
+		logger.info("allCnt:" + allCnt);
+		int pages = allCnt%cnt > 0 ? (allCnt/cnt)+1 : (allCnt/cnt);
+		logger.info("pages : " + pages);
+		if(page > pages) {
+			page = pages;
+		} 
+		map.put("pages", pages);      //만들 수 있는 최대 페이지 수
+		map.put("currPage", page); //현재 페이지
+		int offset = (page-1) * cnt;
+		logger.info("offset : " + offset);            
+		ArrayList<UserDTO> list = dao.list(cnt, offset);
+		map.put("list", list);
+		return map;
+	}
+
+	public HashMap<String, Object> mslist(HashMap<String, String> params) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		logger.info("Q&A 답변 페이지");
+		int cnt = Integer.parseInt(params.get("cnt"));
+		int page = Integer.parseInt(params.get("page"));
+		logger.info("보여줄 페이지 : " + page);
+		int msCnt = qnadao.msCount();
+		logger.info("msCnt:" + msCnt);
+		int pages = msCnt%cnt > 0 ? (msCnt/cnt)+1 : (msCnt/cnt);
+		logger.info("pages : " + pages);
+		if(page > pages) {
+			page = pages;
+		} 
+		map.put("pages", pages);      //만들 수 있는 최대 페이지 수
+		map.put("currPage", page); //현재 페이지
+		int offset = (page-1) * cnt;
+		logger.info("offset : " + offset);            
+		ArrayList<QnaDTO> list = qnadao.mslist(cnt, offset);
+		map.put("list", list);
+
+		return map;
+	}
+
+	public UserDTO userDetail(String mb_id) {
+		UserDTO dto = null;
+		logger.info(mb_id + "일반회원 상세보기 서비스 요청");
+		dto = dao.userDetail(mb_id);
+
+		return dto;
+	}
+
+	public UserDTO eduDetail(String mb_id) {
+		UserDTO dto = null;
+		logger.info(mb_id + "교육기관회원 상세보기 서비스 요청");
+		dto = dao.eduDetail(mb_id);
+
+		return dto;
+	}
+	
+	
 }

@@ -48,8 +48,5 @@
 	<!-- Namespaces가서 설정해줘야함 -->
 	<mybatis-spring:scan base-package="com.prj.edu.dao"/>
 	
-		
-	
-	
 	
 </beans:beans>

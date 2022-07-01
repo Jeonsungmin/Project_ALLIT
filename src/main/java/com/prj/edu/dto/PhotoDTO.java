@@ -6,6 +6,17 @@ public class PhotoDTO {
 	private String photo_copy;
 	private int photo_pr_num;
 	private String photo_category;
+	private int recruit_idx;
+	
+	
+	
+	
+	public int getRecruit_idx() {
+		return recruit_idx;
+	}
+	public void setRecruit_idx(int recruit_idx) {
+		this.recruit_idx = recruit_idx;
+	}
 	public int getPhoto_idx() {
 		return photo_idx;
 	}

@@ -197,28 +197,21 @@ footer {
 </style>
 
 </head>
-
 <body>
-   <form action="main" method="post">
-      <header>
-         <div class="links">
-            <a href="login.go" class="link_text">로그인</a> 
-            <a href="joinForm.go" class="link_text">회원가입</a>
-         </div>
-         <a href="/"><img class="logo" src="resources/images/logo1.png"/></a>
-         <nav>
-            <div class="nav">
-               <ul>
-                  <li><a href="/">모집공고</a></li>
-                  <li><a href="list.go">게시판</a></li>
-                  <li><a href="/">Q&A</a></li>
-                  <li><a href="/">마이페이지</a></li>
-               </ul>
-            </div>
-         </nav>
-      </header>
-
-      <footer>
+	<header>
+			<a href="/"><img class="logo" src="resources/images/logo1.png" /></a>
+			<nav>
+				<div class="nav">
+					<ul>
+						<li><a href="/">모집공고</a></li>
+						<li><a href="/boardlist.go">게시판</a></li>
+						<li><a href="/qna.go">Q&A</a></li>
+						<li><a href="/userList.go">마이페이지</a></li>
+					</ul>
+				</div>
+			</nav>
+		</header>
+		<footer>
          <div class="bottom_box">
             <ul>
                <li><a href="/">회사소개</a></li>
@@ -231,6 +224,5 @@ footer {
             </ul>
          </div>
       </footer>
-   </form>
 </body>
 </html>

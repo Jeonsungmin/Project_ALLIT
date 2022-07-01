@@ -10,24 +10,50 @@ public class CartDTO {
 	private Date cart_date;
 	
 	private String recruit_title;
-	private Date recruit_period_start;
+	private Date recruit_period_sta;
 	private Date recruit_period_end;
+	private int recruit_close;
+	private String edu_name;
+	
+	private int category_idx;
 	
 	
 	
+
 	
+	
+	
+	public int getCategory_idx() {
+		return category_idx;
+	}
+	public void setCategory_idx(int category_idx) {
+		this.category_idx = category_idx;
+	}
+	public String getEdu_name() {
+		return edu_name;
+	}
+	public void setEdu_name(String edu_name) {
+		this.edu_name = edu_name;
+	}
+	public Date getRecruit_period_sta() {
+		return recruit_period_sta;
+	}
+	public void setRecruit_period_sta(Date recruit_period_sta) {
+		this.recruit_period_sta = recruit_period_sta;
+	}
+	public int getRecruit_close() {
+		return recruit_close;
+	}
+	public void setRecruit_close(int recruit_close) {
+		this.recruit_close = recruit_close;
+	}
 	public String getRecruit_title() {
 		return recruit_title;
 	}
 	public void setRecruit_title(String recruit_title) {
 		this.recruit_title = recruit_title;
 	}
-	public Date getRecruit_period_start() {
-		return recruit_period_start;
-	}
-	public void setRecruit_period_start(Date recruit_period_start) {
-		this.recruit_period_start = recruit_period_start;
-	}
+	
 	public Date getRecruit_period_end() {
 		return recruit_period_end;
 	}

@@ -212,9 +212,9 @@ footer {
          <nav>
             <div class="nav">
                <ul>
-                  <li><a href="/">모집공고</a></li>
-                  <li><a href="list.go">게시판</a></li>
-                  <li><a href="/">Q&A</a></li>
+                  <li><a href="/recruitList.go?field=all">모집공고</a></li>
+                  <li><a href="/boardlist.go">게시판</a></li>
+                  <li><a href="/qna.go">Q&A</a></li>
                   <li><a href="/">마이페이지</a></li>
                </ul>
             </div>
@@ -224,7 +224,7 @@ footer {
       <main>
          <div id="contents">
             <button class="test_box" type="button" name="test">
-               나와 맞는 교육 과정 </br>빠르게 찾기
+               나와 맞는 교육 과정 <br/>빠르게 찾기
             </button>
          </div>
       </main>

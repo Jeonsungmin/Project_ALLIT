@@ -33,19 +33,7 @@
   .nav1 ul > li.on > a {
   	color:#ff0000;
   }
-  #good, #list{
-  	border:1px black solid;
-  	width: 100%;
-    height: 100%;
-    font-size: 20px;
-
-    
-  }
-  
 </style>
-<jsp:include page="./commons/loginBox.jsp"/>
-<jsp:include page="./commons/smnav.jsp"/>
-
 </head>
 <body>
         <div class="nav1">
@@ -84,17 +72,16 @@
 	</div>
 	
    <table>
-      <thead  id="good">
+   <input type="hidden" name="mb_id" th:value="${session.loginId}"/>
+   <input type="hidden" name="recruit_idx" th:value="${view.recruit_idx}"/>
+      <thead>
          <tr>
-            <th>글번호</th>
-            <th>제목</th>
-            <th>작성자</th>
-            <th>작성일</th>
-            <th>조회수</th>
+         	<th>모집공고번호</th>
+            <td th:text="{view.recruit_idx}" ></td>
          </tr>
       </thead>
 
-      <tbody id="list">
+ <tbody id="list">
       
       </tbody>
       <tr>
@@ -113,11 +100,111 @@
 		</th>
 	</tr>
    </table>
+   
+   
+   <!-- 로그인 해야 찜버튼 활성화 -->
+    <div th:if="${session.loginId ne null}">
+   
+    	<!-- 서비스에서 세션으로 가져온 result값이 done이면 찜한 상태, 찜 다시 누르면 찜해제 -->
+   
+   		<button th:if="${session.result eq 'done'}" th:onclick="xxcart([[${view.recruit_idx}]],[[${session.loginId}]])">♥</button>
+   		<button th:if="${session.result ne 'done'}" th:onclick="oocart([[${view.recruit_idx}]],[[${session.loginId}]])">♡</button>
+    
+   </div>
 
 
 
 </body>
 <script>
+//페이지 새로고침
+function refreshPage(){
+	
+	location.reload();
+}
+//찜버튼 눌렀는지 확인하기
+$(document).ready(function){
+	
+	let loginId = '[[${session.loginId}]]';
+	let recruit_idx = [[${view.recruit_idx}]];
+	
+	$.ajax({
+		type : "POST",
+		url : "checkcart",
+		data : {"mb_id" : loginId, "recruit_idx" : recruit_idx},
+		success : function(data) {
+			//성공
+		},
+		error : function(){
+			//실패
+			alert("찜버튼 눌렀는지 확인 실패");
+		}
+	});
+	
+});
+
+
+//찜 가능할때 찜 실행:OODIB
+//공고번호와 로그인한 아이디를 가져와서 INSERT한다.
+function oocart(recruit_idx, loginId){
+	refreshPage();
+	$.ajax({
+		type:"POST"
+		, url: "oocart"
+		, data : {
+			"recruit_idx" : recruit_idx
+			,"mb_id" : loginId
+		},
+		success : function(data){
+			//성공
+			refreshPage();
+			$(document).ready(function(){});
+		},
+		error : function(){
+			//실패 
+			alert("ooDIB 실패");
+		}
+	});
+}
+
+//찜 불가능(찜 해제)
+//상품 번호와 로그인한 회원아이디를 가져와서 delete함
+function xxcart(recruit_idx, loginId){
+	
+	refreshPage();
+	console.log(recruit_idx);
+	console.log(loginId);
+	
+	$.ajax({
+		type: "POST"
+		, url: "xxcart"
+		, data: {
+			"recruit_idx" : recruit_idx
+			,"mb_id" : loginId
+		},
+		success : function(data){
+			//성공
+			refreshPage();
+			
+		},
+		error : function(){
+			alert("xxcart실패");
+		}
+	});
+}
+
+	
+	
+	
+	
+}
+
+
+
+
+
+
+
+
 
 var currPage = 1;
 
@@ -162,7 +249,7 @@ function listCall(page){
    
    $.ajax({
       type:'GET',
-      url:'/boardlist.ajax',
+      url:'list.ajax',
       data:{
     	 cnt : pagePerNum,
          page : page,
@@ -190,16 +277,7 @@ function listCall(page){
       },
       error:function(e){
          console.log(e);//
-      },
-      beforeSend: function(xhr) {
-     	 	// before : 전
-      		// send : 전송
-      		// ajax 를 전송하기 전에 실행할 함수
-      		// xhr.setRequestHeader : 요청헤더를 설정한다. AJAX를 true로!
-
-      		xhr.setRequestHeader("AJAX", true);
-
-    	}
+      }
    });
 }
 
@@ -212,7 +290,7 @@ function drawList(list){
        console.log(item);
        content += '<tr>';
        content += '<td>'+item.board_idx+'</td>';
-       content += '<td><a href="boarddetail.go?board_idx='+item.board_idx+'">'+item.board_title+'</a></td>';
+       content += '<td><a href="detail.go?board_idx='+item.board_idx+'">'+item.board_title+'</a></td>';
        content += '<td>'+item.mb_id+'</td>';
        content += '<td>'+date.toLocaleDateString("ko-KR").replace(/\.$/, '')+'</td>';
        
@@ -225,10 +303,7 @@ function drawList(list){
  }
 
 
-var msg = "${msg}";
-if(msg != "") {
-	alert(msg);
-}  
+
 
 
 

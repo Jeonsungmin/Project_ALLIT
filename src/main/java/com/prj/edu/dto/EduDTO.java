@@ -5,11 +5,6 @@ public class EduDTO {
 	private String rep_name;
 	private String edu_name;
 	private String mb_id;
-<<<<<<< HEAD
-	
-	
-=======
->>>>>>> origin/master
 	public int getEdu_idx() {
 		return edu_idx;
 	}

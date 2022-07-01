@@ -9,7 +9,8 @@
 <style></style>
 </head>
 <body>
-	<%-- <jsp:include page="./commons/loginBox.jsp"/> --%>
+	<jsp:include page="./commons/loginBox.jsp"/>
+	<jsp:include page="./commons/smnav.jsp"/>
 	<h3>상세보기</h3>
 		<table class="board">
 			<tr>
@@ -39,18 +40,56 @@
 			<tr>
 				<th colspan="2">										
 					<input type="button" value ="수정하기" onclick="location.href='boardUpdate.go?board_idx=${dto.board_idx}'"/>
-					<input type="button" value ="돌아가기" onclick="location.href='list.go?board_category=${dto.board_category}'"/>
+					<input type="button" value ="돌아가기" onclick="location.href='boardlist.go?board_category=${dto.board_category}'"/>
+					<input type="button" value ="신고하기" onclick="location.href=''"/>
 					
 				</th>
 			</tr>
 		</table>
+		
+		댓글목록 : ${cmtsize}
+		<table>
+		<c:forEach items="${cmtlist}" var="cmt">
+			<tr>
+				<td>
+					${cmt.mb_id}
+				</td>
+				<td>
+					${cmt.cmt_content}
+				</td>
+				<td>
+					${cmt.cmt_date}
+				</td>
+				<td><a href="cmt_del.do?board_idx=${dto.board_idx}&cmt_idx=${cmt.cmt_idx}" onclick="return confirm('정말 삭제하시겠습니까?');">삭제</a></td>
+			</tr>
+		</c:forEach>
+		</table>
+		
+		<form action="cmt_write.do" method="post">
+			<input type="hidden" name="board_idx" value="${dto.board_idx}"/>
+			<table>
+				<tr>
+					<td><input type="text" name="cmt_content"/></td>
+					<td><button type="submit">댓글입력</button></td>
+				</tr>
+			</table>
+		</form>
 </body>
 <script>
+/* 
+$('.cmt_del > a').on('click', function (e) {
+	console.log("클릭잘됨 ");
+	if (!confirm("정말 삭제하시겠습니까?")) {
+    	e.preventDefault();   
+    }
+	
+})
+ */
 
 
-/* var msg = "${msg}";
+var msg = "${msg}";
 if(msg != "") {
 	alert(msg);
-} */
+}  
 </script>
 </html>
