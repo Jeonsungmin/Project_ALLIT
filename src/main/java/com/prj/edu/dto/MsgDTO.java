@@ -14,6 +14,7 @@ public class MsgDTO {
 	private String sender_id;
 	private String receiver_id;
 	
+
 	public int getMsg_idx() {
 		return msg_idx;
 	}

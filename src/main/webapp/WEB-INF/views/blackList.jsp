@@ -15,6 +15,10 @@
 <script type="text/javascript"
    src="resources/js/jquery.twbsPagination.js"></script>
 <!-- 페이징 처리 -->
+<style></style>
+
+</head>
+<body>
    <style>
 * {
    margin: 0;
@@ -249,14 +253,14 @@ table, th, td {
 <body>
    <form action="blackList" method="post">
       <div id="leftnav">
-			<ul id="leftli">
-				<li><a>마이페이지</a></li>
-				<li><a href="/vslogin.go">회원정보조회</a></li>
-				<li><a href="/msdetail.go">Q&A 답변</a></li>
-				<li><a href="/reportList.go">회원신고관리</a></li>
-				<li><a href="/blackList.go">정지회원관리</a></li>
-			</ul>
-		</div>
+         <ul id="leftli">
+            <li><a href="/">마이페이지</a></li>
+            <li><a onclick="msg()">회원정보조회</a></li>
+            <li><a href="/msdetail.go">Q&A 답변</a></li>
+            <li><a href="/reportList.go?mb_id=${id}">회원신고관리</a></li>
+            <li><a href="/blackList.go?mb_id=${id}">정지회원관리</a></li>
+         </ul>
+      </div>
 
       <select id="pagePerNum"
          style="margin-left: 200px; margin-top: -500px;">
@@ -364,6 +368,9 @@ table, th, td {
       });
       $('#list').empty();
       $('#list').append(content);
+   }
+   function msg() {
+      alert("현재 화면입니다.");
    }
 </script>
 

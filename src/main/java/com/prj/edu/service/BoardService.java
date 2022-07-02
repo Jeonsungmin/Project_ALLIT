@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import com.prj.edu.dao.BoardDAO;
 import com.prj.edu.dto.BoardDTO;
 import com.prj.edu.dto.CmtDTO;
+import com.prj.edu.dto.MsgDTO;
+import com.prj.edu.dto.ReportDTO;
 
 @Service
 public class BoardService {
@@ -69,9 +71,9 @@ public class BoardService {
 	}
 
 
-
+	// 김동훈 수정
 	public BoardDTO boarddetail(String board_idx) {
-		BoardDTO dto = null;
+		BoardDTO dto = new BoardDTO();
 		logger.info(board_idx + "상세보기 서비스 요청");
 		dto = dao.boarddetail(board_idx);
 		logger.info("content : " + dto.getBoard_content());
@@ -132,19 +134,92 @@ public class BoardService {
 		return success;
 	}
 
-
-
 	public void cmtdel(String cmt_idx, String loginId) {
 		dao.cmtdel(cmt_idx, loginId);
 		
 	}
 
+	
+	
+	
+	public String chk_blind(String board_idx) { // 김동훈 추가
+		logger.info("블라인드여부 확인 서비스"); // 김동훈 추가
+		return dao.chk_blind(board_idx); // 김동훈 추가
+	} // 김동훈 추가
+
+
+
+	public String cateId(String id) { // 김동훈 추가
+		return dao.cateId(id); // 김동훈 추가
+	}
+
+	
+	
+	
+	
+	
+	
+
+	public ArrayList<ReportDTO> report_reason(HashMap<String, String> params) {
+		logger.info("params : {}", params);
+		
+		return dao.report_reason(params);
+	}
+
+
+
+	public int board_del(String board_idx) {
+		logger.info("서비스 도착 : ", board_idx);
+		return dao.board_del(board_idx);
+	}
+
+
+
+	public int cmt_del(String board_idx) {
+		logger.info("댓글 삭제 서비스 도착");
+		return dao.cmt_del(board_idx);
+	}
+
+
+
+	public int report_del(String board_idx) {
+		logger.info("신고 삭제 서비스 도착");
+		return dao.report_del(board_idx);
+	}
+
+
+
+	public String chkId(String board_idx) {
+		
+		return dao.chkId(board_idx);
+	}
+
+
+
+	public ArrayList<MsgDTO> sm_msg_send(HashMap<String, String> params) {
+		logger.info("params {}:", params);
+		return dao.sm_msg_send(params);
+	}
+
+
+
+	public String board_cateId(String board_cateloginId) {
+		
+		return dao.board_cateId(board_cateloginId);
+	}
+
+
+
+
+		/*
+		 * public String rpt_boardchk(String report_board_idx) {
+		 * 
+		 * return dao.rpt_boardchk(report_board_idx); }
+		 */
+
 
 
 	
-
-	
-
 
 
 	

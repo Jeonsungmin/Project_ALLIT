@@ -1,7 +1,6 @@
 package com.prj.edu.service;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 
 import org.slf4j.Logger;
@@ -86,9 +85,9 @@ public class UserService {
 		return map;
 	}
 
-	public int cnt(String mb_id, int i) {
-		logger.info("정지된 회원해제?");
-		return dao.cnt(mb_id,i);
+	public int cnt(String mb_id) {
+		logger.info("정지된 회원인지?");
+		return dao.cnt(mb_id);
 	}
 
 	public int joinedu(HashMap<String, Object> params) {
@@ -282,11 +281,7 @@ public class UserService {
 		logger.info("작성한 Q&A 확인 페이지");
 		int cnt = Integer.parseInt(params.get("cnt"));
 		int page = Integer.parseInt(params.get("page"));
-		
-		String loginId = params.get("id");
-	    logger.info("로그인 아이디 요청"+loginId);
-	    int allCnt = dao.usallCount(loginId);
-	    
+		int allCnt = dao.allCount();
 		int pages = allCnt%cnt > 0 ? (allCnt/cnt)+1 : (allCnt/cnt);
 		if(page > pages) {
 			page = pages;
@@ -301,25 +296,32 @@ public class UserService {
 		return map;
 	}
 
-	public String userStop(HashMap<String, Object> params) {
-		logger.info("정지 서비스 잘 작동하는지");
-		String msg = "수정에 실패하였습니다.";
-		if(dao.userStop(params)>0&&dao.mbStop(params)>0) {
-			msg = "수정에 성공하였습니다.";
-		}
-		return msg;
-	}
-
-	public Date stopdate(String loginId) {
-		return dao.stopdate(loginId);
-	}
-
-	public UserDTO userdto(String loginId) {
-		return dao.userdto(loginId);
-	}
-
-	public int cate(String mb_id, int i) {
-		return dao.cate(mb_id,i);
+	public void blind(String board_idx, String blindYn, String report_idx , String report_state) {
+		boarddao.blind(board_idx, blindYn);
+		boarddao.report_state(report_idx, report_state);
+		logger.info("업데이트 요청한 report : " + report_idx + " / " + report_state);
 	}
 	
+	
+	//성민
+	   public HashMap<String, Object> boardHistoryajax(HashMap<String, String> params, String name) {
+	         HashMap<String, Object> map = new HashMap<String, Object>();
+	         logger.info("작성한 게시글 서비스 요청");
+	         int cnt = Integer.parseInt(params.get("cnt"));
+	         int page = Integer.parseInt(params.get("page"));
+	         
+	         int allCnt = boarddao.bht_allCount(name);
+	         int pages = allCnt%cnt > 0 ? (allCnt/cnt)+1 : (allCnt/cnt);
+	         if(page > pages) {
+	            page = pages;
+	         } 
+	         map.put("pages", pages);      //만들 수 있는 최대 페이지 수
+	         map.put("currPage", page); //현재 페이지
+	         int offset = (page-1) * cnt;
+	         logger.info("offset : " + offset);            
+	         ArrayList<BoardDTO> list = boarddao.boardHistoryajax(cnt, offset, name);
+	         
+	         map.put("list", list);
+	         return map;
+	      }
 }

@@ -58,6 +58,7 @@ header {
    position: relative;
 }
 
+
 .visually-hidden { /* legend 안보이게 설정. 이렇게하면 접근성을 준수하면서 디자인을 해치지 않습니다. */
    position: absolute !important;
    height: 1px;
@@ -203,26 +204,14 @@ footer {
 				<div class="nav">
 					<ul>
 						<li><a href="/">모집공고</a></li>
-						<li><a href="/boardlist.go">게시판</a></li>
+						<li><a href="/boardlist.go?board_category=공지사항">게시판</a></li>
 						<li><a href="/qna.go">Q&A</a></li>
-						<li><a href="/vslogin.go">마이페이지</a></li>
+						<li><a href="/userList.go">마이페이지</a></li>
 					</ul>
 				</div>
 			</nav>
 		</header>
-		<!--<footer>
-         <div class="bottom_box">
-            <ul>
-               <li><a href="/">회사소개</a></li>
-               <li><a href="/">인재채용</a></li>
-               <li><a href="/">이용약관</a></li>
-               <li><a href="/">개인정보처리방침</a></li>
-               <li><a href="/">청소년보호정책</a></li>
-               <li><a href="/">ALLIT 정책</a></li>
-               <li><a href="/">고객센터</a></li>
-            </ul>
-         </div>
-      </footer>-->
+
 </body>
 <script>
 </script>

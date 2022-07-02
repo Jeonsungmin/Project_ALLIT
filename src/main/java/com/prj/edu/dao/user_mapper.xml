@@ -33,9 +33,9 @@
 	<select id="overlay" parameterType="String" resultType="String">
 		SELECT mb_id FROM mb WHERE mb_id = #{chkId}
 	</select>
-	<update id="cnt">
-		UPDATE mb SET mb_status=#{param2} WHERE mb_id=#{param1}
-	</update>
+	<select id="cnt" resultType="int">
+		SELECT mb_stopcnt FROM mb WHERE mb_id = #{param1}
+	</select>
 	<insert id="joinedu" parameterType="hashmap">
 		INSERT INTO edu (rep_name,edu_name,mb_id)
 		VALUES(#{rep_name},#{edu_name},#{mb_id})
@@ -56,10 +56,10 @@
 	</select>
 	<select id="userDetail" parameterType="String"
       resultType="com.prj.edu.dto.UserDTO">
-      SELECT mb_id, mb_name, mb_basic_addr, mb_postcode,
-     mb_gender, mb_tel, mb_birth, mb_major, mb_edu, category_idx, mb_status,mb_stopcnt
-     FROM mb 
-      WHERE mb_id=#{param1};  
+      SELECT m.mb_id, m.mb_name, m.mb_basic_addr, m.mb_postcode,
+     m.mb_gender, m.mb_tel, m.mb_birth, m.mb_major, m.mb_edu, m.category_idx, m.mb_status,m.mb_stopcnt
+     ,s.stop_start, s.stop_end, s.stop_reason FROM mb m, stop s 
+      WHERE m.mb_id=#{param1} AND m.mb_id = s.mb_id;  
    </select>
    <select id="eduDetail" parameterType="String"
       resultType="com.prj.edu.dto.UserDTO">
@@ -94,27 +94,7 @@
       	m.mb_id, m.mb_name FROM stop s JOIN mb m USING (mb_id) LIMIT #{param1} OFFSET #{param2}
    </select>
    <select id="blackCount" resultType="int">
-      SELECT COUNT(stop_idx) FROM stop
-   </select>
-   <insert id="userStop" parameterType="hashmap">
-		INSERT INTO stop(stop_reason,stop_start,stop_end,stop_manager,mb_id)
-			VALUES(#{stop_reason},#{stop_start},#{stop_end},#{stop_manager},#{mb_id})
-	</insert>
-   <update id="mbStop" parameterType="hashmap">
-   		UPDATE mb SET mb_status=#{mb_status}, mb_stopcnt=#{mb_stopcnt} WHERE mb_id = #{mb_id}
-   </update>
-   <select id="stopdate" resultType="Date">
-      SELECT max(stop_end) FROM stop WHERE mb_id= #{param1}
-   </select>
-   <select id="userdto" parameterType="String" resultType="com.prj.edu.dto.UserDTO">
-      SELECT mb_id, mb_pass, mb_name, mb_postcode, mb_basic_addr, mb_detail_addr, mb_email, 
-      	mb_tel, mb_gender, mb_birth, mb_major, mb_edu, mb_status, mb_stopcnt, category_idx 
-      		FROM mb WHERE mb_id = #{param1}
-   </select>
-   <update id="cate">
-		UPDATE mb SET category_idx=#{param2} WHERE mb_id=#{param1}
-	</update>
-	<select id="usallCount" resultType="int">
-      SELECT COUNT(qna_idx) FROM qna WHERE mb_id = #{param1}
+      SELECT COUNT(stop_idx)
+      FROM stop
    </select>
 </mapper>

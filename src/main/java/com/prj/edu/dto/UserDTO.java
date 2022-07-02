@@ -1,7 +1,5 @@
 package com.prj.edu.dto;
 
-import java.util.Date;
-
 public class UserDTO {
 	private String mb_id;
 	private String mb_pass;
@@ -15,93 +13,17 @@ public class UserDTO {
 	private String mb_birth;
 	private String mb_major;
 	private String mb_edu;
+	private int category_idx;
 	private String edu_idx;
 	private String rep_name;
 	private String edu_name;
 	private String stop_idx;
 	private String stop_reason;
 	private String stop_start;
-	private Date stop_end;
+	private String stop_end;
 	private String stop_manager;
 	private String mb_stopcnt;
-	private int mb_status;
-	private int category_idx;
-	
-	private String photo_name;
-	
-	
-	public String getPhoto_name() {
-		return photo_name;
-	}
-	public void setPhoto_name(String photo_name) {
-		this.photo_name = photo_name;
-	}
-	public int getMb_status() {
-		return mb_status;
-	}
-	public void setMb_status(int mb_status) {
-		this.mb_status = mb_status;
-	}
-	public String getMb_stopcnt() {
-		return mb_stopcnt;
-	}
-	public void setMb_stopcnt(String mb_stopcnt) {
-		this.mb_stopcnt = mb_stopcnt;
-	}
-	public String getStop_idx() {
-		return stop_idx;
-	}
-	public void setStop_idx(String stop_idx) {
-		this.stop_idx = stop_idx;
-	}
-	public String getStop_reason() {
-		return stop_reason;
-	}
-	public void setStop_reason(String stop_reason) {
-		this.stop_reason = stop_reason;
-	}
-	public String getStop_start() {
-		return stop_start;
-	}
-	public void setStop_start(String stop_start) {
-		this.stop_start = stop_start;
-	}
-	public Date getStop_end() {
-		return stop_end;
-	}
-	public void setStop_end(Date stop_end) {
-		this.stop_end = stop_end;
-	}
-	public String getStop_manager() {
-		return stop_manager;
-	}
-	public void setStop_manager(String stop_manager) {
-		this.stop_manager = stop_manager;
-	}
-	public String getEdu_idx() {
-		return edu_idx;
-	}
-	public void setEdu_idx(String edu_idx) {
-		this.edu_idx = edu_idx;
-	}
-	public String getRep_name() {
-		return rep_name;
-	}
-	public void setRep_name(String rep_name) {
-		this.rep_name = rep_name;
-	}
-	public String getEdu_name() {
-		return edu_name;
-	}
-	public void setEdu_name(String edu_name) {
-		this.edu_name = edu_name;
-	}
-	public int getCategory_idx() {
-		return category_idx;
-	}
-	public void setCategory_idx(int category_idx) {
-		this.category_idx = category_idx;
-	}
+	private String board_idx;
 	public String getMb_id() {
 		return mb_id;
 	}
@@ -173,6 +95,72 @@ public class UserDTO {
 	}
 	public void setMb_edu(String mb_edu) {
 		this.mb_edu = mb_edu;
+	}
+	public int getCategory_idx() {
+		return category_idx;
+	}
+	public void setCategory_idx(int category_idx) {
+		this.category_idx = category_idx;
+	}
+	public String getEdu_idx() {
+		return edu_idx;
+	}
+	public void setEdu_idx(String edu_idx) {
+		this.edu_idx = edu_idx;
+	}
+	public String getRep_name() {
+		return rep_name;
+	}
+	public void setRep_name(String rep_name) {
+		this.rep_name = rep_name;
+	}
+	public String getEdu_name() {
+		return edu_name;
+	}
+	public void setEdu_name(String edu_name) {
+		this.edu_name = edu_name;
+	}
+	public String getStop_idx() {
+		return stop_idx;
+	}
+	public void setStop_idx(String stop_idx) {
+		this.stop_idx = stop_idx;
+	}
+	public String getStop_reason() {
+		return stop_reason;
+	}
+	public void setStop_reason(String stop_reason) {
+		this.stop_reason = stop_reason;
+	}
+	public String getStop_start() {
+		return stop_start;
+	}
+	public void setStop_start(String stop_start) {
+		this.stop_start = stop_start;
+	}
+	public String getStop_end() {
+		return stop_end;
+	}
+	public void setStop_end(String stop_end) {
+		this.stop_end = stop_end;
+	}
+	public String getStop_manager() {
+		return stop_manager;
+	}
+	public void setStop_manager(String stop_manager) {
+		this.stop_manager = stop_manager;
+	}
+	public String getMb_stopcnt() {
+		return mb_stopcnt;
+	}
+	public void setMb_stopcnt(String mb_stopcnt) {
+		this.mb_stopcnt = mb_stopcnt;
+	}
+	public String getBoard_idx() {
+		return board_idx;
+	}
+	public void setBoard_idx(String board_idx) {
+		this.board_idx = board_idx;
 	}
 
 }

@@ -13,14 +13,7 @@ public class QnaDTO {
 	private String qna_answer_id;
 	private Date qna_answer_date;
 	private String qna_answer;
-	private int category_idx;
 	
-	public int getCategory_idx() {
-		return category_idx;
-	}
-	public void setCategory_idx(int category_idx) {
-		this.category_idx = category_idx;
-	}
 	public String getQna_answer_id() {
 		return qna_answer_id;
 	}

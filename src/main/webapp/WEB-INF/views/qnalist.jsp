@@ -255,41 +255,44 @@ th {
 <jsp:include page="./commons/loginBox.jsp" />
 </head>
 <body>
+	<!--<h1>Q&A</h1>
+	<p>서비스 이용에 대하여 궁금한 점이나 문의사항을 등록해 주시면 빠른 시간 내에 답변해 드리겠습니다.</p>-->
+	<!--<h3>검색<input type="text" name="search"><button onclick="location.href='searching.do'">검색</button></h3>-->
    <header>
-         <a href="/"><img class="logo" src="resources/images/logo1.png" /></a>
-         <nav>
-            <div class="nav">
-               <ul>
-                  <li><a href="/">모집공고</a></li>
-                  <li><a href="/boardlist.go">게시판</a></li>
-                  <li><a href="/qna.go">Q&A</a></li>
-                  <li><a href="/vslogin.go">마이페이지</a></li>
-               </ul>
-            </div>
-         </nav>
-      </header>
-      <br>
+			<a href="/"><img class="logo" src="resources/images/logo1.png" /></a>
+			<nav>
+				<div class="nav">
+					<ul>
+						<li><a href="/">모집공고</a></li>
+						<li><a href="/boardlist.go">게시판</a></li>
+						<li><a href="/qna.go">Q&A</a></li>
+						<li><a href="/vslogin.go">마이페이지</a></li>
+					</ul>
+				</div>
+			</nav>
+		</header>
+		<br>
    <select id="pagePerNum" style = "margin-left: 150px;">
-      <option value="5">5개씩</option>
-      <option value="10">10개씩</option>
-      <option value="15">15개씩</option>
-      <option value="20">20개씩</option>
+      <option value="5">5개씩 보기</option>
+      <option value="10">10개씩 보기</option>
+      <option value="15">15개씩 보기</option>
+      <option value="20">20개씩 보기</option>
    </select>
    <button onclick="location.href='qnaWrite.go'">글쓰기</button>
-   <table>
-      <thead>
-         <tr>
-            <th>번호</th>
-            <th>제목</th>
-            <th>작성자ID</th>
-            <th>작성일</th>
-            <th>답변여부</th>
-         </tr>
-      </thead>
-      <tbody id="list">
-      
-      </tbody>
-      <tr>
+	<table>
+		<thead>
+			<tr>
+				<th>번호</th>
+				<th>제목</th>
+				<th>작성일</th>
+				<th>작성자ID</th>
+				<th>답변여부</th>
+			</tr>
+		</thead>
+		<tbody id="list">
+		
+		</tbody>
+		<tr>
          <td colspan="4" id="paging">
             <!-- plugin 사용법(twbspagination) , 이렇게 쓰라고 명시되어있음. -->
             <div class="container">
@@ -298,8 +301,8 @@ th {
                </nav>
             </div>
          </td>
-         </tr>   
-   </table>
+      	</tr>	
+	</table>
 </body>
 <script>
 
@@ -308,7 +311,7 @@ var currPage = 1;
 listCall(currPage);
 //페이징 처리
 $('#pagePerNum').on('change',function(){
-   console.log("currPage: " + currPage);
+	console.log("currPage: " + currPage);
   //페이지당 보여줄 수 변경시 계산된 페이지 적용이 안된다.(플러그인의 문제)
   //페이지당 보여줄 수 변경시 기존 페이지 요소를 없애고 다시 만들어 준다.
   $("#pagination").twbsPagination('destroy');   
@@ -354,17 +357,18 @@ function listCall(page){
 function drawList(list){
     var content = '';
     list.forEach(function(item){
-       var date = new Date(item.qna_date); 
+    	var date = new Date(item.qna_date); 
        console.log(item);
        content += '<tr>';
        content += '<td>'+item.qna_idx+'</td>';
-       content += '<td><a href="qnadetail.go?qna_idx='+item.qna_idx+'">'+item.qna_title+'</a></td>';
-       content += '<td>'+item.mb_id+'</td>';
+       content += '<td><a href="detail.go?qna_idx='+item.qna_idx+'">'+item.qna_title+'</a></td>';
        content += '<td>'+date.toLocaleDateString("ko-KR")+'</td>';
+       content += '<td>'+item.mb_id+'</td>';
        if(item.qna_answer_chk == false ){
-          content += '<td>'+"미답변"+'</td>';      
-       }else {content += '<td>'+"답변완료"+'</td>';   
+    	   content += '<td>'+"미답변"+'</td>';	   
+       }else {content += '<td>'+"답변완료"+'</td>';	
        }
+       //content += '<td>'+item.qna_answer_chk+'</td>';
        content += '</tr>';
     });
     $('#list').empty();
@@ -372,5 +376,96 @@ function drawList(list){
  }
 
 
+<title>Insert title here</title>
+<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<style>
+
+   table{
+   width:600px;
+   margin-left:50%;
+   margin-right:50%;
+   }
+
+
+   table,th,td{
+      border: 1px solid black;
+      border-collapse: collapse;
+      padding: 5px;
+      margin: auto;
+      text-align:center;
+   }
+
+   h2{
+   width:100px;
+    text-align: center;
+    font-weight: bold;
+    position : relative;
+    margin-top:200px;
+    margin-left:50%;
+    margin-right:50%;
+   }
+   
+    td, th {
+    width: 300px;
+    border: 1px solid #444444;
+    
+   }
+   
+   form{
+   width: 300px;
+   height: 500px;
+   margin-left:50%;
+    margin-right:50%;
+   }
+   
+   #qna_content{
+   width: 400px;
+   height: 100px;
+   }
+   
+   #qna_title{
+   width: 400px;}
+
+   
+</style>
+</head>
+
+<body>
+
+<h2>Q&A 글쓰기</h2>
+   <form action="write.do" method="post">
+      <table>
+         <thead>
+            <tr>
+               <td>작성자 ID</td>
+               <td><%=session.getAttribute("loginId")%></td>
+               <td>작성일자</td>
+               <td><input type='date' id='currnetMonth' name="qna_date" readonly></td>
+            </tr>
+         </thead>
+         <tbody>
+         <tr>
+            <td colspan="2" text-align:center>제목</td>
+            <td colspan="2"><input type="text" name="qna_title" id="qna_title"/></td>
+         </tr>
+         <tr>
+            <td colspan="2" text-align:center;>내용</td>
+            <td colspan="2"><textarea name="qna_content" id="qna_content" style="width: 399px; height: 241px;"/></textarea></td>
+         </tr>
+         </tbody>
+         <tr>
+            <td colspan="2">
+               <input type="button" value="돌아가기" onclick="location.href='list.go'">
+               <input type="submit" value="작성하기"/>
+            </td>
+         </tr>
+      </table>
+   </form>
+</body>
+
+
+<script>
+document.getElementById('currnetMonth').value= new Date().toISOString().slice(0, 10);
 </script>
 </html>
