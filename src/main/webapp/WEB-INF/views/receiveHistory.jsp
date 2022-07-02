@@ -254,24 +254,36 @@ th {
 }
 
 </style>
+<jsp:include page="./commons/loginBox.jsp" />
+<jsp:include page="./commons/smnav.jsp"/>
+
 </head>
 <body>
-<input type="hidden" id="loginid" value="${sessionScope.loginId}"/>
-	<select id="pagePerNum">
-		<option value="5">5개씩</option>
-		<option value="10">10개씩</option>
-		<option value="15">15개씩</option>
-		<option value="20">20개씩</option>
-	</select>
-	<select id="msg_open">
-		<option value="1" >읽음</option>
-		<option value="0" selected="selected">안읽음</option>
-	</select>
-	<tr>
-		<th colspan="2"><input type="button" value="쪽지 수신함"> <input
-			type="button" value="쪽지 발신함" onclick="location.href='sendHistory.go?'" /><!--${sessionScope.loginId}-->
-		</th>
-	</tr>
+<form action="userInfo" method="post">
+      <div id="leftnav">
+         <ul id="leftli">
+            <li><a href="/">마이페이지</a></li>
+            <li><a onclick="msg()">상담신청 내역</a></li>
+            <li><a href="/">찜한 공고</a></li>
+            <li><a href="/msgsend.go">쪽지함</a></li>
+            <li><a href="/">작성한 게시글</a></li>
+            <li><a href="/qnaHistory.go">작성한 Q&A</a></li>
+            <li><a href="/userInfo.go?mb_id=${id}">개인정보 조회</a></li>
+         </ul>
+      </div>
+</form>
+    <table class="info" style="margin-left: 225px; margin-top: -450px;">
+		<input type="hidden" id="loginid" value="${sessionScope.loginId}"/>
+			<input type="button" value="쪽지 수신함"/>
+			<input type="button" value="쪽지 발신함" onclick="location.href='sendHistory.go?'"/>
+			<select id="pagePerNum">
+				<option value="5">5개씩</option>
+				<option value="10">10개씩</option>
+				<option value="15">15개씩</option>
+				<option value="20">20개씩</option>
+			</select>
+			<input type="image" value="${num}"/>
+	</table>
 	<table>
 		<thead>
 			<tr>
@@ -295,9 +307,11 @@ th {
 					</nav>
 				</div>
 			</td>
+			<td colspan="2">
+				<input type="button" onclick="del()" value="삭제"/>
+			</td>
 		</tr>
 	</table>
-	<button onclick="del()">삭제</button>
 </body>
 <script>
 
@@ -313,27 +327,9 @@ $('#pagePerNum').on('change',function(){
   listCall(currPage);    
 });
 
-$('#msg_open').on('change', function(){
-	 var openok = $('#msg_open').val();
-	 	console.log(openok);
-	 	$.ajax({
-	 		type:'get',
-	 		url:'opentest.ajax',
-	 		data : {openok : openok},
-	 		dataType:'JSON',
-	 		success:function(data){
-	 			console.log("성공");
-	 			listCall(currPage);
-	 		},
-	 		error:function(e){
-	 			consloe.log(e);
-	 		}
-	 	});
-	});
 
 function listCall(page){
 	var id = $('#loginid').val();
-	var openok = $('#msg_open').val();
    var pagePerNum = $('#pagePerNum').val();
    console.log("param page : " +page);
    $.ajax({
@@ -342,7 +338,6 @@ function listCall(page){
       data:{
          cnt : pagePerNum,
          page : page,
-         opentest : openok,
          id : id
          },
       dataType:'JSON',

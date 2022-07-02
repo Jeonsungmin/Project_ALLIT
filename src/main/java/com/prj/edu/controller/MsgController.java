@@ -26,9 +26,11 @@ import com.prj.edu.service.MsgService;
 		
 		@RequestMapping("/msgsend.go")
 		public String receiveHistory(Model model, HttpSession session) {
-			
 			String loginId = (String) session.getAttribute("loginId");
+			int msgcount = service.msgcnt(loginId);
+			logger.info("안 읽은 메세지 수 : "+msgcount);
 			logger.info("loginId : "+ loginId);
+			model.addAttribute("num",msgcount);
 			return "receiveHistory";
 		}
 		
@@ -116,17 +118,6 @@ import com.prj.edu.service.MsgService;
 			}
 			return page;
 		}
-		
-
-		@RequestMapping("/opentest.ajax")
-		@ResponseBody
-		public HashMap<String, Object> opentest(@RequestParam HashMap<String, Object> params) {
-			HashMap<String, Object> map = new HashMap<String, Object>();
-			logger.info("params : {}"+params);
-			return service.opentest(params);
-		}
-		
-		
 		
 		
 	}

@@ -108,10 +108,8 @@ public class MsgService {
 		logger.info("보여줄 페이지 : " + page);
 		String loginid = params.get("id");
 		int allCnt = dao.receiveallCount(loginid);
-		int opentest = Integer.parseInt(params.get("opentest"));
 		int msgcnt = dao.msgcnt(loginid);
 		logger.info("안 읽은 메세지 "+msgcnt+"개");
-		logger.info("1이면 읽음 0이면 안 읽음 : "+opentest);
 		
 		logger.info("allCnt:" + allCnt);
 		int pages = allCnt%cnt > 0 ? (allCnt/cnt)+1 : (allCnt/cnt);
@@ -129,20 +127,18 @@ public class MsgService {
 		//	offset = 5;
 		//}
 		logger.info("offset : " + offset);
-		ArrayList<MsgDTO> msgreceivelist = dao.msgreceivelist(cnt, offset, loginid, opentest);
+		ArrayList<MsgDTO> msgreceivelist = dao.msgreceivelist(cnt, offset, loginid);
 		map.put("msgreceivelist", msgreceivelist);
 		
 		return map;
 		}
 
-	
-	public HashMap<String, Object> opentest(HashMap<String, Object> params) {
-		logger.info("열람여부 확인 서비스");
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		ArrayList<MsgDTO> opentest = dao.opentest(params);
-		map.put("opentest", opentest);
-		return map;
+
+	public int msgcnt(String loginId) {
+		logger.info(loginId+"님의 메세지 수");
+		return dao.msgcnt(loginId);
 	}
+
 
 	
 }

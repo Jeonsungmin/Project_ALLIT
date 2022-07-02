@@ -25,9 +25,7 @@ public interface MsgDAO {
 
 	void open(String msg_idx);
 
-	ArrayList<MsgDTO> msgreceivelist(int cnt, int offset, String loginid, int opentest);
-
-	ArrayList<MsgDTO> opentest(HashMap<String, Object> params);
+	ArrayList<MsgDTO> msgreceivelist(int cnt, int offset, String loginid);
 
 	int msgcnt(String loginid);
 
