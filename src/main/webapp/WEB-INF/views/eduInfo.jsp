@@ -267,9 +267,9 @@ th {
       <div id="leftnav">
          <ul id="leftli">
             <li><a href="/eduInfo.go?mb_id=${id}">마이페이지</a></li>
-            <li><a href="/">상담신청 내역</a></li>
+            <li><a href="/cstList.go">상담신청 내역</a></li>
             <li><a onclick="msg()">작성한 모집공고</a></li>
-            <li><a href="/">작성한 Q&A</a></li>
+            <li><a href="/qnaHistory.go">작성한 Q&A</a></li>
             <li><a href="/eduInfo.go?mb_id=${id}">교육기관 정보 조회</a></li>
          </ul>
       </div>
@@ -314,6 +314,10 @@ th {
    </form>
 </body>
 <script>
-   
+	var msg = "${msg}";
+	
+	if(msg != ""){
+	   alert(msg);
+	}
 </script>
 </html>

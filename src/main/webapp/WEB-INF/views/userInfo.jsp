@@ -278,7 +278,7 @@ th {
       <div id="leftnav">
          <ul id="leftli">
             <li><a href="/">마이페이지</a></li>
-            <li><a onclick="msg()">상담신청 내역</a></li>
+            <li><a href="/cstList.go">상담신청 내역</a></li>
             <li><a href="/">찜한 공고</a></li>
             <li><a href="/msgsend.go">쪽지함</a></li>
             <li><a href="/boardHistory.go">작성한 게시글</a></li>
@@ -338,10 +338,10 @@ th {
    
 </body>
 <script>
-var msg = "${msg}";
-
-if(msg != ""){
-   alert(msg);
-}
+	var msg = "${msg}";
+	
+	if(msg != ""){
+	   alert(msg);
+	}
 </script>
 </html>

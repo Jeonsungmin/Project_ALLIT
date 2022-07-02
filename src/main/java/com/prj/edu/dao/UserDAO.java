@@ -1,5 +1,6 @@
 package com.prj.edu.dao;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -7,6 +8,7 @@ import com.prj.edu.dto.EduDTO;
 import com.prj.edu.dto.UserDTO;
 
 public interface UserDAO {
+
 
    String login(String mb_id, String mb_pass);
 
@@ -56,5 +58,15 @@ public interface UserDAO {
 
 	int qnaallCount(String name);
 
-}
+ 	int mbStop(HashMap<String, Object> params);
 
+	Date stopdate(String loginId);
+
+	UserDTO userdto(String loginId);
+
+	int cate(String mb_id, int i);
+
+	int usallCount(String loginId);
+
+
+}

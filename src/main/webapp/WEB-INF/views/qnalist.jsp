@@ -361,7 +361,7 @@ function drawList(list){
        console.log(item);
        content += '<tr>';
        content += '<td>'+item.qna_idx+'</td>';
-       content += '<td><a href="detail.go?qna_idx='+item.qna_idx+'">'+item.qna_title+'</a></td>';
+       content += '<td><a href="qnadetail.go?qna_idx='+item.qna_idx+'">'+item.qna_title+'</a></td>';
        content += '<td>'+item.mb_id+'</td>';
        content += '<td>'+date.toLocaleDateString("ko-KR")+'</td>';
        if(item.qna_answer_chk == false ){

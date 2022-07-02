@@ -64,7 +64,7 @@ h1{margin:200px 40% 10px 40%;}
 			</tr>
 			<tr>
 				<th colspan="2">
-					<input type="button" value="돌아가기" onclick="location.href='/qnaHistory.go'">
+					<input type="button" value="돌아가기" onclick="location.href='/qnaList.go'">
 					<!--<input type="button" value="답변하기" onclick="location.href='answer.go?qna_idx=${dto.qna_idx}'"/>-->
 				</th>
 		</thead>
