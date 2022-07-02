@@ -11,7 +11,7 @@ import com.prj.edu.dto.UserDTO;
 public interface UserDAO {
 
 	String login(String mb_id, String mb_pass);
-
+	
 	int join(HashMap<String, Object> params);
 
 	String idsearch(String mb_email, String mb_tel);
@@ -67,4 +67,6 @@ public interface UserDAO {
 	int cate(String mb_id, int i);
 
 	int usallCount(String loginId);
+
+
 }
