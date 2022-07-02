@@ -1,7 +1,5 @@
 package com.prj.edu.dto;
 
-import java.util.Date;
-
 public class UserDTO {
 	private String mb_id;
 	private String mb_pass;
@@ -15,23 +13,23 @@ public class UserDTO {
 	private String mb_birth;
 	private String mb_major;
 	private String mb_edu;
+	private int category_idx;
 	private String edu_idx;
 	private String rep_name;
 	private String edu_name;
 	private String stop_idx;
 	private String stop_reason;
 	private String stop_start;
-	private Date stop_end;
+	private String stop_end;
 	private String stop_manager;
 	private String mb_stopcnt;
-	private int mb_status;
-	private int category_idx;
+	private String board_idx;
 	
-	public int getMb_status() {
-		return mb_status;
+	public String getBoard_idx() {
+		return board_idx;
 	}
-	public void setMb_status(int mb_status) {
-		this.mb_status = mb_status;
+	public void setBoard_idx(String board_idx) {
+		this.board_idx = board_idx;
 	}
 	public String getMb_stopcnt() {
 		return mb_stopcnt;
@@ -57,10 +55,10 @@ public class UserDTO {
 	public void setStop_start(String stop_start) {
 		this.stop_start = stop_start;
 	}
-	public Date getStop_end() {
+	public String getStop_end() {
 		return stop_end;
 	}
-	public void setStop_end(Date stop_end) {
+	public void setStop_end(String stop_end) {
 		this.stop_end = stop_end;
 	}
 	public String getStop_manager() {

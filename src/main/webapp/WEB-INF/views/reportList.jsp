@@ -15,6 +15,10 @@
 <script type="text/javascript"
    src="resources/js/jquery.twbsPagination.js"></script>
 <!-- 페이징 처리 -->
+<style></style>
+
+</head>
+<body>
    <style>
 * {
    margin: 0;
@@ -353,13 +357,13 @@ table, th, td {
          var date = new Date(item.report_date);
          console.log(item);
          content += '<tr>';
-         content += '<td>'+(num++)+'</td>';
-         content += '<td><a href="boarddetail.go?board_idx=' + item.board_idx + '">' + item.board_title + '</a></td>';
+         //content += '<td>'+(num++)+'</td>';
+         content += '<td>'+item.report_idx+'</td>';
+         content += '<td><a href="boarddetail.go?board_idx=' + item.board_idx + '&report_idx='+item.report_idx+'">' + item.board_title + '</a></td>';
          content += '<td>' + item.mb_id + '</td>';
          content += '<td>' + item.report_reason + '</td>';
-          content += '<td>' + date.toLocaleDateString("ko-KR").replace(/\.$/, '') + '</td>'; 
+         content += '<td>' + date.toLocaleDateString("ko-KR").replace(/\.$/, '') + '</td>'; 
          content += '<td>' + item.report_state + '</td>';
-         
          content += '</tr>';
       });
       $('#list').empty();

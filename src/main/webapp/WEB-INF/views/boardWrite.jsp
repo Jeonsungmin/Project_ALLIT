@@ -9,6 +9,7 @@
 
 
 </script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <style>
   
    * {
@@ -48,7 +49,7 @@
    width: 100%;
    }
    
-   
+   input[readonly] {border:1px solid black; background-color:#dfdfdf;}
 
 </style>
 
@@ -59,39 +60,59 @@
     <div id="main-text"> 글쓰기</div>
     
     <form action="board_write.do" method="post">
+    
     <table>
     	<tr>
 	    	<th>작성자 ID</th>
 	    	<td><textarea name="mb_id" readonly>${sessionScope.loginId}</textarea></td>
+	    	<td><input type="text" name="mb_id" value="${sessionScope.loginId}" readonly /></td>
 	    	<th>작성일</th>
 	    	<td><input type='date' id='currnetMonth' name="board_date" readonly></td>
 	    </tr>
     	<tr>
 	    	<th>게시글 종류</th>
 		    	<td colspan="3">
-			      <label><input type="radio" name="board_category" value="공지사항" checked>공지사항</label> 
-			      <label><input type="radio" name="board_category" value="질문하기">질문하기</label>
-			      <label><input type="radio" name="board_category" value="TIP">TIP</label>
+			      <label id="notice_hide"><input type="radio" name="board_category" value="공지사항">공지사항</label> 
+			      <label><input type="radio" name="board_category" value="질문" checked>질문하기</label>
+			      <label><input type="radio" name="board_category" value="tip">TIP</label>
 			      <label><input type="radio" name="board_category" value="잡담">잡담</label>
 	    		</td>
  		</tr>
     	<tr>
 	    	<th>제목</th>
-	    	<td><textarea name="board_title"></textarea></td>
+	    	<td><textarea name="board_title" maxlength="30" required ></textarea></td>
     	</tr>
     	
     	<tr colspan="2">
 	    	<th>내용</th>
-	    	<td colspan="3"><textarea name="board_content"></textarea></td>
+	    	<td colspan="3"><textarea name="board_content" maxlength="500" required></textarea></td>
     	</tr>
 	</table>
-	<input type="submit" value="등록"/>
-	<input type="button" value="되돌아가기" onclick="location.href='/'"/>
+	<input type="submit" />
+	<input type="button" value="되돌아가기" onclick="location.href='/boardlist.go?board_category=${board_category}'"/>
 	</form>
 
     
 </body>
 <script>
+
+noticehide();
+
+function noticehide(){
+	
+	var boardcateName = "${board_cateId}";
+
+	if(boardcateName == "일반회원") {
+		$("#notice_hide").hide();
+	}
+}
+	
 document.getElementById('currnetMonth').value= new Date().toISOString().slice(0, 10);
+
+
+
+
+
+
 </script>
 </html>

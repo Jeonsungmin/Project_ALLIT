@@ -50,6 +50,7 @@ h1{margin:200px 40% 10px 40%;}
 		</thead>
 	</table><br/><br/><br/><br/>
 	<h4>답변 내용</h4>
+	
 	<form action="answer.do" method="post">
 		<table>
 			<tr>
@@ -59,7 +60,7 @@ h1{margin:200px 40% 10px 40%;}
 				<td><input type='date' id='currnetMonth' name="qna_answer_date" readonly></td>
 			</tr>
 			<tr>
-				<td colspan="2" text-align:center>내용</td>
+				<td colspan="2" style="text-align:center">내용</td>
 				<td colspan="2"><textarea name="qna_answer" id="qna_answer" style="width: 399px; height: 241px;">${dto.qna_answer}</textarea></td>
 			</tr>
 			<tr>

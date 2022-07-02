@@ -22,88 +22,79 @@ import com.prj.edu.service.QnaService;
 @Controller
 public class QnaController {
 
-   Logger logger = LoggerFactory.getLogger(this.getClass());
+	Logger logger = LoggerFactory.getLogger(this.getClass());
 
-   @Autowired QnaService service;
+	@Autowired QnaService service;
 
-   @RequestMapping(value = "/qna.go", method = RequestMethod.GET)
-   public String home(Model model) {
-      return "qnalist";
-   }
+	@RequestMapping(value = "/qna.go", method = RequestMethod.GET)
+	public String home(Model model) {
+		return "qnalist";
+	}
 
-   
-   //상세보기 이동
-   @RequestMapping(value = "/qnadetail.go")
-   public String detail(Model model, HttpSession session, @RequestParam String qna_idx) {
-      logger.info("상세보기 요청 : " + qna_idx);   
-      QnaDTO dto = service.detail(qna_idx);
-      model.addAttribute("dto", dto);
-      return "qnadetail";
-   }
-   
-   
-   @RequestMapping(value = "/myqnadetail.go")
-   public String myqnadetail(Model model, HttpSession session, @RequestParam String qna_idx) {
-      logger.info("상세보기 요청 : " + qna_idx);   
-      QnaDTO dto = service.detail(qna_idx);
-      model.addAttribute("dto", dto);
-      return "myqnadetail";
-   }
+	//상세보기 이동
+	@RequestMapping(value = "/detail.go")
+	public String detail(Model model, HttpSession session, @RequestParam String qna_idx) {
+		logger.info("상세보기 요청 : " + qna_idx);	
+		QnaDTO dto = service.detail(qna_idx);
+		model.addAttribute("dto", dto);
+		return "qnadetail";
+	}
 
 
-   //글쓰기 페이지 이동
-   @RequestMapping(value = "/qnaWrite.go")
-   public String qnaWrite(Model model) {
-      logger.info("게시글 작성 페이지 ");
-      return "qnaWrite";
-   }
+	//글쓰기 페이지 이동
+	@RequestMapping(value = "/qnaWrite.go")
+	public String qnaWrite(Model model) {
+		logger.info("게시글 작성 페이지 ");
+		return "qnaWrite";
+	}
 
-   //리스트 페이지 이동
-   @RequestMapping(value = "/list.go", method = RequestMethod.GET)
-   public String qnaList(Model model) {
-      logger.info("리스트 페이지 이동");
-      return "qnalist";
-   }
+	//리스트 페이지 이동
+	@RequestMapping(value = "/list.go", method = RequestMethod.GET)
+	public String qnaList(Model model) {
+		logger.info("리스트 페이지 이동");
+		return "qnalist";
+	}
 
-   //qna 답변 페이지 이동
-   @RequestMapping(value = "/answer.go")
-   public String qnaanswer(Model model, @RequestParam String qna_idx) {
-      logger.info("idx : " + qna_idx);
-      QnaDTO dto = service.dbdetail(qna_idx);
-      model.addAttribute("dto", dto);
-      return "qnaanswer";
-   }   
+	//qna 답변 페이지 이동
+	@RequestMapping(value = "/answer.go")
+	public String qnaanswer(Model model, @RequestParam String qna_idx) {
+		logger.info("idx : " + qna_idx);
+		QnaDTO dto = service.dbdetail(qna_idx);
+		model.addAttribute("dto", dto);
+		return "qnaanswer";
+	}	
 
 
 
-   //리스트 페이징
-   @RequestMapping("list.ajax")
-   @ResponseBody
-   public HashMap<String, Object> list(@RequestParam HashMap<String, String> params) {
-      logger.info("리스트 요청!!!!!!!!! : {}",params);
-      return service.list(params);
-   }
+	//리스트 페이징
+	@RequestMapping("list.ajax")
+	@ResponseBody
+	public HashMap<String, Object> list(@RequestParam HashMap<String, String> params) {
+		logger.info("리스트 요청!!!!!!!!! : {}",params);
+		return service.list(params);
+	}
 
 
-   @RequestMapping(value = "/write.do")
-   public String write(Model model, HttpSession session, @RequestParam HashMap<String, String> params) {
-      String page = "writeForm";
-      String name = (String) session.getAttribute("loginId");
-      params.put("mb_id",name);
-      params.put("qna_answer_chk","0");
-      if(service.write(params) == true) {
-         page = "redirect:/list.go";
-      }else {
-         model.addAttribute("msg", "글쓰기에 실패 했습니다.");
-      }
-      return page;
-   }
-   @RequestMapping(value = "/answer.do", method = RequestMethod.POST)
-   public String answer(@RequestParam HashMap<String, Object> params) {
-      service.answer(params);
-      return "redirect:/list.go"; // 매니저 qna 리스트 페이지로 변경 필요
-   }
+	@RequestMapping(value = "/write.do")
+	public String write(Model model, HttpSession session, @RequestParam HashMap<String, String> params) {
+		String page = "writeForm";
+		String name = (String) session.getAttribute("loginId");
+		params.put("mb_id",name);
+		params.put("qna_answer_chk","0");
+		if(service.write(params) == true) {
+			page = "redirect:/list.go";
+		}else {
+			model.addAttribute("msg", "글쓰기에 실패 했습니다.");
+		}
+		return page;
+	}
+	@RequestMapping(value = "/answer.do", method = RequestMethod.POST)
+	public String answer(@RequestParam HashMap<String, Object> params) {
+		service.answer(params);
+		return "redirect:/msdetail.go"; // 매니저 qna 리스트 페이지로 변경 필요
+	}
 }
+
 
 
 

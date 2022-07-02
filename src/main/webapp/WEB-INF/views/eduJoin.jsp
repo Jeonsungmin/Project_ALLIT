@@ -43,16 +43,16 @@
 			</tr>
 			<tr>
 				<th>비밀번호</th>
-				<td><input type ="text" name="mb_pass"/></td>
+				<td><input type ="password" name="mb_pass"/></td>
 			</tr>
 			<tr>
 				<th>비밀번호 확인</th>
-				<td><input type ="text" name="pw"/></td>	
+				<td><input type ="password" name="pw"/></td>	
 				<td><input type="button" value="중복체크" onclick="pw()"/></td>
 			</tr>
 			<tr>
 				<th>대표자 성명</th>
-				<td><input type ="text" name="rep_name" required="required"/></td>
+				<td><input type ="text" name="rep_name"/></td>
 			</tr>
 			<tr>
 				<th>교육기관명</th>
