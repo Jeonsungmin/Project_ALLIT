@@ -43,11 +43,11 @@
 			</tr>
 			<tr>
 				<th>비밀번호</th>
-				<td><input type ="text" name="mb_pass"/></td>
+				<td><input type ="password" name="mb_pass"/></td>
 			</tr>
 			<tr>
 				<th>비밀번호 확인</th>
-				<td><input type ="text" name="pw"/></td>	
+				<td><input type ="password" name="pw"/></td>	
 				<td><input type="button" value="중복체크" onclick="pw()"/></td>
 			</tr>
 			<tr>

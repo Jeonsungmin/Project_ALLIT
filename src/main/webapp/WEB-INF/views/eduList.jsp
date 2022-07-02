@@ -244,8 +244,8 @@ table, th, td {
    text-align: center;
 }
 </style>
-	<jsp:include page="./commons/loginBox.jsp"/>
-	<jsp:include page="./commons/smnav.jsp"/>
+   <jsp:include page="./commons/loginBox.jsp"/>
+   <jsp:include page="./commons/smnav.jsp"/>
 </head>
 <body>
    <form action="eduList" method="post">

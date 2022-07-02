@@ -7,15 +7,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.prj.edu.dao.BoardDAO;
-import com.prj.edu.dao.PhotoDAO;
 import com.prj.edu.dao.QnaDAO;
 import com.prj.edu.dao.UserDAO;
 import com.prj.edu.dto.BoardDTO;
-import com.prj.edu.dto.EduDTO;
 import com.prj.edu.dto.QnaDTO;
 import com.prj.edu.dto.UserDTO;
 
@@ -306,4 +302,26 @@ public class UserService {
 		logger.info("업데이트 요청한 report : " + report_idx + " / " + report_state);
 	}
 	
+	
+	//성민
+	   public HashMap<String, Object> boardHistoryajax(HashMap<String, String> params, String name) {
+	         HashMap<String, Object> map = new HashMap<String, Object>();
+	         logger.info("작성한 게시글 서비스 요청");
+	         int cnt = Integer.parseInt(params.get("cnt"));
+	         int page = Integer.parseInt(params.get("page"));
+	         
+	         int allCnt = boarddao.bht_allCount(name);
+	         int pages = allCnt%cnt > 0 ? (allCnt/cnt)+1 : (allCnt/cnt);
+	         if(page > pages) {
+	            page = pages;
+	         } 
+	         map.put("pages", pages);      //만들 수 있는 최대 페이지 수
+	         map.put("currPage", page); //현재 페이지
+	         int offset = (page-1) * cnt;
+	         logger.info("offset : " + offset);            
+	         ArrayList<BoardDTO> list = boarddao.boardHistoryajax(cnt, offset, name);
+	         
+	         map.put("list", list);
+	         return map;
+	      }
 }

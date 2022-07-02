@@ -364,7 +364,6 @@ table, th, td {
          content += '<td>' + item.report_reason + '</td>';
          content += '<td>' + date.toLocaleDateString("ko-KR").replace(/\.$/, '') + '</td>'; 
          content += '<td>' + item.report_state + '</td>';
-         
          content += '</tr>';
       });
       $('#list').empty();
