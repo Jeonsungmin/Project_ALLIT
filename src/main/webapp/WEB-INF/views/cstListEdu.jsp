@@ -153,7 +153,7 @@
 	        
 	        if(item.cons_open == false){
 	            open = "미열람";
-	            holder.text.setTextColor(R.color.Red);
+
 	        }else{
 	            open = "열람";
 	        	}

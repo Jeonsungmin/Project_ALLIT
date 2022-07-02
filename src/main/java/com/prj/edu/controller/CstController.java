@@ -34,7 +34,7 @@ public class CstController {
 //		return 0;
 //	}
 	
-	// 회원 분류에 따라 해당 리스트 내역으로 보내주기 위한 코드
+	// 회원 분류에 따라 해당 리스트 내역을 보여주기 위한 코드
 	@RequestMapping(value = "/cstList.go", method = RequestMethod.GET) 
 		public String cstList(Model model,HttpSession session,HttpServletRequest request) {
 			
@@ -45,7 +45,7 @@ public class CstController {
 			if(session.getAttribute("loginId") != null) {
 			String loginId = (String) session.getAttribute("loginId");
 			
-			int num = service.userCategory(loginId);
+			int num = service.userCategory(loginId); // 회원의 분류코드 받아오기
 			
 			logger.info("로그인 아이디: "+loginId+"  |  "+"회원번호: "+num);
 			
@@ -76,7 +76,7 @@ public class CstController {
 		}
 	
 	
-	// 일반회원 => 상담 신청 리스트로 이동 (마이페이지로 연결해야함)
+	// 일반회원 => 상담 신청 리스트로 이동
 	 @RequestMapping(value = "/cstListMb.go", method = RequestMethod.GET) 
 		 public String cstListMb(Model model,HttpSession session) {
 		 	
@@ -94,7 +94,7 @@ public class CstController {
 	 	}
 	
 	 
-	 // 일반회원 => 상담신청 내역 불러오기 (교육기관명 불러오기 아직,,)
+	 // 일반회원 => 상담신청 내역 불러오기
 	@RequestMapping("/cstListMb.ajax")
 	@ResponseBody 
 		public HashMap<String, Object> mbList( @RequestParam HashMap<String, String> params, HttpSession session){ 
@@ -118,7 +118,7 @@ public class CstController {
 		} 	
 		
 	
-	// 교육기관  => 상담 신청 리스트로 이동 (마이페이지로 연결해야함)
+	// 교육기관  => 상담 신청 리스트로 이동
 	 @RequestMapping(value = "/cstListEdu.go", method = RequestMethod.GET) 
 		 public String cstListEdu(Model model,HttpSession session) {
 			 
@@ -136,7 +136,7 @@ public class CstController {
 	
 	 
 
-	 // 교육기관 => 상담신청 내역 불러오기 (교육기관명 불러오기 아직,,)
+	 // 교육기관 => 상담신청 내역 불러오기
  	@RequestMapping("/cstListEdu.ajax")
  	@ResponseBody 
  		public HashMap<String, Object> eduList( @RequestParam HashMap<String, String> params, HttpSession session){ 
@@ -280,6 +280,12 @@ public class CstController {
 			
 			HashMap<String, Object> map = new HashMap<String, Object>();
 			logger.info("삭제: "+delList);
+			
+			int cnt = service.eduDel(delList);
+			map.put("msg",cnt+"개의 상담 신청 내역이 삭제 되었습니다.");
+			
+			 String page = "cstListEdu";
+			 map.put("page", page);
 	
 			return map;	
 		}
