@@ -25,6 +25,10 @@ table {
    width: 450px;
    margin: 0 auto;
 }
+
+
+
+
 </style>
 </head>
 <body>
@@ -40,12 +44,12 @@ table {
             </tr>
             <tr>
                <th>아이디</th>
-               <td><input type="text" name="mb_id"/></td>
-               <td><input type="button" value="중복체크" onclick="overlay()" maxlength="15"/></td>
+               <td><input type="text" name="mb_id" maxlength="15" value="6~15자로 입력하세요."/></td>
+               <td><input type="button" value="중복체크" onclick="overlay()" /></td>
             </tr>
             <tr>
                <th>비밀번호</th>
-               <td><input type="password" name="mb_pass" maxlength="15"/></td>
+               <td><input type="password" name="mb_pass" maxlength="15" /></td>
             </tr>
             <tr>
                <th>비밀번호 확인</th>
@@ -62,7 +66,7 @@ table {
             </tr>
             <tr>
                <th>이메일</th>
-               <td><input type="text" name="mb_email" /></td>
+               <td><input type="email" name="mb_email" value="30자 이내로 입력하세요." required="required"/></td>
             </tr>
             <tr>
                <th>성별</th>
@@ -111,6 +115,18 @@ table {
       </div>
 </body>
 <script>
+
+$("input[name='mb_id']").on('click', function(){ 
+	$("input[name='mb_id']").val($(this).text());
+	($(this).val(remove));
+
+});
+$("input[name='mb_email']").on('click', function(){ 
+	$("input[name='mb_email']").val($(this).text());
+	($(this).val(remove));
+
+});
+
 
 var msg = "${msg}";
 
