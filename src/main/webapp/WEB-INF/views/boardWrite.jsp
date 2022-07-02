@@ -64,7 +64,7 @@
     <table>
     	<tr>
 	    	<th>작성자 ID</th>
-	    	<td><textarea name="mb_id" readonly>${sessionScope.loginId}</textarea></td>
+	    	<!-- <td><textarea name="mb_id" readonly>${sessionScope.loginId}</textarea></td>  -->
 	    	<td><input type="text" name="mb_id" value="${sessionScope.loginId}" readonly /></td>
 	    	<th>작성일</th>
 	    	<td><input type='date' id='currnetMonth' name="board_date" readonly></td>
