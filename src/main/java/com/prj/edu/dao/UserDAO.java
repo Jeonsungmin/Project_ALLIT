@@ -54,5 +54,7 @@ public interface UserDAO {
 
 	ArrayList<UserDTO> blackList(int cnt, int offset);
 
+	int qnaallCount(String name);
+
 }
 

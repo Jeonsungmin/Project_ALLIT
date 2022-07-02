@@ -281,7 +281,7 @@ public class UserService {
 		logger.info("작성한 Q&A 확인 페이지");
 		int cnt = Integer.parseInt(params.get("cnt"));
 		int page = Integer.parseInt(params.get("page"));
-		int allCnt = dao.allCount();
+		int allCnt = dao.qnaallCount(name);
 		int pages = allCnt%cnt > 0 ? (allCnt/cnt)+1 : (allCnt/cnt);
 		if(page > pages) {
 			page = pages;

@@ -30,9 +30,10 @@ public class QnaController {
 	public String home(Model model) {
 		return "qnalist";
 	}
+	
 
 	//상세보기 이동
-	@RequestMapping(value = "/detail.go")
+	@RequestMapping(value = "/qnadetail.go")
 	public String detail(Model model, HttpSession session, @RequestParam String qna_idx) {
 		logger.info("상세보기 요청 : " + qna_idx);	
 		QnaDTO dto = service.detail(qna_idx);
@@ -49,7 +50,7 @@ public class QnaController {
 	}
 
 	//리스트 페이지 이동
-	@RequestMapping(value = "/list.go", method = RequestMethod.GET)
+	@RequestMapping(value = "/qnaList.go", method = RequestMethod.GET)
 	public String qnaList(Model model) {
 		logger.info("리스트 페이지 이동");
 		return "qnalist";

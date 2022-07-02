@@ -97,4 +97,7 @@
       SELECT COUNT(stop_idx)
       FROM stop
    </select>
+   <select id="qnaallCount" resultType="int">
+		SELECT COUNT(qna_idx) FROM qna WHERE mb_id = #{param1}
+	</select>
 </mapper>

@@ -123,9 +123,9 @@ public class MsgService {
 		map.put("pages", pages);		//만들 수 있는 최대 페이지 수
 		map.put("currPage", page);//현재 페이지
 		int offset = (page-1) * cnt;
-		//if(offset == -5) {
-		//	offset = 5;
-		//}
+		if(offset == -5) {
+			offset = 5;
+		}
 		logger.info("offset : " + offset);
 		ArrayList<MsgDTO> msgreceivelist = dao.msgreceivelist(cnt, offset, loginid);
 		map.put("msgreceivelist", msgreceivelist);

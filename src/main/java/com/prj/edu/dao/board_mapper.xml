@@ -19,7 +19,7 @@
 	<select id="boarddetail" parameterType="String"
 		resultType="com.prj.edu.dto.BoardDTO">
 		SELECT b.board_idx,
-		b.board_hits,b.board_date,b.mb_id,b.board_title,b.board_content,b.board_blind, max(r.report_idx), r.report_state FROM board b, report r 
+		b.board_hits,b.board_date,b.mb_id,b.board_title,b.board_content,b.board_blind, r.report_idx, r.report_state FROM board b, report r 
 		WHERE b.board_idx = #{board_idx} AND r.board_idx = #{board_idx}
 	</select>
  <!-- 	

@@ -261,6 +261,7 @@ th {
 <jsp:include page="./commons/loginBox.jsp" />
 </head>
 <body>
+	<input type="hidden" id="loginId" value="${sessionScope.loginId}"/>
 	<header>
 		<a href="/"><img class="logo" src="resources/images/logo1.png" /></a>
 		<nav>
@@ -268,8 +269,7 @@ th {
 				<ul>
 					<li><a href="/">모집공고</a></li>
 					<li><a href="/boardlist.go">게시판</a></li>
-					<li><a href="/qna.go">Q&A</a></li>
-					<%-- <li><a href="/userInfo.go?mb_id=${id}">마이페이지</a></li> --%>
+					<li><a href="/qnaList.go">Q&A</a></li>
 					<li><a href="/vslogin.go">마이페이지</a></li>
 				</ul>
 			</div>
@@ -281,9 +281,9 @@ th {
             <li><a href="/">마이페이지</a></li>
             <li><a onclick="msg()">상담신청 내역</a></li>
             <li><a href="/">찜한 공고</a></li>
-            <li><a href="/">쪽지함</a></li>
+            <li><a href="/msgsend.go">쪽지함</a></li>
             <li><a href="/">작성한 게시글</a></li>
-            <li><a href="/">작성한 Q&A</a></li>
+            <li><a href="/qnaHistory.go">작성한 Q&A</a></li>
             <li><a href="/userInfo.go?mb_id=${mb_id}">개인정보 조회</a></li>
          </ul>
       </div>
@@ -300,8 +300,8 @@ th {
 				<tr>
 					<th>번호</th>
 					<th>Q&A 제목</th>
-					<th>작성일</th>
 					<th>답변여부</th>
+					<th>작성일</th>
 				</tr>
 			</thead>
 			<tbody id="list">
@@ -351,7 +351,7 @@ function listCall(page) {
 		url : '/usqnalist.ajax',
 		data : {
 			cnt : pagePerNum,
-			page : page, 
+			page : page,
 		},
 		dataType : 'JSON',
 		success : function(data) {
@@ -382,16 +382,17 @@ function drawList(list,start) {
 	var num = ((start-1) * 5)+1;
 	console.log(num);
 	list.forEach(function(item) {
+		var date = new Date(item.qna_date);
 		console.log(item);
 		content += '<tr>';
 		content += '<td>'+(num++)+'</td>';
-		content += '<td><a href="/qnadetail.go?mb_id=' + item.mb_i1d + '">'
+		content += '<td><a href="/qnadetail.go?qna_idx=' + item.qna_idx + '">'
 				+ item.qna_title + '</a></td>';
-		content += '<td>' + item.qna_date + '</td>';
 		if(item.qna_answer_chk){
 			result='답변완료';	
 		}
 		content += '<td>' + result + '</td>';
+		content += '<td>' +date.toLocaleDateString("ko-KR")+ '</td>';
 		content += '</tr>';
 	});
 	$('#list').empty();

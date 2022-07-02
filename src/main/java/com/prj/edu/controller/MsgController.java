@@ -61,8 +61,10 @@ import com.prj.edu.service.MsgService;
 		
 		@RequestMapping("/msgsendlist.ajax")
 		@ResponseBody
-		public HashMap<String, Object> msgsendlist(@RequestParam HashMap<String, String> params) {
-			logger.info("리스트 요청 : {}",params);	
+		public HashMap<String, Object> msgsendlist(HttpSession session, @RequestParam HashMap<String, String> params) {
+			logger.info("리스트 요청 : {}",params);
+			String loginId = (String) session.getAttribute("LoginId");
+			logger.info("로그인 아이디 : "+loginId);
 			return service.msgsendlist(params);
 		}
 		

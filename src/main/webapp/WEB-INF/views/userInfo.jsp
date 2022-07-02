@@ -268,8 +268,7 @@ th {
             <ul>
                <li><a href="/">모집공고</a></li>
                <li><a href="/boardlist.go?board_category=공지사항">게시판</a></li>
-               <li><a href="/qna.go">Q&A</a></li>
-               <%-- <li><a href="/userInfo.go?mb_id=${id}">마이페이지</a></li> --%>
+               <li><a href="/qnaList.go">Q&A</a></li>
                <li><a href="/vslogin.go">마이페이지</a></li>
             </ul>
          </div>
@@ -281,7 +280,7 @@ th {
             <li><a href="/">마이페이지</a></li>
             <li><a onclick="msg()">상담신청 내역</a></li>
             <li><a href="/">찜한 공고</a></li>
-            <li><a href="/">쪽지함</a></li>
+            <li><a href="/msgsend.go">쪽지함</a></li>
             <li><a href="/boardHistory.go">작성한 게시글</a></li>
             <li><a href="/qnaHistory.go">작성한 Q&A</a></li>
             <li><a href="/userInfo.go?mb_id=${id}">개인정보 조회</a></li>
